@@ -1,24 +1,22 @@
 import {OilAutocomplete} from "./OilAutocomplete";
-import React, {FC, useState} from "react";
+import {FC, useState} from "react";
 import {Oil} from "../data/oils";
 import {selectedOil} from "../types/selectedOil";
-import {SmartNumberInput} from "./SmartNumberInput";
-import {Mode} from "./Mode";
 
 interface Props {
     addOil: (oil: selectedOil) => void
 }
+
 export const OilInputLine: FC<Props> = () => {
 
     const [selectedOil, setSelectedOil] = useState<Oil | null>(null);
-    const [weight, setWeight] = useState(0);
-    const [percent, setPercent] = useState(0);
-
-
+    // const [weight, setWeight] = useState(0);
+    // const [percent, setPercent] = useState(0);
 
 
     return (
-        <div className="z-10 border border-purple-100 bg-white/70 backdrop-blur-sm rounded-xl p-4 sm:p-2 mb-2 shadow-sm overflow-visible mt-8">
+        <div
+            className="z-10 border border-purple-100 bg-white/70 backdrop-blur-sm rounded-xl p-4 sm:p-2 mb-2 shadow-sm overflow-visible mt-8">
             {/*/!* Заголовок *!/*/}
 
             {/* Строка ввода */}
@@ -29,7 +27,7 @@ export const OilInputLine: FC<Props> = () => {
                     <h2 className={"text-xl sm:text-xl font-semibold text-purple-700 mb-1 text-center tracking-wide"}>
 
                         🫒 Добавить масло</h2>
-                    <OilAutocomplete value={selectedOil} onChange={setSelectedOil} />
+                    <OilAutocomplete value={selectedOil} onChange={setSelectedOil}/>
                 </div>
                 {/*<div>*/}
                 {/*    <label className="flex items-center gap-1 text-sm text-gray-600 font-medium cursor-pointer">*/}
@@ -95,7 +93,6 @@ export const OilInputLine: FC<Props> = () => {
             </div>
 
         </div>
-
 
 
     );

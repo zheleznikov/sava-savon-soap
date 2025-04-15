@@ -22,8 +22,6 @@ export const Calculator: FC = () => {
 
 
     const [recipeName, setRecipeName] = useState("");
-    const totalWater = 120.55; // расчётное значение
-    const totalLye = 17.33;     // расчётное значение
 
 
 

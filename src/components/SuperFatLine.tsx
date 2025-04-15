@@ -18,7 +18,7 @@ export const SuperFatLine: FC = () => {
                         <SmartNumberInput
                             placeholder={"Введите %"}
                             value={0}
-                            onChange={(e) => {
+                            onChange={() => {
 
                             }}
                             className="w-20 sm:w-24 border border-gray-300 rounded px-2 py-1 text-gray-800

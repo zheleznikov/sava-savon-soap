@@ -1,6 +1,6 @@
-import React, {FC, useState} from "react";
-import { oils, Oil } from "../data/oils";
-import { OilAutocomplete } from "./OilAutocomplete";
+import {FC, useState} from "react";
+import {Oil} from "../data/oils";
+import {OilAutocomplete} from "./OilAutocomplete";
 import {selectedOil} from "../types/selectedOil";
 
 interface Props {

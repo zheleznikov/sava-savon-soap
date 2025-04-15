@@ -4,7 +4,7 @@ import {oils} from "../data/oils";
 
 interface OilAutocompleteProps {
     value: Oil | null;
-    onChange: (oil: Oil) => void;
+    onChange: (oil: Oil | null) => void;
 
 }
 

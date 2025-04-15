@@ -17,7 +17,7 @@ export const WaterLine: FC = () => {
                 <div className="flex items-center gap-1">
                     <SmartNumberInput
                         placeholder={"Введите %"}
-                        value={0}
+                        value={value}
                         onChange={(e) => {
                             setValue(e)
                         }}

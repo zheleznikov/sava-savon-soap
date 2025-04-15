@@ -1,6 +1,5 @@
 import {FC, useState} from "react";
 import {SmartNumberInput} from "./SmartNumberInput";
-import {CardBlock} from "./CardBlock";
 
 export const OilAddedLine: FC = () => {
     const [inputMode, setInputMode] = useState<"grams" | "percent">("grams");

@@ -1,7 +1,7 @@
 import "./index.css";
 import {Calculator} from "./components/Calculator";
 import {FC} from "react";
-import {Receipts} from "./components/Receipts";
+// import {Receipts} from "./components/Receipts";
 
 const App: FC = () => {
 

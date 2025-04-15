@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { oils as allOils, Oil } from "../data/oils";
-import { OilAutocomplete } from "./OilAutocomplete";
+import React, {useState} from "react";
+import {Oil} from "../data/oils";
+import {OilAutocomplete} from "./OilAutocomplete";
 
 type SelectedOil = {
     oil: Oil;
