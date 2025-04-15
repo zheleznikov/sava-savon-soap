@@ -1,22 +1,36 @@
 import React, {useEffect, useRef, useState} from "react";
 import type {Oil} from "../data/oils";
 import {oils} from "../data/oils";
+import {TSelectedOil} from "../types/TSelectedOil";
 
 interface OilAutocompleteProps {
-    value: Oil | null;
-    onChange: (oil: Oil | null) => void;
-
+    onChange: (oil: TSelectedOil | null) => void;
+    selectedOils: TSelectedOil[];
 }
 
-export const OilAutocomplete = ({value, onChange}: OilAutocompleteProps) => {
-
-    const [searchTerm, setSearchTerm] = useState(value?.name || '');
+export const OilAutocomplete = ({onChange, selectedOils}: OilAutocompleteProps) => {
+    const [searchTerm, setSearchTerm] = useState('');
     const [isDropdownOpen, setDropdownOpen] = useState(false);
-
     const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const dropdownRef = useRef<HTMLUListElement>(null);
 
-    const visibleOils = oils.filter(oil => !oil.hide);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsMobile(window.innerWidth < 640); // sm breakpoint
+        };
+
+        checkScreenSize();
+        window.addEventListener("resize", checkScreenSize);
+        return () => window.removeEventListener("resize", checkScreenSize);
+    }, []);
+
+    // 🔎 Уже выбранные названия масел
+    const selectedNames = selectedOils.map(o => o.oil!.name);
+
+    // 🎯 Отфильтрованный список
+    const visibleOils = oils.filter(oil => !oil.hide && !selectedNames.includes(oil.name));
 
     const filteredOils = visibleOils.filter(oil =>
         oil.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -24,9 +38,9 @@ export const OilAutocomplete = ({value, onChange}: OilAutocompleteProps) => {
 
     const listToShow = filteredOils.length > 0 ? filteredOils : visibleOils;
 
-    const handleSelect = (oil: Oil) => {
-        onChange(oil);
-        setSearchTerm(oil.name);
+    const handleSelect = (selectedOil: Oil) => {
+        onChange({oil: selectedOil, weight: 0, percent: 0});
+        setSearchTerm(''); // очищаем инпут
         setDropdownOpen(false);
         setHighlightedIndex(-1);
     };
@@ -58,37 +72,16 @@ export const OilAutocomplete = ({value, onChange}: OilAutocompleteProps) => {
         }
     }, [highlightedIndex]);
 
-    useEffect(() => {
-        if (value) {
-            setSearchTerm(value.name);
-        } else {
-            setSearchTerm('');
-        }
-    }, [value]);
-
-
     return (
         <div className="relative w-full">
-            {/* Лупа */}
-            <div className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
-                </svg>
-            </div>
-
-            {/* Поле ввода */}
+            {/* Инпут */}
             <input
                 type="text"
                 value={searchTerm}
                 placeholder="Выберите или начните вводить название масла"
-                title="Начните вводить название масла"
                 onInput={(e) => {
                     setSearchTerm(e.currentTarget.value);
                     setDropdownOpen(true);
-                    if (value && e.currentTarget.value !== value.name) {
-                        onChange(null);
-                    }
                 }}
                 onFocus={() => setDropdownOpen(true)}
                 onBlur={() => setTimeout(() => setDropdownOpen(false), 100)}
@@ -96,26 +89,13 @@ export const OilAutocomplete = ({value, onChange}: OilAutocompleteProps) => {
                 className="w-full border rounded px-2 py-1 pl-8 pr-8 focus:ring-2 focus:ring-purple-400 transition"
             />
 
-            {/* Стрелочка */}
-            <div
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer"
-                onMouseDown={(e) => {
-                    e.preventDefault();
-                    setDropdownOpen((prev) => !prev);
-                }}
-                title="Открыть список масел"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-            </div>
-
             {/* Выпадающий список */}
             {isDropdownOpen && (
                 <ul
                     ref={dropdownRef}
-                    className="absolute z-9999 bg-white border w-full max-h-48 overflow-y-auto shadow rounded mt-1"
+                    className={`absolute z-50 bg-white border w-full max-h-48 overflow-y-auto shadow rounded mt-1 
+      ${isMobile ? 'bottom-full mb-1' : 'top-full mt-1'}`}
+                    style={{ maxHeight: '12rem' }}
                 >
                     {listToShow.map((oil, index) => (
                         <li
@@ -130,6 +110,8 @@ export const OilAutocomplete = ({value, onChange}: OilAutocompleteProps) => {
                     ))}
                 </ul>
             )}
+
         </div>
     );
 };
+

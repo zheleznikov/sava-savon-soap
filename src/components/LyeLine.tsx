@@ -42,8 +42,8 @@ export const LyeLine: FC = () => {
 
                     <div className="flex items-center gap-1">
                         <input
+                            placeholder={"Считаем..."}
                             readOnly
-                            value={55.21}
                             className={baseFilledInputClass}
                             />
                         <span className="text-gray-500">г</span>

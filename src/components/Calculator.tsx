@@ -1,6 +1,6 @@
-import {FC, useState} from "react";
+import {FC} from "react";
 import {useCalculator} from "../hooks/useCalculator";
-import {selectedOil} from "../types/selectedOil";
+import {TSelectedOil} from "../types/TSelectedOil";
 import {OilInputLine} from "./OilInputLine";
 import {WaterLine} from "./WaterLine";
 import {LyeLine} from "./LyeLine";
@@ -16,12 +16,13 @@ export const Calculator: FC = () => {
         setSelectedOils
     } = useCalculator();
 
-    const addOil = (oil: selectedOil) => {
-        setSelectedOils([oil, ...selectedOils]);
+    const addOil = (oil: TSelectedOil | null) => {
+        oil && setSelectedOils([...selectedOils, oil]);
     };
 
-
-    const [recipeName, setRecipeName] = useState("");
+    const removeOil = (oilName: string) => {
+        setSelectedOils(selectedOils.filter(oil => oil.oil!.name !== oilName));
+    };
 
 
 
@@ -36,45 +37,19 @@ export const Calculator: FC = () => {
                 <SuperFatLine/>
                 <LyeLine/>
                 <div>
-                    <OilAddedLine/>
-                    {/*<OilAddedLine/>*/}
+                    {
+                        selectedOils.map((it,i) => <OilAddedLine oil={it} key={i} onRemove={removeOil}/>)
+                    }
+
                 </div>
 
                 <TotalWeightLine/>
 
 
-                <OilInputLine addOil={addOil}/>
-
+                <OilInputLine addOil={addOil} selectedOils={selectedOils}/>
 
             </div>
 
-
-            <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
-                {/* Название рецепта */}
-                <div className="flex flex-col w-full sm:max-w-md">
-                    <label className="text-sm text-gray-600 mb-1">Название рецепта:</label>
-                    <input
-                        type="text"
-                        value={recipeName}
-                        onChange={(e) => setRecipeName(e.target.value)}
-                        className="border rounded px-3 py-1 w-full"
-                        placeholder="Например, 'Мыло с лавандой'"
-                    />
-                </div>
-
-                {/* Кнопка "Сохранить" */}
-                <div className="sm:ml-auto sm:self-end">
-                    <button
-                        onClick={() => {
-                            // handleSaveRecipe()
-                        }}
-                        className="bg-purple-500 text-white font-medium px-6 py-2 rounded-full shadow hover:bg-purple-600 transition duration-200"
-                    >
-                        💾 Сохранить рецепт
-                    </button>
-                </div>
-            </div>
 
 
         </>

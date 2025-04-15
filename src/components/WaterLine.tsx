@@ -31,7 +31,7 @@ export const WaterLine: FC = () => {
                 {/* Кол-во граммов */}
                 <div className="flex items-center gap-1">
                     <input
-                        type="text"
+                        placeholder={"Считаем..."}
                         readOnly
                         value={""}
                         className={baseFilledInputClass}

@@ -1,7 +1,12 @@
 import {FC, useState} from "react";
 import {SmartNumberInput} from "./SmartNumberInput";
+import {TSelectedOil} from "../types/TSelectedOil";
 
-export const OilAddedLine: FC = () => {
+interface Props {
+    oil: TSelectedOil
+    onRemove: (name: string) => void
+}
+export const OilAddedLine: FC<Props> = ({oil, onRemove}) => {
     const [inputMode, setInputMode] = useState<"grams" | "percent">("grams");
 
     return (
@@ -12,7 +17,7 @@ export const OilAddedLine: FC = () => {
             {/* ❌ Кнопка удаления */}
             <button
                 onClick={() => {
-                    // TODO: удалить
+                   onRemove(oil.oil!.name)
                 }}
                 className="absolute top-0.5 right-0.5 text-gray-400 hover:text-red-500 transition text-xl"
                 title="Удалить масло"
@@ -23,7 +28,7 @@ export const OilAddedLine: FC = () => {
             <div className="flex flex-col">
                 {/* 🫒 Название масла */}
                 <div className="text-gray-700 font-medium truncate mb-2">
-                    🫒 Оливковое масло
+                    🫒 {oil.oil?.name}
                 </div>
 
                 {/* ⚙️ Строка с режимом и инпутами */}
@@ -31,6 +36,7 @@ export const OilAddedLine: FC = () => {
 
                     {/* 📍 Левая часть — выбор режима */}
                     <div className="flex items-center gap-4">
+                        🔄
                         <label className="flex items-center gap-1 cursor-pointer">
                             <input
                                 type="radio"

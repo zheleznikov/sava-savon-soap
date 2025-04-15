@@ -3,4 +3,4 @@ export const baseFilledInputClass =
     "           bg-gray-50 border-purple-200 \n" +
     "           text-gray-700 font-semibold text-center \n" +
     "           " +
-    "           focus:outline-none";
+    "           focus:outline-none placeholder:text-xs";

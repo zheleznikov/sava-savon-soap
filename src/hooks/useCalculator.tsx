@@ -1,13 +1,10 @@
 import {useState} from "react";
-import {selectedOil} from "../types/selectedOil";
+import {TSelectedOil} from "../types/TSelectedOil";
 
 
-const defaultOil: selectedOil = {
-    percent: 0, weight: 0, oil: null, id: -1
-};
 export const useCalculator = () => {
 
-    const [selectedOils, setSelectedOils] = useState<selectedOil []>([defaultOil]);
+    const [selectedOils, setSelectedOils] = useState<TSelectedOil []>([]);
 
 
     return {

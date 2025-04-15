@@ -1,8 +1,7 @@
 import {Oil} from "../data/oils";
 
-export type selectedOil = {
+export type TSelectedOil = {
     oil: Oil | null,
     weight: number,
     percent: number
-    id: number
 };
