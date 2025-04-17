@@ -1,5 +1,5 @@
 import "./index.css";
-import {Calculator} from "./components/Calculator";
+import {Calculator} from "./components2/Calculator";
 import {FC} from "react";
 // import {Receipts} from "./components/Receipts";
 
@@ -14,14 +14,8 @@ const App: FC = () => {
                   <Calculator />
               </div>
 
-              {/* Блок рецептов (позже) */}
-              {/*<div className="w-full max-w-4xl bg-white/80 backdrop-blur-md shadow-md rounded-2xl p-6 sm:p-8 flex-grow">
-      <Receipts />
-    </div>*/}
-
           </div>
       </div>
-
 
   )
 }

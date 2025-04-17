@@ -1,99 +1,59 @@
-import {FC, useState} from "react";
-import {SmartNumberInput} from "./SmartNumberInput";
-import {TSelectedOil} from "../types/TSelectedOil";
+import { FC } from "react";
+import { SmartNumberInput } from "./SmartNumberInput";
+import { TOil } from "../data/oils2";
+import { Trash2 } from "lucide-react"; // npm install lucide-react
 
 interface Props {
-    oil: TSelectedOil
-    onRemove: (name: string) => void
+    oil: TOil;
+    onRemove: (oil: TOil) => void;
 }
-export const OilAddedLine: FC<Props> = ({oil, onRemove}) => {
-    const [inputMode, setInputMode] = useState<"grams" | "percent">("grams");
 
+export const OilAddedLine: FC<Props> = ({ oil, onRemove }) => {
     return (
         <div
-            className={`border border-purple-100 bg-white/70 backdrop-blur-sm 
-                  rounded-md p-1 xs:p-2 mb-4 xs:mb-3 shadow-sm relative text-sm sm:text-lg`}
+            className="border border-purple-100 bg-white/70 backdrop-blur-sm
+      rounded-xl p-3 sm:p-4 shadow-sm relative text-sm sm:text-base"
         >
-            {/* ❌ Кнопка удаления */}
-            <button
-                onClick={() => {
-                   onRemove(oil.oil!.name)
-                }}
-                className="absolute top-0.5 right-0.5 text-gray-400 hover:text-red-500 transition text-xl"
-                title="Удалить масло"
-            >
-                ✖️
-            </button>
+            {/* Верхняя строка — название и корзина */}
+            <div className="flex justify-between items-start mb-3">
+                <div className="text-gray-800 font-semibold truncate flex items-center gap-1">
+                    {oil.name_rus}
+                </div>
+                <button
+                    onClick={() => onRemove(oil)}
+                    className="text-gray-400 hover:text-red-500 transition"
+                    title="Удалить масло"
+                >
+                    <Trash2 size={18} />
+                </button>
+            </div>
 
-            <div className="flex flex-col">
-                {/* 🫒 Название масла */}
-                <div className="text-gray-700 font-medium truncate mb-2">
-                    🫒 {oil.oil?.name}
+            {/* Нижняя строка — проценты и граммы */}
+            <div className="flex flex-col xs:flex-row items-start xs:items-center gap-3 sm:gap-6">
+                {/* Проценты */}
+                <div className="flex items-center gap-1">
+                    <SmartNumberInput
+                        placeholder="Проценты"
+                        value={0}
+                        onChange={() => {}}
+                        className="w-24 sm:w-28 border border-gray-300 rounded px-2 py-1 text-gray-800
+              placeholder:text-xs placeholder:text-gray-400"
+                    />
+                    <span className="text-gray-500">%</span>
                 </div>
 
-                {/* ⚙️ Строка с режимом и инпутами */}
-                <div className="flex flex-row justify-between items-end text-sm sm:text-base">
-
-                    {/* 📍 Левая часть — выбор режима */}
-                    <div className="flex items-center gap-4">
-                        🔄
-                        <label className="flex items-center gap-1 cursor-pointer">
-                            <input
-                                type="radio"
-                                name="inputMode"
-                                value="grams"
-                                checked={inputMode === "grams"}
-                                onChange={() => setInputMode("grams")}
-                                className="text-gray-600 focus:ring-purple-500"
-                            />
-                            г
-                        </label>
-
-                        <label className="flex items-center gap-1 cursor-pointer">
-                            <input
-                                type="radio"
-                                name="inputMode"
-                                value="percent"
-                                checked={inputMode === "percent"}
-                                onChange={() => setInputMode("percent")}
-                                className="text-gray-600 focus:ring-purple-500"
-                            />
-                            %
-                        </label>
-                    </div>
-
-                    {/* ✏️ Правая часть — инпуты */}
-                    <div className="flex items-center gap-4">
-                        {/* Проценты */}
-                        <div className="flex items-center gap-1">
-                            <SmartNumberInput
-                                placeholder="Введите %"
-                                value={0}
-                                onChange={() => {
-                                }}
-                                className="w-20 sm:w-24 border border-gray-300 rounded px-2 py-1 text-gray-800
-              placeholder:text-xxs sm:placeholder:text-xs placeholder:text-gray-400"
-                            />
-                            <span className="text-gray-500">%</span>
-                        </div>
-
-                        {/* Граммы */}
-                        <div className="flex items-center gap-1">
-                            <SmartNumberInput
-                                placeholder="Введите граммы"
-                                value={0}
-                                onChange={() => {
-                                }}
-                                className="w-20 sm:w-24 border border-gray-300 rounded px-2 py-1 text-gray-800
-              placeholder:text-xxs sm:placeholder:text-xs placeholder:text-gray-400"
-                            />
-                            <span className="text-gray-500">г</span>
-                        </div>
-
-
-                    </div>
+                {/* Граммы */}
+                <div className="flex items-center gap-1">
+                    <SmartNumberInput
+                        placeholder="Граммы"
+                        value={0}
+                        onChange={() => {}}
+                        className="w-24 sm:w-28 border border-gray-300 rounded px-2 py-1 text-gray-800
+              placeholder:text-xs placeholder:text-gray-400"
+                    />
+                    <span className="text-gray-500">г</span>
                 </div>
             </div>
         </div>
     );
-}
+};

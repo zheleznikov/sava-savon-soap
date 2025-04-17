@@ -1,0 +1,81 @@
+import { FC } from "react";
+import {SmartNumberInput} from "../components/SmartNumberInput";
+
+interface Props {
+    lyeType: "NaOH" | "KOH";
+    onLyeTypeChange: (type: "NaOH" | "KOH") => void;
+    waterPercent: number;
+    onWaterPercentChange: (value: number) => void;
+    superfatPercent: number;
+    onSuperfatChange: (value: number) => void;
+}
+
+export const BasicParamsBlock: FC<Props> = ({
+                                                lyeType,
+                                                onLyeTypeChange,
+                                                waterPercent,
+                                                onWaterPercentChange,
+                                                superfatPercent,
+                                                onSuperfatChange,
+                                            }) => {
+    return (
+        <div className="border border-gray-200 rounded-xl p-4 bg-white/70 backdrop-blur-sm shadow-sm space-y-4 mb-4">
+
+            {/* Строка 1 — выбор щёлочи */}
+            <div className="flex flex-col flex-row gap-1">
+                <label className="text-sm text-gray-600">Тип щёлочи</label>
+                <div className="flex border border-gray-300 rounded-md overflow-hidden w-fit">
+                    {["NaOH", "KOH"].map((type) => (
+                        <button
+                            key={type}
+                            type="button"
+                            onClick={() => onLyeTypeChange(type as "NaOH" | "KOH")}
+                            className={`px-4 py-1 text-sm transition ${
+                                lyeType === type
+                                    ? "bg-purple-500 text-white"
+                                    : "bg-white text-gray-700 hover:bg-gray-100"
+                            }`}
+                        >
+                            {type}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* Строка 2 — вода и пережир */}
+            <div className="flex sm:flex-row gap-4 sm:items-center">
+                {/* Вода */}
+                <div className="flex flex-col min-w-[140px]">
+                    <label className="text-sm text-gray-600 mb-1">Процент воды</label>
+                    <div className="flex items-center gap-1">
+                        <SmartNumberInput
+                            value={waterPercent}
+                            onChange={onWaterPercentChange}
+                            placeholder="%"
+                            min={10}
+                            max={100}
+                            className="w-full max-w-[100px] text-sm"
+                        />
+                        <span className="text-gray-500">%</span>
+                    </div>
+                </div>
+
+                {/* Пережир */}
+                <div className="flex flex-col min-w-[140px]">
+                    <label className="text-sm text-gray-600 mb-1">Процент пережира</label>
+                    <div className="flex items-center gap-1">
+                        <SmartNumberInput
+                            value={superfatPercent}
+                            onChange={onSuperfatChange}
+                            placeholder="%"
+                            min={0}
+                            max={20}
+                            className="w-full max-w-[100px] text-sm"
+                        />
+                        <span className="text-gray-500">%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
