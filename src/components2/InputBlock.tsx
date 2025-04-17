@@ -52,8 +52,7 @@ export const InputBlock = () => {
             {/*</div>*/}
 
             {selectedOils.length > 0 && (
-                <div className="mt-4">
-                    <h4 className="text-sm text-gray-600 mb-1">Выбранные масла:</h4>
+                <div className="mt-4 mb-0">
                         {selectedOils.map((oil) => (
                             <OilAddedLine oil={oil} onRemove={handleToggleOil}/>
                         ))}
