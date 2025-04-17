@@ -21,10 +21,10 @@ export const OilAddedLine: FC<Props> = ({ oil, onRemove }) => {
                 </div>
                 <button
                     onClick={() => onRemove(oil)}
-                    className="text-gray-400 hover:text-red-500 transition"
+                    className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-red-500 transition"
                     title="Удалить масло"
                 >
-                    <Trash2 size={18} />
+                    <Trash2 size={20} />
                 </button>
             </div>
 

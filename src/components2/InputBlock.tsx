@@ -46,8 +46,10 @@ export const InputBlock = () => {
 
             {/*<h3 className="text-lg font-semibold text-gray-800 text-center">Выбор масел</h3>*/}
 
+            {/*<div className="border border-gray-200 rounded-xl p-2 pt-4 pb-4 bg-white/70 backdrop-blur-sm shadow-sm mb-4">*/}
 
             <OilAutocomplete onToggle={handleToggleOil} selectedOils={selectedOils} />
+            {/*</div>*/}
 
             {selectedOils.length > 0 && (
                 <div className="mt-4">

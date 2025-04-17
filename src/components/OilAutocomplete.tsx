@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import { TOil, oils } from "../data/oils2";
-import { ChevronDown, ChevronUp } from "lucide-react"; // иконки
+import {useEffect, useRef, useState} from "react";
+import {TOil, oils} from "../data/oils2";
+import {ChevronDown, ChevronUp} from "lucide-react"; // иконки
 
 interface OilAutocompleteProps {
     onToggle: (oil: TOil) => void;
     selectedOils: TOil[];
 }
 
-export const OilAutocomplete = ({ onToggle, selectedOils }: OilAutocompleteProps) => {
+export const OilAutocomplete = ({onToggle, selectedOils}: OilAutocompleteProps) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLUListElement>(null);
@@ -54,16 +54,19 @@ export const OilAutocomplete = ({ onToggle, selectedOils }: OilAutocompleteProps
                         setDropdownOpen(true);
                     }}
                     onFocus={() => setDropdownOpen(true)}
-                    className="w-full border rounded px-3 py-2 pr-10 focus:ring-2 focus:ring-purple-400 transition"
+                    // className="w-full border rounded px-3 py-2 pr-10 focus:ring-2 focus:ring-purple-400 transition"
+                    className={`w-full border border-gray-200 p-2 pt-4 pb-4 bg-white/70 backdrop-blur-sm shadow-sm
+  ${isDropdownOpen ? 'rounded-t-xl border-gray-100' : 'rounded-xl mb-4'}`}
+
                 />
 
                 {/* Стрелочка */}
                 <button
                     type="button"
                     onClick={() => setDropdownOpen((prev) => !prev)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-purple-600"
+                    className="absolute right-3 top-8 -translate-y-1/2 text-gray-500 hover:text-purple-600"
                 >
-                    {isDropdownOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                    {isDropdownOpen ? <ChevronUp size={18}/> : <ChevronDown size={18}/>}
                 </button>
             </div>
 
@@ -71,7 +74,8 @@ export const OilAutocomplete = ({ onToggle, selectedOils }: OilAutocompleteProps
             {isDropdownOpen && (
                 <ul
                     ref={dropdownRef}
-                    className="absolute z-50 bg-white border w-full max-h-60 overflow-y-auto shadow rounded mt-1"
+                    className="backdrop-blur-sm shadow-sm absolute z-50 bg-white border border-t-0 w-full max-h-60 overflow-y-auto shadow rounded-b-xl top-full left-0"
+
                 >
 
                     {listToShow.map((oil) => {
@@ -85,14 +89,14 @@ export const OilAutocomplete = ({ onToggle, selectedOils }: OilAutocompleteProps
                                     setSearchTerm('');
                                 }}
                                 className={`flex items-center gap-2 px-2 py-1 cursor-pointer transition ${
-                                    isChecked ? "bg-purple-100 font-medium" : ""
-                                } hover:bg-purple-50`}
+                                    isChecked ? "bg-emerald-100 font-medium" : ""
+                                } hover:bg-emerald-50`}
                             >
                                 <input
                                     type="checkbox"
                                     checked={isChecked}
                                     readOnly
-                                    className="form-checkbox text-purple-500 accent-purple-500"
+                                    className="form-checkbox text-emerald-500 accent-emerald-500"
                                 />
                                 <span>{oil.name_rus}</span>
                             </li>

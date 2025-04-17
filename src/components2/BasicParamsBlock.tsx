@@ -32,7 +32,7 @@ export const BasicParamsBlock: FC<Props> = ({
                             onClick={() => onLyeTypeChange(type as "NaOH" | "KOH")}
                             className={`px-4 py-1 text-sm transition ${
                                 lyeType === type
-                                    ? "bg-purple-500 text-white"
+                                    ? "bg-emerald-500 text-white"
                                     : "bg-white text-gray-700 hover:bg-gray-100"
                             }`}
                         >

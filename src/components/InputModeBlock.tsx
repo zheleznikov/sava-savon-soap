@@ -29,7 +29,7 @@ export const InputModeBlock: FC<Props> = ({
                             onClick={() => onModeChange(false)}
                             className={`px-4 py-1 text-sm transition ${
                                 !usePercent
-                                    ? "bg-purple-500 text-white"
+                                    ? "bg-emerald-500 text-white"
                                     : "bg-white text-gray-700 hover:bg-gray-100"
                             }`}
                         >
@@ -40,7 +40,7 @@ export const InputModeBlock: FC<Props> = ({
                             onClick={() => onModeChange(true)}
                             className={`px-4 py-1 text-sm transition ${
                                 usePercent
-                                    ? "bg-purple-500 text-white"
+                                    ? "bg-emerald-500 text-white"
                                     : "bg-white text-gray-700 hover:bg-gray-100"
                             }`}
                         >
