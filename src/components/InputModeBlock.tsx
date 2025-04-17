@@ -16,7 +16,7 @@ export const InputModeBlock: FC<Props> = ({
                                           }) => {
     return (
         <div className="border border-gray-200 rounded-xl p-4 bg-white/70 backdrop-blur-sm shadow-sm mb-4">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4">Ввод масла</h4>
+
 
             {/* Линия: переключатель + инпут */}
             <div className="flex flex-wrap gap-4 items-end">

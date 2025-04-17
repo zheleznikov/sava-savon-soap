@@ -80,7 +80,10 @@ export const OilAutocomplete = ({ onToggle, selectedOils }: OilAutocompleteProps
                             <li
                                 key={oil.id}
                                 onMouseDown={(e) => e.preventDefault()}
-                                onClick={() => onToggle(oil)}
+                                onClick={() => {
+                                    onToggle(oil);
+                                    setSearchTerm('');
+                                }}
                                 className={`flex items-center gap-2 px-2 py-1 cursor-pointer transition ${
                                     isChecked ? "bg-purple-100 font-medium" : ""
                                 } hover:bg-purple-50`}

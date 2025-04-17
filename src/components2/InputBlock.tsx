@@ -27,13 +27,14 @@ export const InputBlock = () => {
 
     return (
         <div>
+            {/*<h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">Ввод масла</h4>*/}
             <InputModeBlock
                 usePercent={usePercent}
                 onModeChange={setUsePercent}
                 totalWeight={totalWeight}
                 onTotalWeightChange={setTotalWeight}
             />
-            <h4 className="text-lg font-semibold text-gray-800 text-center">Основные параметры</h4>
+            {/*<h4 className="text-lg font-semibold text-gray-800 text-center">Основные параметры</h4>*/}
             <BasicParamsBlock
                 lyeType={lyeType}
                 onLyeTypeChange={setLyeType}
@@ -43,7 +44,7 @@ export const InputBlock = () => {
                 onSuperfatChange={setSuperfatPercent}
             />
 
-            <h3 className="text-lg font-semibold text-gray-800 text-center">Выбор масел</h3>
+            {/*<h3 className="text-lg font-semibold text-gray-800 text-center">Выбор масел</h3>*/}
 
 
             <OilAutocomplete onToggle={handleToggleOil} selectedOils={selectedOils} />
