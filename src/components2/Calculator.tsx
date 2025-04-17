@@ -5,7 +5,7 @@ import {InputBlock} from "./InputBlock";
 export const Calculator: FC = () => {
     return (
         <>
-            <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-6 text-center tracking-wide">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-sky-600 mb-6 text-center tracking-wide">
                 Калькулятор мыла
             </h1>
 

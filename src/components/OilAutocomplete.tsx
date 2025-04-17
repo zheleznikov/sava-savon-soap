@@ -59,7 +59,9 @@ export const OilAutocomplete = ({onToggle, selectedOils}: OilAutocompleteProps) 
                             setDropdownOpen(false);
                         }
                     }}
-
+                    onBlur={() => {
+                        setTimeout(() => setDropdownOpen(false), 100);
+                    }}
                     onFocus={() => setDropdownOpen(true)}
                     // className="w-full border rounded px-3 py-2 pr-10 focus:ring-2 focus:ring-purple-400 transition"
                     className={`w-full border border-gray-200 p-2 pt-4 pb-4 bg-white/70 backdrop-blur-sm shadow-sm
