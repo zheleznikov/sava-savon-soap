@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { useSoapRecipe } from "../context/useSoapRecipe";
-import { SmartNumberInput } from "./SmartNumberInput";
+import {FC} from "react";
+import {useSoapRecipe} from "../context/useSoapRecipe";
+import {SmartNumberInput} from "./SmartNumberInput";
 import {useSoapCalculations} from "../hooks/useSoapCalculations";
 
 export const InputModeBlock: FC = () => {
@@ -8,7 +8,7 @@ export const InputModeBlock: FC = () => {
         inputType, setInputType,
     } = useSoapRecipe();
 
-    const {totalOilWeight, setTotalOilWeight}  = useSoapCalculations();
+    const {totalResultWeight, setTotalResultWeight}  = useSoapCalculations();
 
     const isGramMode = inputType === "gram";
 
@@ -49,8 +49,8 @@ export const InputModeBlock: FC = () => {
                     <label className="text-sm text-gray-600 mb-1">Общий вес мыла</label>
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
-                            value={isGramMode ? totalOilWeight : totalOilWeight}
-                            onChange={isGramMode ? () => {} : setTotalOilWeight}
+                            value={totalResultWeight}
+                            onChange={isGramMode ? () => {} : setTotalResultWeight}
                             disabled={isGramMode}
                             placeholder="граммы"
                             min={10}

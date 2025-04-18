@@ -1,5 +1,6 @@
 import {FC} from "react";
 import {InputBlock} from "./InputBlock";
+import {RecipeSummaryBlock} from "../components/RecipeSummaryBlock";
 
 
 export const Calculator: FC = () => {
@@ -19,10 +20,10 @@ export const Calculator: FC = () => {
                 </div>
 
                 {/* Блок результата */}
-                <div className="w-full lg:w-1/2 border border-purple-200 bg-white/70 backdrop-blur-sm rounded-xl p-4 shadow relative z-0">
-                    <h2 className="text-xl font-semibold text-gray-600 mb-4 text-center">Когда-нибудь здесь будет рецепт</h2>
+                {/*<div className="w-full lg:w-1/2 border border-purple-200 bg-white/70 backdrop-blur-sm rounded-xl p-4 shadow relative z-0">*/}
                     {/* ResultBlock (пока пустой) */}
-                </div>
+                    <RecipeSummaryBlock/>
+                {/*</div>*/}
             </div>
 
         </>

@@ -25,6 +25,8 @@ export interface SoapRecipeContextType {
     selectedOils: TOil[];
     setSelectedOils: (val: TOil[]) => void;
     handleToggleOil: (oil: TOil) => void;
+    getOilPercentInRecipe: (oil: TOil) => number;
+
 }
 
 export const SoapRecipeContext = createContext<SoapRecipeContextType | undefined>(undefined);
@@ -46,6 +48,14 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
         );
     };
 
+    const getOilPercentInRecipe = (oil: TOil): number => {
+        // if (inputType === "percent") return oil.percent || 0;
+        const total = selectedOils.reduce((sum, o) => sum + (o.gram || 0), 0);
+        if (total === 0) return 0;
+        return ((oil.gram || 0) / total) * 100;
+    };
+
+
     return (
         <SoapRecipeContext.Provider
             value={{
@@ -55,7 +65,7 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
                 waterPercent, setWaterPercent,
                 superfatPercent, setSuperfatPercent,
                 selectedOils, setSelectedOils,
-                handleToggleOil
+                handleToggleOil, getOilPercentInRecipe
             }}
         >
             {children}
