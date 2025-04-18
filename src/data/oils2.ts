@@ -103,8 +103,8 @@ export const oils: TOil[] = [
             bubbling: 0.0,
             creaminess: 17.0
         },
-        percent: 43,
-        gram: 300,
+        percent: 0,
+        gram: 0,
         name_rus: "Оливковое масло",
         name_eng: "Olive Oil"
     },

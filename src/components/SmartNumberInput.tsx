@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import {FC, useState, useEffect} from "react";
 
 interface SmartNumberInputProps {
     value: number;
@@ -7,6 +7,7 @@ interface SmartNumberInputProps {
     placeholder?: string;
     min?: number;
     max?: number;
+    disabled?: boolean
 }
 
 export const SmartNumberInput: FC<SmartNumberInputProps> = ({
@@ -16,6 +17,7 @@ export const SmartNumberInput: FC<SmartNumberInputProps> = ({
                                                                 placeholder = '',
                                                                 min,
                                                                 max,
+                                                                disabled = false
                                                             }) => {
     const [internalValue, setInternalValue] = useState(value === 0 ? '' : value.toString());
 
@@ -36,11 +38,21 @@ export const SmartNumberInput: FC<SmartNumberInputProps> = ({
         }
     };
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value;
+        setInternalValue(newValue);
+
+        const numeric = parseFloat(newValue);
+        if (!isNaN(numeric)) {
+            onChange(numeric); // <<< вот это — ключевое изменение
+        }
+    };
+
     return (
         <input
             type="number"
             value={internalValue}
-            onChange={(e) => setInternalValue(e.target.value)}
+            onChange={handleChange}
             onFocus={(e) => {
                 if (value === 0) {
                     e.target.select();
@@ -51,6 +63,7 @@ export const SmartNumberInput: FC<SmartNumberInputProps> = ({
             min={min}
             max={max}
             className={`border rounded px-2 py-1 ${className}`}
+            disabled={disabled}
         />
     );
 };

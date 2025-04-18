@@ -1,23 +1,18 @@
 import { FC } from "react";
 import {SmartNumberInput} from "../components/SmartNumberInput";
+import {useSoapRecipe} from "../context/useSoapRecipe";
 
-interface Props {
-    lyeType: "NaOH" | "KOH";
-    onLyeTypeChange: (type: "NaOH" | "KOH") => void;
-    waterPercent: number;
-    onWaterPercentChange: (value: number) => void;
-    superfatPercent: number;
-    onSuperfatChange: (value: number) => void;
-}
 
-export const BasicParamsBlock: FC<Props> = ({
-                                                lyeType,
-                                                onLyeTypeChange,
-                                                waterPercent,
-                                                onWaterPercentChange,
-                                                superfatPercent,
-                                                onSuperfatChange,
-                                            }) => {
+
+export const BasicParamsBlock: FC = () => {
+
+    const {
+        lyeType, setLyeType,
+        waterPercent, setWaterPercent,
+        superfatPercent, setSuperfatPercent,
+    } = useSoapRecipe();
+
+
     return (
         <div className="border border-gray-200 rounded-xl p-4 bg-white/70 backdrop-blur-sm shadow-sm space-y-4 mb-4">
 
@@ -29,7 +24,7 @@ export const BasicParamsBlock: FC<Props> = ({
                         <button
                             key={type}
                             type="button"
-                            onClick={() => onLyeTypeChange(type as "NaOH" | "KOH")}
+                            onClick={() => setLyeType(type as "NaOH" | "KOH")}
                             className={`px-4 py-1 text-sm transition ${
                                 lyeType === type
                                     ? "bg-emerald-500 text-white"
@@ -44,13 +39,14 @@ export const BasicParamsBlock: FC<Props> = ({
 
             {/* Строка 2 — вода и пережир */}
             <div className="flex sm:flex-row gap-4 sm:items-center">
+
                 {/* Вода */}
                 <div className="flex flex-col min-w-[140px]">
                     <label className="text-sm text-gray-600 mb-1">Процент воды</label>
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
                             value={waterPercent}
-                            onChange={onWaterPercentChange}
+                            onChange={setWaterPercent}
                             placeholder="%"
                             min={10}
                             max={100}
@@ -66,7 +62,7 @@ export const BasicParamsBlock: FC<Props> = ({
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
                             value={superfatPercent}
-                            onChange={onSuperfatChange}
+                            onChange={setSuperfatPercent}
                             placeholder="%"
                             min={0}
                             max={20}

@@ -1,13 +1,14 @@
-import {useEffect, useRef, useState} from "react";
-import {TOil, oils} from "../data/oils2";
-import {ChevronDown, ChevronUp} from "lucide-react"; // иконки
+import {FC, useEffect, useRef, useState} from "react";
+import {oils} from "../data/oils2";
+import {ChevronDown, ChevronUp} from "lucide-react";
+import {useSoapRecipe} from "../context/useSoapRecipe"; // иконки
 
-interface OilAutocompleteProps {
-    onToggle: (oil: TOil) => void;
-    selectedOils: TOil[];
-}
 
-export const OilAutocomplete = ({onToggle, selectedOils}: OilAutocompleteProps) => {
+export const OilAutocomplete: FC = () => {
+
+    const {selectedOils, handleToggleOil} = useSoapRecipe();
+
+
     const [searchTerm, setSearchTerm] = useState('');
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLUListElement>(null);
@@ -42,7 +43,7 @@ export const OilAutocomplete = ({onToggle, selectedOils}: OilAutocompleteProps) 
     }, []);
 
     return (
-        <div className="relative w-full z-50" ref={containerRef}>
+        <div className="relative w-full z-50 mb-4" ref={containerRef}>
             {/* Обёртка для input + стрелочка */}
             <div className="relative">
                 <input
@@ -57,15 +58,18 @@ export const OilAutocomplete = ({onToggle, selectedOils}: OilAutocompleteProps) 
                         if (e.key === "Enter" || e.key === "Done") {
                             e.preventDefault(); // чтобы не было сабмита формы
                             setDropdownOpen(false);
+                            setSearchTerm('');
                         }
                     }}
                     onBlur={() => {
-                        setTimeout(() => setDropdownOpen(false), 100);
+                        setTimeout(() => {
+                            setDropdownOpen(false);
+                            setSearchTerm('');
+                        }, 100);
                     }}
                     onFocus={() => setDropdownOpen(true)}
-                    // className="w-full border rounded px-3 py-2 pr-10 focus:ring-2 focus:ring-purple-400 transition"
                     className={`w-full border border-gray-200 p-2 pt-4 pb-4 bg-white/70 backdrop-blur-sm shadow-sm
-  ${isDropdownOpen ? 'rounded-t-xl border-gray-100' : 'rounded-xl mb-2'}`}
+  ${isDropdownOpen ? 'rounded-t-xl border-b-0' : 'rounded-xl mb-2'}`}
 
                 />
 
@@ -94,8 +98,8 @@ export const OilAutocomplete = ({onToggle, selectedOils}: OilAutocompleteProps) 
                                 key={oil.id}
                                 onMouseDown={(e) => e.preventDefault()}
                                 onClick={() => {
-                                    onToggle(oil);
-                                    setSearchTerm('');
+                                    handleToggleOil(oil);
+
                                 }}
                                 className={`flex items-center gap-2 px-2 py-1 cursor-pointer transition ${
                                     isChecked ? "bg-emerald-100 font-medium" : ""
