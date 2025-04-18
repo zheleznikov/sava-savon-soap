@@ -6,9 +6,10 @@ import {RecipeSummaryBlock} from "../components/RecipeSummaryBlock";
 export const Calculator: FC = () => {
     return (
         <>
-            <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-6 text-center tracking-wide">
-                Калькулятор мыла
+            <h1 className="text-3xl sm:text-4xl font-bold text-emerald-700 mb-8 text-center tracking-tight drop-shadow-sm">
+                🧼 Калькулятор мыла
             </h1>
+
 
             <div className="flex flex-col lg:flex-row gap-4 relative z-0">
                 {/* Блок ввода */}

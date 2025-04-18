@@ -2,9 +2,11 @@ import "./index.css";
 import {Calculator} from "./components2/Calculator";
 import {FC} from "react";
 import {SoapRecipeProvider} from "./context/SoapRecipeContext";
+// import {NavBar} from "./components/NavBar";
 // import {Receipts} from "./components/Receipts";
 
 const App: FC = () => {
+
 
   return (
       <SoapRecipeProvider>

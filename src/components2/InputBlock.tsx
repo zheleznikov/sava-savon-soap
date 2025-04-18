@@ -3,12 +3,14 @@ import {OilAddedLine} from "../components/OilAddedLine";
 import {BasicParamsBlock} from "./BasicParamsBlock";
 import {InputModeBlock} from "../components/InputModeBlock";
 import {useSoapRecipe} from "../context/useSoapRecipe";
+import {OilWeightSummary} from "../components/OilWeightSummary";
 
 export const InputBlock = () => {
 
     const {
-        recipeName, setRecipeName, selectedOils,
+        recipeName, setRecipeName, selectedOils
     } = useSoapRecipe();
+
 
     return (
         <div>
@@ -20,15 +22,14 @@ export const InputBlock = () => {
             />
 
             <InputModeBlock/>
-
             <BasicParamsBlock/>
-
             <OilAutocomplete/>
 
             {
                 selectedOils.length > 0 &&
                 selectedOils.map(oil => <OilAddedLine oil={oil}/>)
             }
+            <OilWeightSummary />
         </div>
     );
 };

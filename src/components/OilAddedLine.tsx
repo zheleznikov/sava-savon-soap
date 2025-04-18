@@ -3,6 +3,7 @@ import {Trash2} from "lucide-react";
 import {SmartNumberInput} from "./SmartNumberInput";
 import {TOil} from "../data/oils2";
 import {useSoapRecipe} from "../context/useSoapRecipe";
+import {useSoapCalculations} from "../hooks/useSoapCalculations";
 
 interface Props {
     oil: TOil;
@@ -12,9 +13,12 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
     const {
         handleToggleOil,
         inputType,
-        selectedOils,
-        setSelectedOils,
+        updateOilPercentWithGramRecalculation,
+        updateOilGramWithRecalculatedPercents
     } = useSoapRecipe();
+
+    const { totalOilWeight } = useSoapCalculations();
+
 
     const isGramMode = inputType === "gram";
     const isPercentMode = inputType === "percent";
@@ -46,22 +50,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                     <SmartNumberInput
                         placeholder="Граммы"
                         value={oil.gram || 0}
-                        onChange={(newGram) => {
-                            // шаг 1: пересчёт суммы грамм с новым значением
-                            const updatedOilsBase = selectedOils.map((o) =>
-                                o.id === oil.id ? { ...o, gram: newGram } : o
-                            );
-                            const totalGram = updatedOilsBase.reduce((sum, o) => sum + (o.gram || 0), 0);
-
-                            // шаг 2: пересчёт процентов для всех масел
-                            const updatedOils = updatedOilsBase.map((o) => ({
-                                ...o,
-                                percent: totalGram > 0 ? (o.gram / totalGram) * 100 : 0,
-                            }));
-
-                            setSelectedOils(updatedOils);
-                        }}
-
+                        onChange={(newGram) => {updateOilGramWithRecalculatedPercents(oil, newGram)}}
 
                         disabled={isPercentMode}
                         className={`w-24 sm:w-28 border rounded px-2 py-1 text-gray-800 placeholder:text-xs placeholder:text-gray-400
@@ -74,11 +63,8 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                 <SmartNumberInput
                     placeholder="Проценты"
                     value={oil.percent || 0} // 👈 всегда берём из состояния
-                    onChange={(newValue) => {
-                        const updatedOils = selectedOils.map((o) =>
-                            o.id === oil.id ? { ...o, percent: newValue } : o
-                        );
-                        setSelectedOils(updatedOils);
+                    onChange={(newPercent) => {
+                        updateOilPercentWithGramRecalculation(oil, newPercent, totalOilWeight);
                     }}
                     disabled={isGramMode}
                     className={`w-24 sm:w-28 border rounded px-2 py-1 text-gray-800 placeholder:text-xs placeholder:text-gray-400

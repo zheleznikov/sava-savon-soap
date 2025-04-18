@@ -5,10 +5,10 @@ import {useSoapCalculations} from "../hooks/useSoapCalculations";
 
 export const InputModeBlock: FC = () => {
     const {
-        inputType, setInputType,
+        inputType,setInputType, userDefinedTotalWeight, setUserDefinedTotalWeight
     } = useSoapRecipe();
 
-    const {totalResultWeight, setTotalResultWeight}  = useSoapCalculations();
+    const {totalResultWeight }  = useSoapCalculations();
 
     const isGramMode = inputType === "gram";
 
@@ -49,8 +49,8 @@ export const InputModeBlock: FC = () => {
                     <label className="text-sm text-gray-600 mb-1">Общий вес мыла</label>
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
-                            value={totalResultWeight}
-                            onChange={isGramMode ? () => {} : setTotalResultWeight}
+                            value={isGramMode ? totalResultWeight : userDefinedTotalWeight}
+                            onChange={isGramMode ? () => {} : setUserDefinedTotalWeight}
                             disabled={isGramMode}
                             placeholder="граммы"
                             min={10}
@@ -60,9 +60,8 @@ export const InputModeBlock: FC = () => {
                             }`}
                         />
                         <span className="text-gray-500">г</span>
-
-
                     </div>
+
                     {/* Подсказка */}
                     <p
                         className={`text-xs mt-1 transition-opacity duration-200 h-[1rem] ${
@@ -71,8 +70,8 @@ export const InputModeBlock: FC = () => {
                     >
                         Рассчитывается автоматически по сумме масел
                     </p>
-
                 </div>
+
             </div>
         </div>
     );
