@@ -1,4 +1,4 @@
-import {FC, useState, useEffect} from "react";
+import { FC, useState, useEffect } from "react";
 
 interface SmartNumberInputProps {
     value: number;
@@ -7,7 +7,8 @@ interface SmartNumberInputProps {
     placeholder?: string;
     min?: number;
     max?: number;
-    disabled?: boolean
+    disabled?: boolean;
+    decimalPlaces?: number; // 👈 добавили параметр
 }
 
 export const SmartNumberInput: FC<SmartNumberInputProps> = ({
@@ -17,14 +18,16 @@ export const SmartNumberInput: FC<SmartNumberInputProps> = ({
                                                                 placeholder = '',
                                                                 min,
                                                                 max,
-                                                                disabled = false
+                                                                disabled = false,
+                                                                decimalPlaces = 2 // 👈 по умолчанию 2 знака
                                                             }) => {
-    const [internalValue, setInternalValue] = useState(value === 0 ? '' : value.toString());
+    const format = (v: number) => v.toFixed(decimalPlaces);
+
+    const [internalValue, setInternalValue] = useState(value === 0 ? '' : format(value));
 
     useEffect(() => {
-        // Обновляем внутреннее значение при внешнем обновлении
-        setInternalValue(value === 0 ? '' : value.toString());
-    }, [value]);
+        setInternalValue(value === 0 ? '' : format(value));
+    }, [value, decimalPlaces]);
 
     const handleBlur = () => {
         if (internalValue === '') {
@@ -33,18 +36,25 @@ export const SmartNumberInput: FC<SmartNumberInputProps> = ({
         } else {
             const numericValue = parseFloat(internalValue);
             if (!isNaN(numericValue)) {
-                onChange(numericValue);
+                const rounded = parseFloat(numericValue.toFixed(decimalPlaces));
+                onChange(rounded);
+                setInternalValue(format(rounded));
             }
         }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        setInternalValue(newValue);
+        const raw = e.target.value;
 
-        const numeric = parseFloat(newValue);
-        if (!isNaN(numeric)) {
-            onChange(numeric); // <<< вот это — ключевое изменение
+        // Регулярка: максимум decimalPlaces знаков после точки
+        const regex = new RegExp(`^\\d*\\.?\\d{0,${decimalPlaces}}$`);
+        if (regex.test(raw)) {
+            setInternalValue(raw);
+
+            const numeric = parseFloat(raw);
+            if (!isNaN(numeric)) {
+                onChange(numeric);
+            }
         }
     };
 
@@ -64,6 +74,7 @@ export const SmartNumberInput: FC<SmartNumberInputProps> = ({
             max={max}
             className={`border rounded px-2 py-1 ${className}`}
             disabled={disabled}
+            inputMode="decimal"
         />
     );
 };

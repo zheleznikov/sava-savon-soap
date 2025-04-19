@@ -1,7 +1,7 @@
 import {FC, useEffect, useRef, useState} from "react";
 import {oils} from "../data/oils2";
 import {ChevronDown, ChevronUp} from "lucide-react";
-import {useSoapRecipe} from "../context/useSoapRecipe"; // иконки
+import {useSoapRecipe} from "../hooks/useSoapRecipe"; // иконки
 
 
 export const OilAutocomplete: FC = () => {

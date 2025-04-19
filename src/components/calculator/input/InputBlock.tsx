@@ -1,9 +1,10 @@
-import {OilAutocomplete} from "../components/OilAutocomplete";
-import {OilAddedLine} from "../components/OilAddedLine";
+import {OilAutocomplete} from "../../OilAutocomplete";
+import {OilAddedLine} from "./OilAddedLine";
 import {BasicParamsBlock} from "./BasicParamsBlock";
-import {InputModeBlock} from "../components/InputModeBlock";
-import {useSoapRecipe} from "../context/useSoapRecipe";
-import {OilWeightSummary} from "../components/OilWeightSummary";
+import {InputModeBlock} from "./InputModeBlock";
+import {useSoapRecipe} from "../../../hooks/useSoapRecipe";
+import {OilWeightSummary} from "./OilWeightSummary";
+import {CalcBlockWrapper} from "../../CalcBlockWrapper";
 
 export const InputBlock = () => {
 
@@ -13,7 +14,7 @@ export const InputBlock = () => {
 
 
     return (
-        <div>
+        <CalcBlockWrapper>
             <input
                 placeholder={"Введите название рецепта"}
                 onChange={e => setRecipeName(e.target.value)}
@@ -29,7 +30,7 @@ export const InputBlock = () => {
                 selectedOils.length > 0 &&
                 selectedOils.map(oil => <OilAddedLine oil={oil}/>)
             }
-            <OilWeightSummary />
-        </div>
+            <OilWeightSummary/>
+        </CalcBlockWrapper>
     );
 };

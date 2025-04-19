@@ -1,4 +1,4 @@
-import { useSoapRecipe } from "../context/useSoapRecipe";
+import { useSoapRecipe } from "./useSoapRecipe";
 import { useState, useEffect } from "react";
 import {TOil} from "../data/oils2";
 

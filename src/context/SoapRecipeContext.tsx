@@ -1,9 +1,13 @@
-// context/SoapRecipeContext.tsx
 import {createContext, ReactNode, useState} from "react";
 import {TOil} from "../data/oils2";
 
 export type InputType = "gram" | "percent";
 export type LyeType = "NaOH" | "KOH";
+
+export type TGram = "gram";
+export type TPercent = "percent";
+export type TNaOH = "NaOH";
+export type TKOH = "KOH";
 
 export interface SoapRecipeContextType {
     recipeName: string;

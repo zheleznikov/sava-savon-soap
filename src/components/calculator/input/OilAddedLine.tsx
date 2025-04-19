@@ -1,9 +1,9 @@
 import {FC} from "react";
 import {Trash2} from "lucide-react";
-import {SmartNumberInput} from "./SmartNumberInput";
-import {TOil} from "../data/oils2";
-import {useSoapRecipe} from "../context/useSoapRecipe";
-import {useSoapCalculations} from "../hooks/useSoapCalculations";
+import {SmartNumberInput} from "../../SmartNumberInput";
+import {TOil} from "../../../data/oils2";
+import {useSoapRecipe} from "../../../hooks/useSoapRecipe";
+import {useSoapCalculations} from "../../../hooks/useSoapCalculations";
 
 interface Props {
     oil: TOil;

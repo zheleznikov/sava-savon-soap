@@ -1,6 +1,6 @@
 import { FC } from "react";
-import {SmartNumberInput} from "../components/SmartNumberInput";
-import {useSoapRecipe} from "../context/useSoapRecipe";
+import {SmartNumberInput} from "../../SmartNumberInput";
+import {useSoapRecipe} from "../../../hooks/useSoapRecipe";
 
 
 
@@ -45,6 +45,7 @@ export const BasicParamsBlock: FC = () => {
                     <label className="text-sm text-gray-600 mb-1">Процент воды</label>
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
+                            decimalPlaces={0}
                             value={waterPercent}
                             onChange={setWaterPercent}
                             placeholder="%"
@@ -61,6 +62,7 @@ export const BasicParamsBlock: FC = () => {
                     <label className="text-sm text-gray-600 mb-1">Процент пережира</label>
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
+                            decimalPlaces={0}
                             value={superfatPercent}
                             onChange={setSuperfatPercent}
                             placeholder="%"

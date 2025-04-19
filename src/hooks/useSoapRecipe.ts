@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SoapRecipeContext } from "./SoapRecipeContext";
+import { SoapRecipeContext } from "../context/SoapRecipeContext";
 
 export const useSoapRecipe = () => {
     const context = useContext(SoapRecipeContext);

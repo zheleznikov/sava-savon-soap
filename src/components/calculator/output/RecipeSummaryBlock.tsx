@@ -1,6 +1,8 @@
-import { useSoapCalculations } from "../hooks/useSoapCalculations";
-import { useSoapRecipe } from "../context/useSoapRecipe";
-import {formatNumber} from "../utils/utils";
+import { useSoapCalculations } from "../../../hooks/useSoapCalculations";
+import { useSoapRecipe } from "../../../hooks/useSoapRecipe";
+import {formatNumber} from "../../../utils/utils";
+import {SmartNumberInput} from "../../SmartNumberInput";
+import {CalcBlockWrapper} from "../../CalcBlockWrapper";
 
 
 export const RecipeSummaryBlock = () => {
@@ -9,6 +11,7 @@ export const RecipeSummaryBlock = () => {
         totalWaterAmount,
         totalResultWeight,
         totalOilWeight
+
     } = useSoapCalculations();
 
     const {
@@ -16,26 +19,16 @@ export const RecipeSummaryBlock = () => {
         lyeType,
         superfatPercent,
         waterPercent,
-        recipeName,
-        inputType, setInputType
+        inputType, setInputType,
+        userDefinedTotalWeight, setUserDefinedTotalWeight
     } = useSoapRecipe();
 
     const getRowClass = (index: number) =>
         `grid grid-cols-3 gap-2 py-1 ${index % 2 === 0 ? "bg-stone-50" : "bg-white"} rounded-md px-2 items-center`;
 
     return (
-        <div className="border border-gray-200 rounded-xl p-4 bg-white/70 backdrop-blur-sm shadow-sm space-y-4 text-sm sm:text-base">
-            <h3
-                className={`text-2xl text-center min-h-[2.5rem] font-semibold ${
-                    recipeName.trim() === ""
-                        ? "text-gray-400"
-                        : "text-green-700"
-                }`}
-            >
-                {recipeName.trim() !== "" ? recipeName : "Мой прекрасный рецепт"}
-            </h3>
-
-
+        <CalcBlockWrapper>
+            <RecipeTitleInput/>
 
             <div>
                 <div className="grid grid-cols-3 gap-2 font-semibold text-gray-500 border-b pb-1">
@@ -108,12 +101,56 @@ export const RecipeSummaryBlock = () => {
                 </div>
             </div>
 
-            <button
-                onClick={() => setInputType(inputType === "gram" ? "percent" : "gram")}
-                className="mt-4 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm rounded transition"
-            >
-                {inputType === "gram" ? "Пересчитать в процентах" : "Пересчитать в граммах"}
-            </button>
-        </div>
+
+            <div className="mt-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-6">
+                <button
+                    onClick={() => setInputType(inputType === "gram" ? "percent" : "gram")}
+                    className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm rounded transition w-full sm:w-[200px] text-center"
+                >
+                    {inputType === "gram" ? "Пересчитать в процентах" : "Пересчитать в граммах"}
+                </button>
+
+                {/* Резервируем место и плавно показываем поле */}
+                <div
+                    className={`flex flex-col min-w-[160px] w-full sm:w-auto transition-opacity duration-300 ${
+                        inputType === "percent" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+                    }`}
+                >
+                    <label className="text-sm text-gray-600 mb-1">Общий вес мыла</label>
+                    <div className="flex items-center gap-1">
+                        <SmartNumberInput
+                            decimalPlaces={0}
+                            value={userDefinedTotalWeight}
+                            onChange={setUserDefinedTotalWeight}
+                            placeholder="граммы"
+                            min={10}
+                            max={10000}
+                            className="w-full max-w-[120px] text-sm"
+                        />
+                        <span className="text-gray-500">г</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </CalcBlockWrapper>
+    );
+};
+
+
+export const RecipeTitleInput = () => {
+    const { recipeName, setRecipeName } = useSoapRecipe();
+
+    const isEmpty = recipeName.trim() === "";
+
+    return (
+        <input
+            type="text"
+            value={recipeName}
+            onChange={(e) => setRecipeName(e.target.value)}
+            placeholder="Такой рецепт и без названия"
+            className={`w-full text-2xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition
+                ${isEmpty ? "text-gray-400" : "text-green-700"}`}
+        />
     );
 };

@@ -1,7 +1,7 @@
 import {FC} from "react";
-import {useSoapRecipe} from "../context/useSoapRecipe";
-import {SmartNumberInput} from "./SmartNumberInput";
-import {useSoapCalculations} from "../hooks/useSoapCalculations";
+import {useSoapRecipe} from "../../../hooks/useSoapRecipe";
+import {SmartNumberInput} from "../../SmartNumberInput";
+import {useSoapCalculations} from "../../../hooks/useSoapCalculations";
 
 export const InputModeBlock: FC = () => {
     const {
@@ -49,6 +49,7 @@ export const InputModeBlock: FC = () => {
                     <label className="text-sm text-gray-600 mb-1">Общий вес мыла</label>
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
+                            decimalPlaces={0}
                             value={isGramMode ? totalResultWeight : userDefinedTotalWeight}
                             onChange={isGramMode ? () => {} : setUserDefinedTotalWeight}
                             disabled={isGramMode}
