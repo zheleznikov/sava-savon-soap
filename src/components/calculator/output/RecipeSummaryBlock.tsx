@@ -134,8 +134,6 @@ export const RecipeSummaryBlock = () => {
                 </div>
             </div>
 
-
-
         </CalcBlockWrapper>
     );
 };
@@ -151,7 +149,7 @@ export const RecipeTitleInput = () => {
             type="text"
             value={recipeName}
             onChange={(e) => setRecipeName(e.target.value)}
-            placeholder="Такой рецепт и без названия"
+            placeholder="Мой рецепт"
             className={`w-full text-2xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition
                 ${isEmpty ? "text-gray-400" : "text-green-700"}`}
         />

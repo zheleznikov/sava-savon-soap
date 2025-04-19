@@ -19,7 +19,7 @@ export const SmartNumberInput: FC<SmartNumberInputProps> = ({
                                                                 min,
                                                                 max,
                                                                 disabled = false,
-                                                                decimalPlaces = 2 // 👈 по умолчанию 2 знака
+                                                                decimalPlaces = 0 // 👈 по умолчанию 2 знака
                                                             }) => {
     const format = (v: number) => v.toFixed(decimalPlaces);
 

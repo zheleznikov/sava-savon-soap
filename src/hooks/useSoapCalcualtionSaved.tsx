@@ -1,8 +1,19 @@
 import { useSoapRecipe } from "./useSoapRecipe";
 import { useState, useEffect } from "react";
+import {TOil} from "../data/oils2";
 
 
-export const useSoapCalculations = () => {
+function averageSap(oils: TOil[], lyeType: "NaOH" | "KOH") {
+    const totalGram = oils.reduce((sum, o) => sum + (o.gram || 0), 0);
+    if (totalGram === 0) return 0;
+
+    return oils.reduce((acc, o) => {
+        const sap = lyeType === "NaOH" ? o.sap.naoh : o.sap.koh;
+        return acc + (o.gram || 0) * sap;
+    }, 0) / totalGram;
+}
+
+export const useSoapCalculationSaved = () => {
     const { selectedOils, setSelectedOils, lyeType, superfatPercent, waterPercent, inputType, userDefinedTotalWeight } = useSoapRecipe();
 
     const [totalOilWeight, setTotalOilWeight] = useState(0);
@@ -22,18 +33,13 @@ export const useSoapCalculations = () => {
             // в режиме процентов считаем массу масел как остаток
             const totalPercent = selectedOils.reduce((sum, oil) => sum + (oil.percent || 0), 0);
             if (totalPercent >= 99 && totalPercent <= 101) {
-                // Предварительный подсчёт lyeSum и waterSum по массе масел — потребуется для расчёта oilSum
-                const estimatedOilSum = userDefinedTotalWeight / (1 + waterPercent / 100 + 0.14 * (1 - superfatPercent / 100));
-                oilSum = estimatedOilSum;
+                oilSum = userDefinedTotalWeight / (1 + waterPercent / 100 + averageSap(selectedOils, lyeType) * (1 - superfatPercent / 100));
                 setTotalOilWeight(oilSum);
             }
         }
 
-        // 2. Щёлочь по каждому маслу
-        const lyeSum = selectedOils.reduce((acc, oil) => {
-            const sap = lyeType === "NaOH" ? oil.sap.naoh : oil.sap.koh;
-            return acc + (oil.gram || 0) * sap * (1 - superfatPercent / 100);
-        }, 0);
+        // 2. Щёлочь и вода
+        const lyeSum = oilSum * averageSap(selectedOils, lyeType) * (1 - superfatPercent / 100);
         setTotalLyeAmount(lyeSum);
 
         const waterSum = oilSum * (waterPercent / 100);
@@ -59,6 +65,10 @@ export const useSoapCalculations = () => {
             }
         }
     }, [selectedOils, lyeType, superfatPercent, waterPercent, inputType, userDefinedTotalWeight]);
+
+
+
+
 
     return {
         totalOilWeight,
