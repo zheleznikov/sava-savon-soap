@@ -38,8 +38,7 @@ export const BasicParamsBlock: FC = () => {
             </div>
 
             {/* Строка 2 — вода и пережир */}
-            <div className="flex sm:flex-row gap-4 sm:items-center">
-
+            <div className="flex flex-wrap gap-4 sm:items-center">
                 {/* Вода */}
                 <div className="flex flex-col min-w-[140px]">
                     <label className="text-sm text-gray-600 mb-1">Процент воды</label>
@@ -74,6 +73,7 @@ export const BasicParamsBlock: FC = () => {
                     </div>
                 </div>
             </div>
+
         </div>
     );
 };

@@ -14,9 +14,9 @@ export const InputModeBlock: FC = () => {
 
     return (
         <div className="border border-gray-200 rounded-xl p-4 bg-white/70 backdrop-blur-sm shadow-sm mb-4">
-            <div className="flex flex-wrap gap-4 items-end">
+            <div className="flex flex-wrap gap-6 sm:gap-8">
                 {/* Режим ввода */}
-                <div className="flex flex-col min-w-[160px]">
+                <div className="flex flex-col">
                     <label className="text-sm text-gray-600 mb-1">Режим ввода</label>
                     <div className="flex border border-gray-300 rounded-md overflow-hidden w-fit">
                         <button
@@ -45,7 +45,7 @@ export const InputModeBlock: FC = () => {
                 </div>
 
                 {/* Общий вес мыла */}
-                <div className="flex flex-col min-w-[160px]">
+                <div className="flex flex-col">
                     <label className="text-sm text-gray-600 mb-1">Общий вес мыла</label>
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
@@ -56,23 +56,20 @@ export const InputModeBlock: FC = () => {
                             placeholder="граммы"
                             min={10}
                             max={10000}
-                            className={`w-full max-w-[120px] text-sm ${
+                            className={`w-[120px] text-sm ${
                                 isGramMode ? "bg-gray-100 text-gray-500 cursor-not-allowed" : ""
                             }`}
                         />
                         <span className="text-gray-500">г</span>
                     </div>
-
-                    {/* Подсказка */}
                     <p
-                        className={`text-xs mt-1 transition-opacity duration-200 h-[1rem] ${
+                        className={`text-xs mt-1 transition-opacity duration-200 min-h-[1rem] ${
                             isGramMode ? "text-gray-400 opacity-100 visible" : "opacity-0 invisible"
                         }`}
                     >
                         Рассчитывается автоматически по сумме масел
                     </p>
                 </div>
-
             </div>
         </div>
     );

@@ -14,7 +14,7 @@ export const InputBlock = () => {
 
 
     return (
-        <CalcBlockWrapper>
+        <CalcBlockWrapper className={"z-50"}>
             <input
                 placeholder={"Введите название рецепта"}
                 onChange={e => setRecipeName(e.target.value)}

@@ -102,7 +102,8 @@ export const RecipeSummaryBlock = () => {
             </div>
 
 
-            <div className="mt-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-6">
+            <div className="mt-4 flex flex-wrap items-end gap-4">
+                {/* Кнопка смены режима */}
                 <button
                     onClick={() => setInputType(inputType === "gram" ? "percent" : "gram")}
                     className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm rounded transition w-full sm:w-[200px] text-center"
@@ -110,11 +111,12 @@ export const RecipeSummaryBlock = () => {
                     {inputType === "gram" ? "Пересчитать в процентах" : "Пересчитать в граммах"}
                 </button>
 
-                {/* Резервируем место и плавно показываем поле */}
+                {/* Поле ввода общего веса мыла */}
                 <div
-                    className={`flex flex-col min-w-[160px] w-full sm:w-auto transition-opacity duration-300 ${
+                    className={`flex flex-col transition-opacity duration-300 ${
                         inputType === "percent" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                     }`}
+                    style={{ flex: "1 1 auto", minWidth: "160px", maxWidth: "200px" }}
                 >
                     <label className="text-sm text-gray-600 mb-1">Общий вес мыла</label>
                     <div className="flex items-center gap-1">
@@ -131,6 +133,7 @@ export const RecipeSummaryBlock = () => {
                     </div>
                 </div>
             </div>
+
 
 
         </CalcBlockWrapper>

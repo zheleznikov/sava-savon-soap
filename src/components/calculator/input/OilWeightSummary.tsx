@@ -33,7 +33,7 @@ export const OilWeightSummary: FC = () => {
             {/* Обёртка с фиксированной высотой — чтобы не прыгало */}
             <div className="h-6 sm:h-7 relative transition-all duration-300">
                 {isPercentMode && (
-                    <div className="w-full bg-stone-200 rounded-full h-full relative overflow-hidden">
+                    <div className="w-full border b-stone-200 rounded-full h-full relative overflow-hidden">
                         {/* Прогресс-заливка */}
                         <div
                             className={`absolute top-0 left-0 h-full transition-all duration-300 ${getProgressBarColor(percentSum)}`}
