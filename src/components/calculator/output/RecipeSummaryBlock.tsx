@@ -102,26 +102,31 @@ export const RecipeSummaryBlock = () => {
             </div>
 
 
-            <div className="mt-4 flex flex-wrap items-end gap-4">
+            <div className="mt-4 flex flex-wrap gap-4 items-center">
                 {/* Кнопка смены режима */}
                 <button
-                    onClick={() => setInputType(inputType === "gram" ? "percent" : "gram")}
-                    className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm rounded transition w-full sm:w-[200px] text-center"
+                    onClick={() => {
+                        if (inputType === "gram") {
+                            setUserDefinedTotalWeight(totalResultWeight);
+                            setInputType("percent");
+                        } else {
+                            setInputType("gram");
+                        }
+                    }}
+                    className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm rounded transition whitespace-nowrap"
                 >
-                    {inputType === "gram" ? "Пересчитать в процентах" : "Пересчитать в граммах"}
+                    {inputType === "gram" ? "Изменить общий вес" : "Изменить вес масел"}
                 </button>
 
                 {/* Поле ввода общего веса мыла */}
                 <div
-                    className={`flex flex-col transition-opacity duration-300 ${
-                        inputType === "percent" ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-                    }`}
-                    style={{ flex: "1 1 auto", minWidth: "160px", maxWidth: "200px" }}
+                    className="flex flex-col"
+                    style={{ minWidth: "160px", maxWidth: "200px", flex: "1 1 auto" }}
                 >
-                    <label className="text-sm text-gray-600 mb-1">Общий вес мыла</label>
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
                             decimalPlaces={0}
+                            disabled={inputType === "percent"}
                             value={userDefinedTotalWeight}
                             onChange={setUserDefinedTotalWeight}
                             placeholder="граммы"
@@ -133,6 +138,7 @@ export const RecipeSummaryBlock = () => {
                     </div>
                 </div>
             </div>
+
 
         </CalcBlockWrapper>
     );
