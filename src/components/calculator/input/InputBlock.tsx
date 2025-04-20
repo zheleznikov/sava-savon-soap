@@ -9,7 +9,7 @@ import {CalcBlockWrapper} from "../../CalcBlockWrapper";
 export const InputBlock = () => {
 
     const {
-        recipeName, setRecipeName, selectedOils
+        recipeName, setRecipeName, selectedOils, handleToggleOil
     } = useSoapRecipe();
 
 
@@ -24,7 +24,7 @@ export const InputBlock = () => {
 
             <InputModeBlock/>
             <BasicParamsBlock/>
-            <OilAutocomplete/>
+            <OilAutocomplete onToggleOil={handleToggleOil} selectedOils={selectedOils}/>
 
             {
                 selectedOils.length > 0 &&
