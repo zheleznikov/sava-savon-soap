@@ -22,12 +22,7 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({
 
     const filteredOils = oils.filter(oil => oil.name_rus.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    const listToShow = filteredOils;
-    //     .sort((a, b) => {
-    //     const aSelected = selectedIds.includes(a.id) ? -1 : 1;
-    //     const bSelected = selectedIds.includes(b.id) ? -1 : 1;
-    //     return aSelected - bSelected;
-    // });
+    const [listToShow, setListToSHow] = useState(filteredOils);
 
 
     useEffect(() => {
@@ -44,6 +39,26 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        const filtered = oils.filter(oil =>
+            oil.name_rus.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        const updatedList = [...filtered];
+
+        // Сортируем только если ничего не введено
+        if (searchTerm.trim() === "") {
+            updatedList.sort((a, b) => {
+                const aSelected = selectedIds.includes(a.id) ? -1 : 1;
+                const bSelected = selectedIds.includes(b.id) ? -1 : 1;
+                return aSelected - bSelected;
+            });
+        }
+
+        setListToSHow(updatedList);
+    }, [searchTerm, selectedOils]);
+
 
     return (
         <div className="relative w-full z-50 mb-4" ref={containerRef}>
