@@ -59,6 +59,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                     <span className="text-gray-500">г</span>
                 </div>
 
+                <div className="flex items-center gap-1">
                 {/* Проценты */}
                 <SmartNumberInput
                     placeholder="Проценты"
@@ -70,6 +71,8 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                     className={`w-24 sm:w-28 border rounded px-2 py-1 text-gray-800 placeholder:text-xs placeholder:text-gray-400
     ${isGramMode ? "bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200" : "border-gray-300"}`}
                 />
+                    <span className="text-gray-500">%</span>
+                </div>
 
 
             </div>
