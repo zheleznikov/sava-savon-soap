@@ -126,7 +126,7 @@ export const RecipeSummaryBlock = () => {
                     <div className="flex items-center gap-1">
                         <SmartNumberInput
                             decimalPlaces={0}
-                            disabled={inputType === "percent"}
+                            disabled={inputType === "gram"}
                             value={userDefinedTotalWeight}
                             onChange={setUserDefinedTotalWeight}
                             placeholder="граммы"

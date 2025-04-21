@@ -55,7 +55,7 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
     const [waterPercent, setWaterPercent] = useState(30);
     const [superfatPercent, setSuperfatPercent] = useState(5);
     const [selectedOils, setSelectedOils] = useState<TOil[]>([]);
-    const [userDefinedTotalWeight, setUserDefinedTotalWeight] = useState(100);
+    const [userDefinedTotalWeight, setUserDefinedTotalWeight] = useState(0);
 
 
     const handleToggleOil = (oil: TOil) => {

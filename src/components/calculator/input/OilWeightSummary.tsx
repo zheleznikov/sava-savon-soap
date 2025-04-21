@@ -17,9 +17,9 @@ export const OilWeightSummary: FC = () => {
         if (percent < 80) return "bg-orange-500";
         if (percent < 90) return "bg-yellow-400";
         if (percent < 95) return "bg-yellow-300";
-        if (percent < 99) return "bg-lime-400";
-        if (percent <= 101) return "bg-emerald-500";
-        if (percent <= 105) return "bg-lime-400";
+        if (percent < 99) return "bg-yellow-300";
+        if (percent <= 101) return "bg-emerald-400";
+        if (percent <= 105) return "bg-yellow-300";
         if (percent <= 110) return "bg-yellow-300";
         if (percent <= 115) return "bg-yellow-400";
         if (percent <= 120) return "bg-orange-500";
@@ -55,10 +55,10 @@ export const OilWeightSummary: FC = () => {
                 <p className="text-xs text-gray-500 mt-1 text-center">
                     Для правильного расчёта общий процент масел должен быть от 99% до 101%.{" "}
                     {percentSum < 99 && (
-                        <>Добавьте <strong>{Math.round(99 - percentSum)}%</strong>.</>
+                        <span className={"text-gray-700 font-bold"}>Добавьте {Math.round(99 - percentSum)}%.</span>
                     )}
                     {percentSum > 101 && (
-                        <>Убавьте <strong>{Math.round(percentSum - 101)}%</strong>.</>
+                        <span className={"text-gray-700 font-bold"}>Убавьте {Math.round(percentSum - 101)}%</span>
                     )}
                 </p>
             )}

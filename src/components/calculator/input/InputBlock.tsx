@@ -8,10 +8,7 @@ import {CalcBlockWrapper} from "../../CalcBlockWrapper";
 
 export const InputBlock = () => {
 
-    const {
-        recipeName, setRecipeName, selectedOils, handleToggleOil
-    } = useSoapRecipe();
-
+    const { recipeName, setRecipeName, selectedOils, handleToggleOil } = useSoapRecipe();
 
     return (
         <CalcBlockWrapper className={"z-50"}>
@@ -28,7 +25,7 @@ export const InputBlock = () => {
 
             {
                 selectedOils.length > 0 &&
-                selectedOils.map(oil => <OilAddedLine oil={oil}/>)
+                selectedOils.map(oil => <OilAddedLine oil={oil} key={oil.id}/>)
             }
             <OilWeightSummary/>
         </CalcBlockWrapper>
