@@ -2,6 +2,7 @@ import { FC } from "react";
 import {SmartNumberInput} from "../../shared/ui/SmartNumberInput";
 import {useSoapRecipe} from "../recipe-calculation/model/useSoapRecipe";
 import {LyeType} from "../../app/providers/SoapRecipeContext.types";
+import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
 
 
 
@@ -15,7 +16,7 @@ export const BasicParamsBlock: FC = () => {
 
 
     return (
-        <div className="border border-gray-200 rounded-xl p-4 bg-white/70 backdrop-blur-sm shadow-sm space-y-4 mb-4">
+        <InputBlockWrapper className="space-y-4">
 
             {/* Строка 1 — выбор щёлочи */}
             <div className="flex flex-col flex-row gap-1">
@@ -75,6 +76,6 @@ export const BasicParamsBlock: FC = () => {
                 </div>
             </div>
 
-        </div>
+        </InputBlockWrapper>
     );
 };

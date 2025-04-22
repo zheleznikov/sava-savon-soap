@@ -2,36 +2,6 @@ import {TOil} from "./oil.types";
 
 export const oils: TOil[] = [
     {
-        id: 1,
-        sap: {
-            naoh: 0.142,
-            koh: 0.199155
-        },
-        iodine: 53.0,
-        ins: 145.0,
-        fatty_acids: {
-            lauric: 0.0,
-            myristine: 1.0,
-            palmitic: 44.0,
-            stearin: 5.0,
-            ricin: 0.0,
-            oleic: 39.0,
-            linoleic: 10.0,
-            linolenic: 0.0
-        },
-        properties: {
-            hardness: 50.0,
-            cleansing: 1.0,
-            soften: 49.0,
-            bubbling: 1.0,
-            creaminess: 49.0
-        },
-        percent: 0,
-        gram: 0,
-        name_rus: "Пальмовое масло",
-        name_eng: "Palm Oil"
-    },
-    {
         id: 2,
         sap: {
             naoh: 0.135,
@@ -61,6 +31,67 @@ export const oils: TOil[] = [
         name_rus: "Оливковое масло",
         name_eng: "Olive Oil"
     },
+    {
+        id: 29,
+        sap: {
+            naoh: 0.183,
+            koh: 0.2566575
+        },
+        iodine: 10.0,
+        ins: 258.0,
+        fatty_acids: {
+            lauric: 48.0,
+            myristine: 19.0,
+            palmitic: 9.0,
+            stearin: 3.0,
+            ricin: 0.0,
+            oleic: 8.0,
+            linoleic: 2.0,
+            linolenic: 0.0
+        },
+        properties: {
+            hardness: 79.0,
+            cleansing: 67.0,
+            soften: 10.0,
+            bubbling: 67.0,
+            creaminess: 12.0
+        },
+        percent: 0,
+        gram: 0,
+        name_rus: "Кокосовое масло",
+        name_eng: "Coconut Oil"
+    },
+    {
+        id: 1,
+        sap: {
+            naoh: 0.142,
+            koh: 0.199155
+        },
+        iodine: 53.0,
+        ins: 145.0,
+        fatty_acids: {
+            lauric: 0.0,
+            myristine: 1.0,
+            palmitic: 44.0,
+            stearin: 5.0,
+            ricin: 0.0,
+            oleic: 39.0,
+            linoleic: 10.0,
+            linolenic: 0.0
+        },
+        properties: {
+            hardness: 50.0,
+            cleansing: 1.0,
+            soften: 49.0,
+            bubbling: 1.0,
+            creaminess: 49.0
+        },
+        percent: 0,
+        gram: 0,
+        name_rus: "Пальмовое масло",
+        name_eng: "Palm Oil"
+    },
+
     {
         id: 3,
         sap: {
@@ -841,36 +872,7 @@ export const oils: TOil[] = [
         name_rus: "Козий жир",
         name_eng: ""
     },
-    {
-        id: 29,
-        sap: {
-            naoh: 0.183,
-            koh: 0.2566575
-        },
-        iodine: 10.0,
-        ins: 258.0,
-        fatty_acids: {
-            lauric: 48.0,
-            myristine: 19.0,
-            palmitic: 9.0,
-            stearin: 3.0,
-            ricin: 0.0,
-            oleic: 8.0,
-            linoleic: 2.0,
-            linolenic: 0.0
-        },
-        properties: {
-            hardness: 79.0,
-            cleansing: 67.0,
-            soften: 10.0,
-            bubbling: 67.0,
-            creaminess: 12.0
-        },
-        percent: 0,
-        gram: 0,
-        name_rus: "Кокосовое масло",
-        name_eng: "Coconut Oil"
-    },
+
     {
         id: 30,
         sap: {

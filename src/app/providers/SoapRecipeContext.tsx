@@ -1,27 +1,22 @@
 import {createContext, ReactNode, useState} from "react";
 import {TOil} from "../../entities/oil/model/oil.types";
 import {InputType, LyeType, SoapRecipeContextType} from "./SoapRecipeContext.types";
-
-
-
-const recalculatePercents = (oils: TOil[]): TOil[] => {
-    const totalGram = oils.reduce((sum, o) => sum + (o.gram || 0), 0);
-    return oils.map(o => ({
-        ...o,
-        percent: totalGram > 0 ? (o.gram / totalGram) * 100 : 0,
-    }));
-};
+import {recalculatePercents} from "../../feature/recipe-calculation/libs/calcRecipeUtils";
+import {oils} from "../../entities/oil/model/oils";
 
 export const SoapRecipeContext = createContext<SoapRecipeContextType | undefined>(undefined);
 
 export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
+
+    const defaultSelectedOils = oils.filter(oil => [2, 1, 29].includes(oil.id));
+    const [selectedOils, setSelectedOils] = useState<TOil[]>([...defaultSelectedOils]);
 
     const [recipeName, setRecipeName] = useState("");
     const [inputType, setInputType] = useState<InputType>(InputType.Gram);
     const [lyeType, setLyeType] = useState<LyeType>(LyeType.NaOH);
     const [waterPercent, setWaterPercent] = useState(30);
     const [superfatPercent, setSuperfatPercent] = useState(5);
-    const [selectedOils, setSelectedOils] = useState<TOil[]>([]);
+
 
     const [userDefinedTotalWeight, setUserDefinedTotalWeight] = useState(0);
 

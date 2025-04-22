@@ -31,39 +31,46 @@ export const OilWeightSummary: FC = () => {
 
     return (
         <div className="mt-2">
-            {/* Обёртка с фиксированной высотой — чтобы не прыгало */}
+            {/* Прогрессбар */}
             <div className="h-6 sm:h-7 relative transition-all duration-300">
                 {isPercentMode && (
                     <div className="w-full border b-stone-200 rounded-full h-full relative overflow-hidden">
-                        {/* Прогресс-заливка */}
+                        {/* Заливка */}
                         <div
                             className={`absolute top-0 left-0 h-full transition-all duration-300 ${getProgressBarColor(percentSum)}`}
                             style={{width: `${Math.min(percentSum, 120)}%`}}
                         />
-
-                        {/* Центрированный текст поверх */}
+                        {/* Текст поверх */}
                         <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <span className="text-xs font-semibold drop-shadow text-gray-800">
-                        Общий процент — {formatNumber(percentSum)}%
-                    </span>
+            <span className="text-xs font-semibold drop-shadow text-gray-800">
+              Общий процент — {formatNumber(percentSum)}%
+            </span>
                         </div>
                     </div>
                 )}
             </div>
 
-            {/* Подсказка под прогрессбаром */}
-            {isPercentInvalid && (
-                <p className="text-xs text-gray-500 mt-1 text-center">
-                    Для правильного расчёта общий процент масел должен быть от 99% до 101%.{" "}
-                    {percentSum < 99 && (
-                        <span className={"text-gray-700 font-bold"}>Добавьте {Math.round(99 - percentSum)}%.</span>
-                    )}
-                    {percentSum > 101 && (
-                        <span className={"text-gray-700 font-bold"}>Убавьте {Math.round(percentSum - 101)}%</span>
-                    )}
-                </p>
-            )}
+            {/* Подсказка — всегда рендерим, но скрываем */}
+            <div className="h-4 sm:h-5 mt-1 text-center text-xs transition-all duration-300">
+                {isPercentInvalid ? (
+                    <p className="text-gray-500">
+                        Для правильного расчёта общий процент масел должен быть от 99% до 101%.{" "}
+                        {percentSum < 99 && (
+                            <span className="text-gray-700 font-bold">
+              Добавьте {Math.round(99 - percentSum)}%.
+            </span>
+                        )}
+                        {percentSum > 101 && (
+                            <span className="text-gray-700 font-bold">
+              Убавьте {Math.round(percentSum - 101)}%.
+            </span>
+                        )}
+                    </p>
+                ) : (
+                    <p className="invisible select-none">&nbsp;</p>
+                )}
+            </div>
         </div>
-
     );
+
 };

@@ -18,7 +18,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
         updateOilGramWithRecalculatedPercents
     } = useSoapRecipe();
 
-    const { totalOilWeight } = useSoapCalculations();
+    const { totalOilAmount } = useSoapCalculations();
 
 
     const isGramMode = inputType === InputType.Gram;
@@ -66,7 +66,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                     placeholder="Проценты"
                     value={oil.percent || 0} // 👈 всегда берём из состояния
                     onChange={(newPercent) => {
-                        updateOilPercentWithGramRecalculation(oil, newPercent, totalOilWeight);
+                        updateOilPercentWithGramRecalculation(oil, newPercent, totalOilAmount);
                     }}
                     disabled={isGramMode}
                     className={`w-24 sm:w-28 border rounded px-2 py-1 text-gray-800 placeholder:text-xs placeholder:text-gray-400

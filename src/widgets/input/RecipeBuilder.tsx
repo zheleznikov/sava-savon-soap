@@ -1,11 +1,11 @@
 import {OilAutocomplete} from "../../feature/oil-management/ui/OilAutocomplete";
 import {OilAddedLine} from "../../feature/oil-management/ui/OilAddedLine";
-import {BasicParamsBlock} from "../../feature/basic-params-input/BasicParamsBlock";
-import {InputModeBlock} from "../../feature/mode-toggle/InputModeBlock";
 import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecipe";
 import {OilWeightSummary} from "../../feature/percent-progress-bar/OilWeightSummary";
 import {CalcBlockWrapper} from "../../shared/ui/CalcBlockWrapper";
 import {RecipeNameInput} from "../../feature/recipe-name-input/RecipeNameInput";
+import {BasicParamsBlock} from "../../feature/input-basic-params/BasicParamsBlock";
+import {InputTypeToggle} from "../../feature/input-toogle-input-type/InputTypeToggle";
 
 export const RecipeBuilder = () => {
 
@@ -15,7 +15,7 @@ export const RecipeBuilder = () => {
         <CalcBlockWrapper className={"z-50"}>
             <RecipeNameInput/>
 
-            <InputModeBlock/>
+            <InputTypeToggle/>
             <BasicParamsBlock/>
 
             <OilAutocomplete
