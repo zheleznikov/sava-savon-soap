@@ -6,28 +6,29 @@ import {InputType, LyeType} from "../../../app/providers/SoapRecipeContext.types
 export const useSoapCalculations = () => {
     const { selectedOils, setSelectedOils, lyeType, superfatPercent, waterPercent, inputType, userDefinedTotalWeight } = useSoapRecipe();
 
-    const [totalOilWeight, setTotalOilWeight] = useState(0);
+    const [totalOilAmount, setTotalOilAmount] = useState(0);
     const [totalLyeAmount, setTotalLyeAmount] = useState(0);
     const [totalWaterAmount, setTotalWaterAmount] = useState(0);
 
-    const [totalResultWeight, setTotalResultWeight] = useState(0);
+    const [totalResultAmount, setTotalResultAmount] = useState(0);
 
     useEffect(() => {
         // 1. Вычисление массы масел
         let oilSum = inputType === InputType.Gram
             ? selectedOils.reduce((acc, oil) => acc + (oil.gram || 0), 0)
-            : totalOilWeight; // временно, потом обновим
+            : totalOilAmount; // временно, потом обновим
 
         if (inputType === InputType.Gram) {
-            setTotalOilWeight(oilSum);
+            setTotalOilAmount(oilSum);
         } else {
             // в режиме процентов считаем массу масел как остаток
             const totalPercent = selectedOils.reduce((sum, oil) => sum + (oil.percent || 0), 0);
             if (totalPercent >= 99 && totalPercent <= 101) {
+
                 // Предварительный подсчёт lyeSum и waterSum по массе масел — потребуется для расчёта oilSum
                 const estimatedOilSum = userDefinedTotalWeight / (1 + waterPercent / 100 + 0.14 * (1 - superfatPercent / 100));
                 oilSum = estimatedOilSum;
-                setTotalOilWeight(oilSum);
+                setTotalOilAmount(oilSum);
             }
         }
 
@@ -41,7 +42,7 @@ export const useSoapCalculations = () => {
         const waterSum = oilSum * (waterPercent / 100);
         setTotalWaterAmount(waterSum);
 
-        setTotalResultWeight(oilSum + lyeSum + waterSum);
+        setTotalResultAmount(oilSum + lyeSum + waterSum);
 
         // 3. Обновление грамм
         if (inputType === InputType.Percent && oilSum > 0) {
@@ -63,11 +64,11 @@ export const useSoapCalculations = () => {
     }, [selectedOils, lyeType, superfatPercent, waterPercent, inputType, userDefinedTotalWeight]);
 
     return {
-        totalOilWeight,
-        setTotalOilWeight,
+        totalOilWeight: totalOilAmount,
+        setTotalOilWeight: setTotalOilAmount,
         totalLyeAmount,
         totalWaterAmount,
-        totalResultWeight,
-        setTotalResultWeight,
+        totalResultWeight: totalResultAmount,
+        setTotalResultWeight: setTotalResultAmount,
     };
 };
