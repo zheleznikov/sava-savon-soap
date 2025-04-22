@@ -25,6 +25,8 @@ export const colors = {
     dark: {
         border: "border border-gray-700",
         bg: "bg-gray-900/50",
+        labelText: "text-gray-600", //todo
+        inputDisabled: "bg-gray-100 text-gray-500 cursor-not-allowed", //todo
         text: "text-white",
         unitText: "text-gray-300",
     },
