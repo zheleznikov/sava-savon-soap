@@ -5,7 +5,7 @@ import {useOilAutocomplete} from "../model/useOilAutocompete";
 import {OilOptionItem} from "./OilOptionItem";
 import {autocomplete} from "../../../shared/styles/layout";
 import {clsx} from "clsx";
-import {text} from "../../../shared/config/text";
+import {localization} from "../../../shared/config/localization";
 
 
 type OilAutocompleteProps = {
@@ -39,7 +39,7 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({selectedOils, onToggl
                 )}
 
                 value={searchTerm}
-                placeholder={text.ru.autocomplete.placeholder}
+                placeholder={localization.ru.autocomplete.placeholder}
 
                 onChange={handler.onInputSearchChange}
                 onKeyDown={handler.onInputSearchKeyDown}

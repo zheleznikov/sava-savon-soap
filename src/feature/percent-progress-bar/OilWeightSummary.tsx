@@ -43,7 +43,7 @@ export const OilWeightSummary: FC = () => {
                         {/* Текст поверх */}
                         <div className="absolute inset-0 flex items-center justify-center z-10">
             <span className="text-xs font-semibold drop-shadow text-gray-800">
-              Общий процент — {formatNumber(percentSum)}%
+              Общий процент — {formatNumber(percentSum, 0)}%
             </span>
                         </div>
                     </div>

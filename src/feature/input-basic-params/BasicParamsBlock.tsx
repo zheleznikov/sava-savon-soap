@@ -1,11 +1,14 @@
-import { FC } from "react";
+import {FC} from "react";
 import {SmartNumberInput} from "../../shared/ui/SmartNumberInput";
 import {useSoapRecipe} from "../recipe-calculation/model/useSoapRecipe";
 import {LyeType} from "../../app/providers/SoapRecipeContext.types";
 import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
+import {localization} from "../../shared/config/localization";
+import {input} from "../../shared/styles/layout";
 
 
-
+const l = localization.ru.soap_controls;
+const s = input.basic_params;
 export const BasicParamsBlock: FC = () => {
 
     const {
@@ -16,21 +19,21 @@ export const BasicParamsBlock: FC = () => {
 
 
     return (
-        <InputBlockWrapper className="space-y-4">
+        <InputBlockWrapper className={s.layout.wrapper}>
 
             {/* Строка 1 — выбор щёлочи */}
-            <div className="flex flex-col flex-row gap-1">
-                <label className="text-sm text-gray-600">Тип щёлочи</label>
-                <div className="flex border border-gray-300 rounded-md overflow-hidden w-fit">
-                    {[LyeType.NaOH,LyeType.KOH].map((type) => (
+            <div className={s.layout.lye_type_row}>
+                <label className={s.theme.light.label}>{l.label_lye_type}</label>
+                <div className={s.layout.button_group}>
+                    {[LyeType.NaOH, LyeType.KOH].map((type) => (
                         <button
                             key={type}
                             type="button"
                             onClick={() => setLyeType(type as LyeType.NaOH | LyeType.KOH)}
-                            className={`px-4 py-1 text-sm transition ${
+                            className={`${s.theme.light.button_base} ${
                                 lyeType === type
-                                    ? "bg-emerald-500 text-white"
-                                    : "bg-white text-gray-700 hover:bg-gray-100"
+                                    ? s.theme.light.button_active
+                                    : s.theme.light.button_inactive
                             }`}
                         >
                             {type}
@@ -40,11 +43,11 @@ export const BasicParamsBlock: FC = () => {
             </div>
 
             {/* Строка 2 — вода и пережир */}
-            <div className="flex flex-wrap gap-4 sm:items-center">
+            <div className={s.layout.param_row}>
                 {/* Вода */}
-                <div className="flex flex-col min-w-[140px]">
-                    <label className="text-sm text-gray-600 mb-1">Процент воды</label>
-                    <div className="flex items-center gap-1">
+                <div className={s.layout.field_wrapper}>
+                    <label className={s.theme.light.label}>{l.label_water_percent}</label>
+                    <div className={s.layout.field_inner}>
                         <SmartNumberInput
                             decimalPlaces={0}
                             value={waterPercent}
@@ -52,30 +55,29 @@ export const BasicParamsBlock: FC = () => {
                             placeholder="%"
                             min={10}
                             max={100}
-                            className="w-full max-w-[100px] text-sm"
+                            className={s.layout.input}
                         />
-                        <span className="text-gray-500">%</span>
+                        <span className={s.theme.light.unit_text}>{l.placeholder_percent}</span>
                     </div>
                 </div>
 
                 {/* Пережир */}
-                <div className="flex flex-col min-w-[140px]">
-                    <label className="text-sm text-gray-600 mb-1">Процент пережира</label>
-                    <div className="flex items-center gap-1">
+                <div className={s.layout.field_wrapper}>
+                    <label className={s.theme.light.label}>{l.label_superfat_percent}</label>
+                    <div className={s.layout.field_inner}>
                         <SmartNumberInput
                             decimalPlaces={0}
                             value={superfatPercent}
                             onChange={setSuperfatPercent}
-                            placeholder="%"
+                            placeholder={l.placeholder_percent}
                             min={0}
                             max={20}
-                            className="w-full max-w-[100px] text-sm"
+                            className={s.layout.input}
                         />
-                        <span className="text-gray-500">%</span>
+                        <span className={s.theme.light.unit_text}>{l.placeholder_percent}</span>
                     </div>
                 </div>
             </div>
-
         </InputBlockWrapper>
     );
 };

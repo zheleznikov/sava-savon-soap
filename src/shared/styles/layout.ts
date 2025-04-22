@@ -133,5 +133,29 @@ export const input = {
             },
             dark: {}
         }
+    },
+    basic_params: {
+        layout: {
+            wrapper: "space-y-4",
+            lye_type_row: `${common.flexColumn} flex-row gap-1`,
+            button_group: `flex overflow-hidden w-fit ${colors.light.border} ${common.borderRadius}`,
+            param_row: "flex flex-wrap gap-4 sm:items-center",
+            field_wrapper: `${common.flexColumn} min-w-[140px]`,
+            field_inner: "flex items-center gap-1",
+            input: `w-full max-w-[100px] ${common.textSm}`,
+        },
+        theme: {
+            light: {
+                label: common.labelText,
+                button_base: `px-4 py-1 ${common.textSm} ${common.transition}`,
+                button_active: "bg-emerald-500 text-white",
+                button_inactive: "bg-white text-gray-700 hover:bg-gray-100",
+                unit_text: colors.light.unitText,
+            },
+            dark: {} // можно позже заполнить
+        }
     }
 };
+
+
+
