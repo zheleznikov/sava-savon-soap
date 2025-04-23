@@ -9,9 +9,9 @@ interface CardBlockProps {
 
 export const InputBlockWrapper = ({ children, className = "" }: CardBlockProps) => {
     const classList = clsx(
+        className,
         input_block_wrapper.layout,
         input_block_wrapper.theme.light,
-        className
     );
 
     return (

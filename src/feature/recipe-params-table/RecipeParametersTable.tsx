@@ -12,7 +12,7 @@ export const RecipeParametersTable: FC = () => {
     ];
 
     return (
-        <InputBlockWrapper className={"lg:w-1/2"}>
+        <InputBlockWrapper className={"lg:w-1/2 px-0"}>
             <h4 className="text-center text-2xl font-semibold text-gray-800 mb-3 mt-1">
                 Параметры
 

@@ -40,7 +40,7 @@ export const theme = {
 
 // === Layout ===
 export const layout = {
-    page: "min-h-screen flex p-0 lg:p-2",
+    page: "min-h-screen flex p-0 lg:p-2 lg:pt-20 pt-16",
     wrapper: "mx-auto max-w-8xl flex flex-col lg:flex-row flex-grow justify-center"
 };
 
@@ -96,7 +96,7 @@ export const calculator = {
 
 // === Input block wrapper ===
 export const input_block_wrapper = {
-    layout: `${colors.light.border} ${common.borderRadius} ${common.blur} ${common.shadowSm}  p-4 mb-4 `,
+    layout: `${colors.light.border} ${common.borderRadius} ${common.blur} ${common.shadowSm} p-4 mb-4 `,
     // layout: "border border-gray-200 rounded-xl p-4 backdrop-blur-sm shadow-sm mb-4",
     theme: {
         light: colors.light.bg,

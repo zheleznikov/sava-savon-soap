@@ -1,22 +1,23 @@
 import "../index.css";
 import {Calculator} from "../pages/Calculator";
 import {FC} from "react";
-import {layout, theme} from "../shared/styles/layout";
-import {useTheme} from "./providers/ThemeContext";
+import {Route, Routes} from "react-router-dom";
+import {Layout} from "./providers/Layout";
+import {AboutPage} from "../pages/AboutPage";
+import {RecipesPage} from "../pages/RecipesPage";
 
 
 export const App: FC = () => {
 
-    const {appTheme} = useTheme();
 
     return (
-        <main className={`${layout.page} ${theme[appTheme]}`}>
-
-            <section className={layout.wrapper}>
-
-                <Calculator/>
-            </section>
-        </main>
+        <Layout>
+            <Routes>
+                <Route path="/" element={<Calculator />} />
+                <Route path="/recipes" element={<RecipesPage />} />
+                <Route path="/about" element={<AboutPage />} />
+            </Routes>
+        </Layout>
     );
 };
 

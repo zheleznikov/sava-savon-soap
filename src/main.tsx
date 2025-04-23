@@ -4,13 +4,16 @@ import './index.css'
 import {App} from './app/App.tsx'
 import {ThemeProvider} from "./app/providers/ThemeContext";
 import {SoapRecipeProvider} from "./app/providers/SoapRecipeContext";
+import {BrowserRouter} from "react-router-dom";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <ThemeProvider>
-            <SoapRecipeProvider>
-                <App/>
-            </SoapRecipeProvider>
-        </ThemeProvider>
+        <BrowserRouter>
+            <ThemeProvider>
+                <SoapRecipeProvider>
+                    <App/>
+                </SoapRecipeProvider>
+            </ThemeProvider>
+        </BrowserRouter>
     </StrictMode>,
 )

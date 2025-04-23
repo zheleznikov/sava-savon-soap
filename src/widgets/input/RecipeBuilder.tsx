@@ -16,9 +16,9 @@ export const RecipeBuilder = () => {
 
             <div className={"mb-4"}>
                 <h2
-                    className={`w-full text-4xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition text-gray-800`}
+                    className={`w-full text-4xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition text-gray-600`}
                 >
-                    Ввод параметров
+                   Калькулятор мыла
                 </h2>
 
 

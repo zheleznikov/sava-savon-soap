@@ -26,7 +26,7 @@ export const RecipeSummaryBlock = () => {
     } = useSoapRecipe();
 
     return (
-        <CalcBlockWrapper>
+        <CalcBlockWrapper className={"px-0 sm:px-2"}>
 
             <div className={"mb-4"}>
                 <RecipeTitleInput/>
@@ -34,7 +34,7 @@ export const RecipeSummaryBlock = () => {
 
             <div className="flex flex-col md:flex-row gap-2">
                 <div className="w-full lg:w-1/2">
-                    <InputBlockWrapper className={""}>
+                    <InputBlockWrapper className={"px-0"}>
 
                         <h4 className="text-center text-2xl font-semibold text-gray-800 mb-3 mt-1">
                             Состав
