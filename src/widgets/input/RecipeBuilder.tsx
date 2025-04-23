@@ -13,19 +13,40 @@ export const RecipeBuilder = () => {
 
     return (
         <CalcBlockWrapper className={"z-50"}>
-            <RecipeNameInput/>
 
-            <InputTypeToggle/>
-            <BasicParamsBlock/>
+            <div className={"mb-4"}>
+                <h2
+                    className={`w-full text-4xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition text-gray-800`}
+                >
+                    Ввод параметров
+                </h2>
 
-            <OilAutocomplete
-                onToggleOil={handleToggleOil}
-                selectedOils={selectedOils}
-            />
 
-            {selectedOils.map(oil => <OilAddedLine oil={oil} key={oil.id}/>)}
+            </div>
 
-            <OilWeightSummary/>
+            <div className="flex flex-col md:flex-row gap-4">
+                {/* Первый блок: Название, переключатель, параметры */}
+                <div className="w-full lg:w-1/2">
+                    <RecipeNameInput />
+                    <InputTypeToggle />
+                    <BasicParamsBlock />
+                </div>
+
+                {/* Второй блок: Автокомплит и масла */}
+                <div className="w-full lg:w-1/2">
+                    <OilAutocomplete
+                        onToggleOil={handleToggleOil}
+                        selectedOils={selectedOils}
+                    />
+
+                    {selectedOils.map((oil) => (
+                        <OilAddedLine oil={oil} key={oil.id} />
+                    ))}
+
+                    <OilWeightSummary />
+                </div>
+            </div>
+
         </CalcBlockWrapper>
     );
 };

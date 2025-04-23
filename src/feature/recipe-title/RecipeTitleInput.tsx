@@ -11,7 +11,7 @@ export const RecipeTitleInput = () => {
             value={recipeName}
             onChange={(e) => setRecipeName(e.target.value)}
             placeholder="Мой рецепт"
-            className={`w-full text-2xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition
+            className={`w-full text-4xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition
                 ${isEmpty ? "text-gray-400" : "text-green-700"}`}
         />
     );

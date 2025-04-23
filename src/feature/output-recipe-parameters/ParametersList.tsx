@@ -14,7 +14,7 @@ export const ParametersList = ({
     totalWaterAmount: number;
 }) => {
     const getRowClass = (index: number) =>
-        `grid grid-cols-3 gap-2 py-1 ${index % 2 === 0 ? "bg-stone-50" : "bg-white"} rounded-md px-2 items-center`;
+        `grid grid-cols-3 gap-2 py-1 ${index % 2 === 0 ? "bg-stone-50/90" : "bg-white"} rounded-md px-2 items-center`;
 
     const items = [
         { label: "Пережир", percent: Math.round(superfatPercent), gram: "—" },
@@ -24,7 +24,7 @@ export const ParametersList = ({
 
     return (
         <div>
-            <h4 className="text-md font-semibold text-emerald-700 mb-2 mt-1">Параметры</h4>
+            <h4 className="text-md font-semibold text-emerald-700 mb-2 mt-1">Параметры ввода</h4>
             <ul className="space-y-1 mt-2">
                 {items.map((item, index) => (
                     <li key={index} className={getRowClass(index)}>

@@ -9,7 +9,7 @@ export const OilsList = ({
     totalOilAmount: number;
 }) => {
     const getRowClass = (index: number) =>
-        `grid grid-cols-3 gap-2 py-1 ${index % 2 === 0 ? "bg-stone-50" : "bg-white"} rounded-md px-2 items-center`;
+        `grid grid-cols-3 gap-2 py-1 ${index % 2 === 0 ? "bg-stone-50/90" : "bg-white"} rounded-md px-2 items-center`;
 
     const totalPercent = selectedOils.reduce((sum, oil) => sum + (oil.percent || 0), 0);
 

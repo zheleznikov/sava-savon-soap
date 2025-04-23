@@ -16,7 +16,7 @@ export const common = {
 export const colors = {
     light: {
         border: "border border-gray-200",
-        bg: "bg-white/70",
+        bg: "bg-white/50",
         text: "text-gray-800",
         labelText: "text-gray-600",
         inputDisabled: "bg-gray-100 text-gray-500 cursor-not-allowed",
@@ -40,7 +40,7 @@ export const theme = {
 
 // === Layout ===
 export const layout = {
-    page: "min-h-screen flex p-2",
+    page: "min-h-screen flex p-0 lg:p-2",
     wrapper: "mx-auto max-w-8xl flex flex-col lg:flex-row flex-grow justify-center"
 };
 
@@ -76,7 +76,7 @@ export const autocomplete = {
 // === Calculator ===
 export const calculator = {
     wrapper: {
-        layout: `max-w-4xl ${common.borderRadius} p-2 sm:p-8 flex-grow`,
+        layout: `w-full lg:w-[70%] xl:w-[60%] max-w-[1600px] rounded-none sm:rounded-xl p-2 sm:p-8 flex-grow`,
         theme: {
             light: `${colors.light.bg} ${common.blurMd} ${common.shadowMd}`,
             dark: "",
