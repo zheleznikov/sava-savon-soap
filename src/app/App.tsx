@@ -14,6 +14,7 @@ export const App: FC = () => {
         <Layout>
             <Routes>
                 <Route path="/" element={<Calculator />} />
+                <Route path="/calculator" element={<Calculator />} />
                 <Route path="/recipes" element={<RecipesPage />} />
                 <Route path="/about" element={<AboutPage />} />
             </Routes>

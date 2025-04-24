@@ -1,96 +1,119 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
 import clsx from "clsx";
-
-const navLinks = [
-    { name: "Калькулятор мыла", href: "/" },
-    { name: "Рецепты", href: "/recipes" },
-    { name: "О нас", href: "/about" },
-];
+import { Menu, X } from "lucide-react";
+import {navbar} from "../../shared/styles/navbar";
+import {navLinks} from "../../app/config/links";
 
 export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollY = useRef(0);
     const location = useLocation();
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY.current && currentScrollY > 60) {
+                setIsVisible(false);
+            } else {
+                setIsVisible(true);
+            }
+
+            lastScrollY.current = currentScrollY;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
-        <nav className="bg-white shadow-lg border-b border-pink-100 fixed w-full z-50 shadow-sm">
-            <div className="max-w-[1600px] mx-auto">
-                <div className="flex justify-between h-16 items-center px-4">
-                    {/* Логотип или заголовок */}
-                    <div className="text-xl font-bold text-emerald-600">Sava Savon</div>
+        <>
+            <nav
+                className={clsx(
+                    navbar.base,
+                    navbar.light.style,
+                    isVisible ? "translate-y-0" : "-translate-y-full"
+                )}
+            >
+                <div className={navbar.container}>
+                    <div className={navbar.header}>
+                        <div className={navbar.light.logo}>Sava Savon</div>
 
+                        <div className={navbar.light.desktop_menu}>
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.name_rus}
+                                    to={link.href}
+                                    className={clsx(
+                                        navbar.light.desktop_link,
+                                        location.pathname === link.href
+                                            ? navbar.light.desktop_link_active
+                                            : navbar.light.desktop_link_inactive
+                                    )}
+                                >
+                                    {link.name_rus}
+                                </Link>
+                            ))}
+                        </div>
 
-                    {/*<div className="md:hidden absolute left-[72px] right-[72px] mx-auto text-sm font-medium text-emerald-700 bg-emerald-100/80 px-2 py-1 rounded shadow-sm text-center truncate">*/}
-                    {/*    {currentPage}*/}
-                    {/*</div>*/}
-
-                    {/* Десктопное меню */}
-                    <div className="hidden md:flex space-x-6">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                to={link.href}
-                                className={clsx(
-                                    "text-lg font-medium transition hover:text-emerald-600",
-                                    location.pathname === link.href ? "text-emerald-600" : "text-gray-700"
-                                )}
+                        <div className="md:hidden">
+                            <button
+                                onClick={() => setMenuOpen(true)}
+                                className={navbar.light.mobile_menu_button}
                             >
-                                {link.name}
-                            </Link>
-                        ))}
-                    </div>
-
-                    {/* Мобильное меню (иконка) */}
-                    <div className="md:hidden">
-                        <button onClick={() => setMenuOpen(true)} className="text-gray-600 hover:text-emerald-600">
-                            <Menu size={28} />
-                        </button>
+                                <Menu size={28} />
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </nav>
 
-            {/* Затемнённый фон при открытом меню */}
+            {/* Затемнение при открытом меню */}
             <div
                 className={clsx(
-                    "fixed inset-0 z-51 bg-black/30 backdrop-blur-sm transition-opacity duration-300",
+                    navbar.light.mobile_overlay,
                     menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
                 )}
                 onClick={() => setMenuOpen(false)}
             />
 
-            {/* Боковая панель на мобилке */}
+            {/* Выезжающее меню */}
             <div
                 className={clsx(
-                    "fixed top-0 left-0 z-[1000] w-64 h-full bg-white shadow-lg border-r border-gray-200 rounded-r-xl transform transition-transform duration-300",
+                    navbar.sidebar.base,
+                    navbar.light.sidebar_style,
                     menuOpen ? "translate-x-0" : "-translate-x-full"
                 )}
             >
-                <div className="flex items-center justify-between px-4 py-4 border-b">
-                    <span className="text-xl font-bold text-emerald-600">Меню</span>
-                    <button onClick={() => setMenuOpen(false)} className="text-gray-600 hover:text-red-500">
+                <div className={navbar.light.sidebar_header}>
+                    <span className={navbar.light.sidebar_title}>Меню</span>
+                    <button
+                        onClick={() => setMenuOpen(false)}
+                        className={navbar.light.sidebar_close_button}
+                    >
                         <X size={24} />
                     </button>
                 </div>
-                <nav className="flex flex-col gap-3 px-4 py-6">
+                <nav className={navbar.light.sidebar_nav}>
                     {navLinks.map((link) => (
                         <Link
-                            key={link.name}
+                            key={link.name_rus}
                             to={link.href}
                             onClick={() => setMenuOpen(false)}
                             className={clsx(
-                                "text-xl font-medium transition hover:text-emerald-600",
-                                location.pathname === link.href ? "text-emerald-600" : "text-gray-700"
+                                navbar.light.sidebar_link,
+                                location.pathname === link.href
+                                    ? navbar.light.sidebar_link_active
+                                    : navbar.light.sidebar_link_inactive
                             )}
                         >
-                            {link.name}
+                            {link.name_rus}
                         </Link>
                     ))}
-
                 </nav>
-
             </div>
-        </nav>
+        </>
     );
 };

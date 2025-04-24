@@ -78,6 +78,7 @@ export const BasicParamsBlock: FC = () => {
                     </div>
                 </div>
             </div>
+
         </InputBlockWrapper>
     );
 };
