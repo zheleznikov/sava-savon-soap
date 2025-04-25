@@ -1,4 +1,4 @@
-import {FC} from "react";
+import React, {FC} from "react";
 import {useTheme} from "../../app/providers/ThemeContext";
 import {clsx} from "clsx";
 
@@ -7,10 +7,10 @@ export const ThemeHandler: FC = () => {
     const isLight = appTheme === "light";
 
     // === Layout & position ===
-    const positionClass = "z-50 fixed top-10 right-0 sm:top-6 sm:right-6 hidden sm:flex";
+    const positionClass = "z-50 top-10 right-0 sm:top-6 sm:right-6";
     const containerBaseClass =
         "flex items-center px-1 border rounded-full shadow-inner transition-colors duration-300";
-    const containerSizeClass = "w-14 h-7 sm:w-16 sm:h-8";
+    const containerSizeClass = "w-10 h-5 sm:w-16 sm:h-8";
     const containerThemeClass = isLight
         ? "bg-gray-200 border-gray-300"
         : "bg-gray-800 border-gray-600";

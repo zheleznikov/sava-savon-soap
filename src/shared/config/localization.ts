@@ -1,5 +1,6 @@
 export const localization = {
     ru: {
+        logo: "sava savon",
         autocomplete: {
             placeholder: "Введите название масла"
         },
@@ -23,6 +24,9 @@ export const localization = {
             label_water_percent: "Процент воды",
             label_superfat_percent: "Процент пережира",
             placeholder_percent: "%"
+        },
+        navbar: {
+            menu: "Меню"
         }
     }
 };

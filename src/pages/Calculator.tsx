@@ -13,9 +13,7 @@ export const Calculator: FC = () => {
         <section className={clsx(calculator.wrapper.layout, calculator.wrapper.theme.light, "relative")}>
             {/*<ThemeHandler/>*/}
 
-            {/*<header className={clsx(calculator.header.layout, calculator.header.theme.light)}>*/}
-            {/*    {localization.ru.calculator.header}*/}
-            {/*</header>*/}
+
 
             <div className={calculator.main.layout}>
                 <RecipeBuilder/>

@@ -1,7 +1,7 @@
-import {Navbar} from "../../feature/navbar/Navbar";
+import {Navbar} from "@/widgets/navbar";
 import {FC, PropsWithChildren} from "react";
 import {useTheme} from "./ThemeContext";
-import {layout, theme} from "../../shared/styles/layout";
+import {layout, theme} from "@/shared/styles/layout";
 
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
