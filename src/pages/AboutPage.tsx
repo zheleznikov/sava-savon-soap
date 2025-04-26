@@ -1,1 +1,0 @@
-export const AboutPage = () =>  <div className={"text-gray-500 text-xl font-bold"}>Придет время и расскажем, кто мы</div>;

@@ -1,6 +1,6 @@
 import {useSoapRecipe} from "./useSoapRecipe";
 import {useEffect, useState} from "react";
-import {InputType} from "../../../app/providers/SoapRecipeContext.types";
+import {InputType, LyeType} from "../../../app/providers/SoapRecipeContext.types";
 import {
     calculateLyeSum,
     calculateOilSum,
@@ -8,18 +8,29 @@ import {
     isValidPercentRange,
     scaleRecipeToTotalWeight
 } from "../libs/calcRecipeUtils";
+import {TOil} from "../../../entities/oil/model/oil.types";
+
+interface SoapCalculationsOverrides {
+    selectedOils?: TOil[];
+    lyeType?: LyeType;
+    superfatPercent?: number;
+    waterPercent?: number;
+    inputType?: InputType;
+    userDefinedTotalWeight?: number;
+}
 
 
-export const useSoapCalculations = () => {
-    const {
-        selectedOils,
-        setSelectedOils,
-        lyeType,
-        superfatPercent,
-        waterPercent,
-        inputType,
-        userDefinedTotalWeight
-    } = useSoapRecipe();
+export const useSoapCalculations = (overrides: SoapCalculationsOverrides = {}) => {
+    const context  = useSoapRecipe();
+
+    const selectedOils = overrides.selectedOils ?? context.selectedOils;
+    const lyeType = overrides.lyeType ?? context.lyeType;
+    const superfatPercent = overrides.superfatPercent ?? context.superfatPercent;
+    const waterPercent = overrides.waterPercent ?? context.waterPercent;
+    const inputType = overrides.inputType ?? context.inputType;
+    const userDefinedTotalWeight = overrides.userDefinedTotalWeight ?? context.userDefinedTotalWeight;
+
+
 
     const [totalOilAmount, setTotalOilAmount] = useState(0);
     const [totalLyeAmount, setTotalLyeAmount] = useState(0);
@@ -64,7 +75,7 @@ export const useSoapCalculations = () => {
                     const hasChanged = updatedOils.some((o, i) => o.gram !== selectedOils[i].gram);
 
                     if (hasChanged) {
-                        setSelectedOils(updatedOils);
+                        context.setSelectedOils(updatedOils);
                     }
                 }
             }

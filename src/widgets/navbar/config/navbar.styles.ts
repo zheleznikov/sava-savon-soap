@@ -1,11 +1,11 @@
 // === Базовые переменные light ===
 const themeLight = {
     mainBg: "bg-white",
-    textAccent: "text-emerald-600",
+    textAccent: "text-indigo-600",
     textDefault: "text-gray-700",
     border: "border-pink-100",
     sidebarBorder: "border-gray-200",
-    hoverAccent: "hover:text-emerald-500",
+    hoverAccent: "hover:text-indigo-500",
     overlay: "bg-black/30 backdrop-blur-sm",
     closeHover: "hover:text-red-500",
 };
@@ -13,11 +13,11 @@ const themeLight = {
 // === Базовые переменные dark ===
 const themeDark = {
     mainBg: "bg-gray-900",
-    textAccent: "text-emerald-400",
+    textAccent: "text-indigo-400",
     textDefault: "text-gray-300",
     border: "border-gray-700",
     sidebarBorder: "border-gray-700",
-    hoverAccent: "hover:text-emerald-400",
+    hoverAccent: "hover:text-indigo-400",
     overlay: "bg-black/50 backdrop-blur-md",
     closeHover: "hover:text-red-400",
 };

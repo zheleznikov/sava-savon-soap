@@ -1,5 +1,3 @@
-import {useSoapCalculations} from "../../feature/recipe-calculation/model/useSoapCalculations";
-import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecipe";
 import {RecipeTitleInput} from "../../feature/recipe-title/RecipeTitleInput";
 import {ScaleRecipeBlock} from "../../feature/scale-recipe/ScaleRecipeBlock";
 import {ParametersList} from "../../feature/output-recipe-parameters/ParametersList";
@@ -8,35 +6,61 @@ import {ResultSummary} from "../../feature/output-summary/ResultSummary";
 import {RecipeParametersTable} from "../../feature/recipe-params-table/RecipeParametersTable";
 import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
 import {CalcBlockWrapper} from "../../shared/ui/CalcBlockWrapper";
+import React, {FC} from "react";
+import {InputType, LyeType} from "../../app/providers/SoapRecipeContext.types";
+import {TOil} from "../../entities/oil/model/oil.types";
 
 
-export const RecipeSummaryBlock = () => {
-    const {
-        totalLyeAmount,
-        totalWaterAmount,
-        totalResultAmount,
-        totalOilAmount
-    } = useSoapCalculations();
+interface RecipeSummaryBlockProps {
+    recipeName: string;
+    setRecipeName: (val: string) => void;
+    inputType: InputType;
+    setInputType: (val: InputType) => void;
+    userDefinedTotalWeight: number;
+    setUserDefinedTotalWeight: (val: number) => void;
+    selectedOils: TOil[];
+    totalOilAmount: number;
+    totalLyeAmount: number;
+    totalWaterAmount: number;
+    totalResultAmount: number;
+    lyeType: LyeType;
+    superfatPercent: number;
+    waterPercent: number;
+}
 
-    const {
-        selectedOils,
-        lyeType,
-        superfatPercent,
-        waterPercent
-    } = useSoapRecipe();
+export const RecipeSummaryBlock: FC<RecipeSummaryBlockProps> = ({
+                                                                    recipeName,
+                                                                    setRecipeName,
+                                                                    inputType,
+                                                                    setInputType,
+                                                                    userDefinedTotalWeight,
+                                                                    setUserDefinedTotalWeight,
+                                                                    selectedOils,
+                                                                    totalOilAmount,
+                                                                    totalLyeAmount,
+                                                                    totalWaterAmount,
+                                                                    totalResultAmount,
+                                                                    lyeType,
+                                                                    superfatPercent,
+                                                                    waterPercent,
+                                                                }) => {
+
 
     return (
         <CalcBlockWrapper className={"px-0 sm:px-2"}>
 
             <div className={"mb-4"}>
-                <RecipeTitleInput/>
+                <RecipeTitleInput
+                    recipeName={recipeName}
+                    setRecipeName={setRecipeName}
+                />
             </div>
 
             <div className="flex flex-col md:flex-row gap-2">
                 <div className="w-full lg:w-1/2">
                     <InputBlockWrapper className={"px-0"}>
 
-                        <h4 className="text-center text-2xl font-semibold text-gray-800 mb-3 mt-1">
+                        <h4 className="text-center text-2xl font-bold text-gray-800 mb-3 mt-1">
                             Состав
                         </h4>
 
@@ -61,14 +85,21 @@ export const RecipeSummaryBlock = () => {
 
                         <ResultSummary totalResultAmount={totalResultAmount}/>
 
-                        <ScaleRecipeBlock/>
-
 
                     </InputBlockWrapper>
+                    <ScaleRecipeBlock
+                        inputType={inputType}
+                        setInputType={setInputType}
+                        userDefinedTotalWeight={userDefinedTotalWeight}
+                        setUserDefinedTotalWeight={setUserDefinedTotalWeight}
+                        totalResultAmount={totalResultAmount}
+                    />
 
                 </div>
-                    <RecipeParametersTable/>
+                <RecipeParametersTable/>
             </div>
+
+
         </CalcBlockWrapper>
     );
 };

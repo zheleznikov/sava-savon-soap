@@ -3,8 +3,8 @@ import {Calculator} from "../pages/Calculator";
 import {FC} from "react";
 import {Route, Routes} from "react-router-dom";
 import {Layout} from "./providers/Layout";
-import {AboutPage} from "../pages/AboutPage";
 import {RecipesPage} from "../pages/RecipesPage";
+import {AboutPage} from "@/pages/about";
 
 
 export const App: FC = () => {

@@ -2,13 +2,11 @@ import {Link, useLocation} from "react-router-dom";
 import clsx from "clsx";
 import {Menu, X} from "lucide-react";
 
-import { useNavbar } from "@/widgets/navbar";
-import { navbar } from "@/widgets/navbar";
-import { navLinks } from "@/widgets/navbar";
-import { localization } from "@/shared/config/localization";
+import {navbar, navLinks, useNavbar} from "@/widgets/navbar";
 import {useTheme} from "@/app/providers/ThemeContext";
 import {ThemeHandler} from "@/feature/theme-handler/ThemeHandler";
-import logo from "@/assets/logo4.svg";
+import logo_white from "@/assets/logo4.svg";
+import logo_black from "@/assets/logo-black.svg";
 
 
 export const Navbar = () => {
@@ -18,6 +16,8 @@ export const Navbar = () => {
     const { appTheme } = useTheme();
 
     const s = navbar[appTheme];
+
+    const logo = appTheme === "dark" ? logo_black : logo_white;
 
     return (
         <>
@@ -69,7 +69,6 @@ export const Navbar = () => {
                                         <Menu size={28} />
                                     </button>
                                     <div className={s.logo}>
-                                        {/*{localization.ru.logo}*/}
                                         <img
                                             src={logo}
                                             alt="Sava Savon Logo"
@@ -108,7 +107,11 @@ export const Navbar = () => {
                     >
 
                         <div className={s.sidebar_header}>
-                            <span className={s.sidebar_title}>{localization.ru.logo}</span>
+                            <img
+                                src={logo}
+                                alt="Sava Savon Logo"
+                                className="h-12 w-auto"
+                            />
                             <button
                                 onClick={closeMenu}
                                 className={s.sidebar_close_button}

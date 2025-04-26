@@ -4,7 +4,7 @@ import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecip
 import {OilWeightSummary} from "../../feature/percent-progress-bar/OilWeightSummary";
 import {CalcBlockWrapper} from "../../shared/ui/CalcBlockWrapper";
 import {RecipeNameInput} from "../../feature/recipe-name-input/RecipeNameInput";
-import {BasicParamsBlock} from "../../feature/input-basic-params/BasicParamsBlock";
+import {BasicParamsBlock} from "../../feature/input-basic-params";
 import {InputTypeToggle} from "../../feature/input-toogle-input-type/InputTypeToggle";
 
 export const RecipeBuilder = () => {
@@ -16,7 +16,7 @@ export const RecipeBuilder = () => {
 
             <div className={"mb-4"}>
                 <h2
-                    className={`w-full text-3xl xs:text-4xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition text-gray-700`}
+                    className={`w-full text-3xl xs:text-4xl text-center font-bold min-h-[2.5rem] bg-transparent outline-none transition text-gray-700`}
                 >
                    Калькулятор мыла
                 </h2>

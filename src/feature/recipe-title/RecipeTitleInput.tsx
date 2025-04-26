@@ -1,7 +1,14 @@
-import {useSoapRecipe} from "../recipe-calculation/model/useSoapRecipe";
+import {FC} from "react";
 
-export const RecipeTitleInput = () => {
-    const { recipeName, setRecipeName } = useSoapRecipe();
+interface RecipeTitleInputProps {
+    recipeName: string;
+    setRecipeName: (value: string) => void;
+}
+
+export const RecipeTitleInput: FC<RecipeTitleInputProps> = ({
+                                                                recipeName,
+                                                                setRecipeName,
+                                                            }) => {
 
     const isEmpty = recipeName.trim() === "";
 

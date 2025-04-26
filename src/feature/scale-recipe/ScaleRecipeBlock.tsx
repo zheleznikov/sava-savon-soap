@@ -1,18 +1,25 @@
 import {FC} from "react";
 import {InputType} from "../../app/providers/SoapRecipeContext.types";
 import {SmartNumberInput} from "../../shared/ui/SmartNumberInput";
-import {useSoapRecipe} from "../recipe-calculation/model/useSoapRecipe";
-import {useSoapCalculations} from "../recipe-calculation/model/useSoapCalculations";
+import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
 
-export const ScaleRecipeBlock: FC = () => {
-    const { totalResultAmount } = useSoapCalculations();
 
-    const {
-        inputType,
-        setInputType,
-        userDefinedTotalWeight,
-        setUserDefinedTotalWeight,
-    } = useSoapRecipe();
+interface ScaleRecipeBlockProps {
+    inputType: InputType;
+    setInputType: (val: InputType) => void;
+    userDefinedTotalWeight: number;
+    setUserDefinedTotalWeight: (val: number) => void;
+    totalResultAmount: number;
+}
+
+export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
+                                                                inputType,
+                                                                setInputType,
+                                                                userDefinedTotalWeight,
+                                                                setUserDefinedTotalWeight,
+                                                                totalResultAmount,
+                                                            }) => {
+
 
     const isGramMode = inputType === InputType.Gram;
 
@@ -25,32 +32,28 @@ export const ScaleRecipeBlock: FC = () => {
     };
 
     return (
-        <div className="mt-4 w-fit">
-            <div className="flex items-center gap-1 mb-1">
-                <label className="text-sm text-gray-700"
-                       title="Измените, чтобы задать точный вес готового мыла. Рецепт пересчитается автоматически.">Общий вес мыла — можно изменить</label>
-
+        <InputBlockWrapper>
+            <div className="flex flex-col gap-2 mb-4">
+                <h2 className="text-lg font-bold text-gray-800 text-center">
+                    Масштабирование рецепта
+                </h2>
+                <p className="text-sm text-gray-600">
+                    Измените общий вес готового мыла — рецепт пересчитается автоматически.
+                </p>
             </div>
 
-
-            <div className="flex items-center gap-1"
-                 title="Измените, чтобы задать точный вес готового мыла. Рецепт пересчитается автоматически."
-            >
+            <div className="flex items-center gap-3">
                 <SmartNumberInput
                     decimalPlaces={0}
                     value={isGramMode ? totalResultAmount : userDefinedTotalWeight}
                     onChange={handleInputChange}
-                    placeholder="Например, 600"
+                    placeholder="Вес мыла, г"
                     min={10}
                     max={10000}
-                    className="text-sm px-2 py-1 w-[240px]" // 👈 ширина под текст лейбла
-
+                    className="text-lg px-4 py-2 w-full h-14 rounded-md border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
                 />
-                <span className="text-gray-500 text-sm">г</span>
+                <span className="text-md text-gray-500">г</span>
             </div>
-        </div>
-
-
+        </InputBlockWrapper>
     );
-
 };

@@ -21,14 +21,24 @@ export const colors = {
         labelText: "text-gray-600",
         inputDisabled: "bg-gray-100 text-gray-500 cursor-not-allowed",
         unitText: "text-gray-500",
+        radioText: "text-gray-700",
+        radioBg: "bg-white",
+        radioHover: "hover:bg-gray-100",
+        radioActiveBg: "bg-emerald-500",
+        radioActiveText: "text-white",
     },
     dark: {
         border: "border border-gray-700",
-        bg: "bg-gray-900/50",
-        labelText: "text-gray-600", //todo
-        inputDisabled: "bg-gray-100 text-gray-500 cursor-not-allowed", //todo
+        bg: "bg-gray-900/90",
+        labelText: "text-gray-600",
+        inputDisabled: "bg-gray-100 text-gray-500 cursor-not-allowed",
         text: "text-white",
         unitText: "text-gray-300",
+        radioText: "text-gray-300",
+        radioBg: "bg-gray-800",
+        radioHover: "hover:bg-gray-700",
+        radioActiveBg: "bg-emerald-400",
+        radioActiveText: "text-white",
     },
 };
 
@@ -94,15 +104,7 @@ export const calculator = {
     }
 };
 
-// === Input block wrapper ===
-export const input_block_wrapper = {
-    layout: `${colors.light.border} ${common.borderRadius} ${common.blur} ${common.shadowSm} p-4 mb-4 `,
-    // layout: "border border-gray-200 rounded-xl p-4 backdrop-blur-sm shadow-sm mb-4",
-    theme: {
-        light: colors.light.bg,
-        dark: ""
-    }
-};
+
 
 // === Input fields ===
 export const input = {
@@ -136,27 +138,27 @@ export const input = {
             dark: {}
         }
     },
-    basic_params: {
-        layout: {
-            wrapper: "space-y-4",
-            lye_type_row: `${common.flexColumn} flex-row gap-1`,
-            button_group: `flex overflow-hidden w-fit ${colors.light.border} ${common.borderRadius}`,
-            param_row: "flex flex-wrap gap-4 sm:items-center",
-            field_wrapper: `${common.flexColumn} min-w-[140px]`,
-            field_inner: "flex items-center gap-1",
-            input: `w-full max-w-[100px] ${common.textSm}`,
-        },
-        theme: {
-            light: {
-                label: common.labelText,
-                button_base: `px-4 py-1 ${common.textSm} ${common.transition}`,
-                button_active: "bg-emerald-500 text-white",
-                button_inactive: "bg-white text-gray-700 hover:bg-gray-100",
-                unit_text: colors.light.unitText,
-            },
-            dark: {} // можно позже заполнить
-        }
-    }
+    // basic_params: {
+    //     layout: {
+    //         wrapper: "space-y-4",
+    //         lye_type_row: `${common.flexColumn} flex-row gap-1`,
+    //         button_group: `flex overflow-hidden w-fit ${colors.light.border} ${common.borderRadius}`,
+    //         param_row: "flex flex-wrap gap-4 sm:items-center",
+    //         field_wrapper: `${common.flexColumn} min-w-[140px]`,
+    //         field_inner: "flex items-center gap-1",
+    //         input: `w-full max-w-[100px] ${common.textSm}`,
+    //     },
+    //     theme: {
+    //         light: {
+    //             label: common.labelText,
+    //             button_base: `px-4 py-1 ${common.textSm} ${common.transition}`,
+    //             button_active: "bg-emerald-500 text-white",
+    //             button_inactive: "bg-white text-gray-700 hover:bg-gray-100",
+    //             unit_text: colors.light.unitText,
+    //         },
+    //         dark: {} // можно позже заполнить
+    //     }
+    // }
 };
 
 
