@@ -11,12 +11,12 @@ import {ThemeHandler} from "@/feature/theme-handler/ThemeHandler";
 
 
 export const Navbar = () => {
-    const { menuOpen, menuVisible, isVisible, openMenu, closeMenu } = useNavbar();
     const location = useLocation();
 
+    const { menuOpen, menuVisible, isVisible, openMenu, closeMenu } = useNavbar();
     const { appTheme } = useTheme();
 
-    const styles = navbar[appTheme];
+    const s = navbar[appTheme];
 
     return (
         <>
@@ -25,24 +25,24 @@ export const Navbar = () => {
                 <nav
                     className={clsx(
                         navbar.base,
-                        styles.style,
+                        s.style,
                         isVisible ? "translate-y-0" : "-translate-y-full"
                     )}
                 >
                     <div className={navbar.container}>
                         <div className={navbar.header}>
-                            <div className={clsx(styles.logo, "hidden md:block")}>{localization.ru.logo}</div>
+                            <div className={clsx(s.logo, s.logo_hidden)}>{localization.ru.logo}</div>
 
-                            <div className={clsx(styles.desktop_menu, "items-center gap-4")}>
+                            <div className={clsx(s.desktop_menu)}>
                                 {navLinks.map((link) => (
                                     <Link
                                         key={link.name_rus}
                                         to={link.href}
                                         className={clsx(
-                                            styles.desktop_link,
+                                            s.desktop_link,
                                             location.pathname === link.href
-                                                ? styles.desktop_link_active
-                                                : styles.desktop_link_inactive
+                                                ? s.desktop_link_active
+                                                : s.desktop_link_inactive
                                         )}
                                     >
                                         {link.name_rus}
@@ -52,15 +52,15 @@ export const Navbar = () => {
                             </div>
 
 
-                            <div className="md:hidden flex items-center justify-between w-full px-2">
-                                <div className="flex items-center gap-2">
+                            <div className={s.mobile_wrapper}>
+                                <div className={s.mobile_inner}>
                                     <button
                                         onClick={openMenu}
-                                        className={styles.mobile_menu_button}
+                                        className={s.mobile_menu_button}
                                     >
                                         <Menu size={28} />
                                     </button>
-                                    <div className={styles.logo}>{localization.ru.logo}</div>
+                                    <div className={s.logo}>{localization.ru.logo}</div>
                                 </div>
 
                                 <ThemeHandler />
@@ -77,7 +77,7 @@ export const Navbar = () => {
                 <>
                     <div
                         className={clsx(
-                            styles.mobile_overlay,
+                            s.mobile_overlay,
                             menuOpen ? "opacity-100" : "opacity-0"
                         )}
                         onClick={closeMenu}
@@ -87,41 +87,40 @@ export const Navbar = () => {
                         id="mobile-sidebar"
                         className={clsx(
                             navbar.sidebar.base,
-                            styles.sidebar_style,
+                            s.sidebar_style,
                             menuOpen ? "translate-x-0" : "-translate-x-full"
                         )}
                     >
-                        {/* Хедер сайдбара */}
-                        <div className={styles.sidebar_header}>
-                            <span className={styles.sidebar_title}>{localization.ru.logo}</span>
+
+                        <div className={s.sidebar_header}>
+                            <span className={s.sidebar_title}>{localization.ru.logo}</span>
                             <button
                                 onClick={closeMenu}
-                                className={styles.sidebar_close_button}
+                                className={s.sidebar_close_button}
                             >
                                 <X size={28} />
                             </button>
                         </div>
 
-                        {/* Навигация */}
-                        <nav className={styles.sidebar_nav}>
+
+                        <nav className={s.sidebar_nav}>
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name_rus}
                                     to={link.href}
-                                    onClick={closeMenu} // 👈 оставляем только на Link!
+                                    onClick={closeMenu}
                                     className={clsx(
-                                        styles.sidebar_link,
+                                        s.sidebar_link,
                                         location.pathname === link.href
-                                            ? styles.sidebar_link_active
-                                            : styles.sidebar_link_inactive
+                                            ? s.sidebar_link_active
+                                            : s.sidebar_link_inactive
                                     )}
                                 >
                                     {link.name_rus}
                                 </Link>
                             ))}
-
-
                         </nav>
+
                     </div>
                 </>
             )}
