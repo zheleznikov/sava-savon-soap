@@ -41,7 +41,7 @@ export const ThemeHandler: FC = () => {
                     knobTranslateClass
                 )}
             >
-                {isLight ? "🌞" : "🌙"}
+                {isLight ? "☀️" : "🌙"}
             </div>
         </button>
     );

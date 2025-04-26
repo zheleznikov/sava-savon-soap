@@ -8,6 +8,7 @@ import { navLinks } from "@/widgets/navbar";
 import { localization } from "@/shared/config/localization";
 import {useTheme} from "@/app/providers/ThemeContext";
 import {ThemeHandler} from "@/feature/theme-handler/ThemeHandler";
+import logo from "@/assets/logo4.svg";
 
 
 export const Navbar = () => {
@@ -31,7 +32,14 @@ export const Navbar = () => {
                 >
                     <div className={navbar.container}>
                         <div className={navbar.header}>
-                            <div className={clsx(s.logo, s.logo_hidden)}>{localization.ru.logo}</div>
+                            <div className={clsx(s.logo, s.logo_hidden)}>
+                                {/*{localization.ru.logo}*/}
+                                <img
+                                    src={logo}
+                                    alt="Sava Savon Logo"
+                                    className="h-12 w-auto"
+                                />
+                            </div>
 
                             <div className={clsx(s.desktop_menu)}>
                                 {navLinks.map((link) => (
@@ -60,7 +68,14 @@ export const Navbar = () => {
                                     >
                                         <Menu size={28} />
                                     </button>
-                                    <div className={s.logo}>{localization.ru.logo}</div>
+                                    <div className={s.logo}>
+                                        {/*{localization.ru.logo}*/}
+                                        <img
+                                            src={logo}
+                                            alt="Sava Savon Logo"
+                                            className="h-8 w-auto"
+                                        />
+                                    </div>
                                 </div>
 
                                 <ThemeHandler />
