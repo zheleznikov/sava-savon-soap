@@ -13,6 +13,7 @@ export const useCreateRecipePdf = () => {
         if (!pdfRef.current) return;
 
         setIsDownloadingPdf(true);
+        await new Promise((resolve) => setTimeout(resolve, 100));
 
 
         // 1. Делаем скриншот содержимого
@@ -94,6 +95,7 @@ export const useCreateRecipePdf = () => {
         if (!pdfRef.current) return;
 
         setIsDownloadingPdf(true);
+        await new Promise((resolve) => setTimeout(resolve, 100));
 
         try {
             const canvas = await html2canvas(pdfRef.current, {
@@ -102,29 +104,31 @@ export const useCreateRecipePdf = () => {
                 useCORS: true,
             });
 
-            const blob: Blob = await new Promise((resolve) => {
+            const blob: Blob = await new Promise((resolve, reject) => {
                 canvas.toBlob((blob) => {
                     if (blob) resolve(blob);
+                    else reject(new Error('Ошибка при создании изображения'));
                 }, 'image/jpeg', 0.8);
             });
 
             const file = new File([blob], `${name}.jpg`, { type: "image/jpeg" });
 
+            // Попытка поделиться
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({
-                    files: [file],
-                    title: "Рецепт мыла",
-                    text: "Посмотрите мой рецепт мыла!",
-                });
+                try {
+                    await navigator.share({
+                        files: [file],
+                        title: "Рецепт мыла",
+                        text: "Посмотрите мой рецепт мыла!",
+                    });
+                } catch (error) {
+                    console.warn('Пользователь отменил отправку или произошла ошибка.', error);
+                    fallbackDownload(blob, name);
+                    alert("Изображение сохранено. Откройте его в Галерее, чтобы отправить.");
+                }
             } else {
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `${name}.jpg`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
+                fallbackDownload(blob, name);
+                alert("Изображение сохранено. Откройте его в Галерее, чтобы отправить.");
             }
         } catch (error) {
             console.error("Ошибка при попытке поделиться:", error);
@@ -133,6 +137,16 @@ export const useCreateRecipePdf = () => {
         setIsDownloadingPdf(false);
     };
 
+    const fallbackDownload = (blob: Blob, name: string) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${name}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    };
 
 
     return {
