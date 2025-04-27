@@ -23,5 +23,28 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.pdf-mode': {
+          '@apply bg-white max-w-2xl mx-auto text-sm leading-tight': {},
+        },
+        '.pdf-mode h4': {
+          '@apply text-lg font-bold mb-2 mt-2 text-center': {},
+        },
+        '.pdf-mode .shadow-md, .pdf-mode .shadow-lg': {
+          'box-shadow': 'none',
+        },
+        '.pdf-mode .border-b': {
+          'border-color': '#d1d5db', // light gray (gray-300)
+        },
+        '.pdf-mode .text-gray-500': {
+          'color': '#6b7280', // немного темнее gray-500
+        },
+        '.pdf-mode button': {
+          'display': 'none',
+        },
+      });
+    }
+  ]
 }

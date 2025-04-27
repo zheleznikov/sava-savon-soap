@@ -1,6 +1,5 @@
 import {FC} from "react";
 import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
-import {useSoapProperties} from "../recipe-calculation/model/useSoapProperties";
 import {formatNumber} from "../../shared/lib/utils";
 
 
@@ -9,18 +8,25 @@ function isInRange(value: number, range: string): boolean {
     return value >= min && value <= max;
 }
 
-export const RecipeParametersTable: FC = () => {
 
+export interface RecipeParametersTableProps {
+    hardness: number;
+    cleansing: number;
+    soften: number;
+    bubbling: number;
+    creaminess: number;
+    iodine: number;
+    // ins?: number; // если потом понадобится
+}
 
-    const {
-        hardness,
-        cleansing,
-        soften,
-        bubbling,
-        creaminess,
-        iodine,
-        // ins
-    } = useSoapProperties();
+export const RecipeParametersTable: FC<RecipeParametersTableProps> = ({
+                                                                          hardness,
+                                                                          cleansing,
+                                                                          soften,
+                                                                          bubbling,
+                                                                          creaminess,
+                                                                          iodine,
+                                                                      }) => {
 
 
     const parameters = [

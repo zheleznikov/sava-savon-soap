@@ -1,11 +1,10 @@
-import { useSoapRecipe } from "./useSoapRecipe";
-import { useSoapCalculations } from "./useSoapCalculations";
-import { useSoapProperties } from "./useSoapProperties";
+import {useSoapRecipe} from "./useSoapRecipe";
+import {useSoapCalculations} from "./useSoapCalculations";
+import {useSoapProperties} from "./useSoapProperties";
 
 export const useSaveRecipe = () => {
     const {
         recipeName,
-        inputType,
         lyeType,
         waterPercent,
         superfatPercent,
@@ -24,29 +23,21 @@ export const useSaveRecipe = () => {
 
     const handleSaveRecipe = () => {
         const recipeData = {
-            name: recipeName,
-            inputType,
+            recipeName,
+            selectedOils,
+            totalOilAmount,
+            totalLyeAmount,
+            totalWaterAmount,
+            totalResultAmount,
             lyeType,
-            waterPercent,
             superfatPercent,
-            userDefinedTotalWeight,
-            selectedOils: selectedOils.map((oil) => ({
-                id: oil.id,
-                name: oil.name_rus,
-                gram: oil.gram,
-                percent: oil.percent,
-            })),
-            totals: {
-                totalOilAmount,
-                totalLyeAmount,
-                totalWaterAmount,
-                totalResultAmount,
-            },
+            waterPercent,
             properties,
+            userDefinedTotalWeight,
         };
 
         console.log("Сохраняемый рецепт:", recipeData);
     };
 
-    return { handleSaveRecipe };
+    return {handleSaveRecipe};
 };

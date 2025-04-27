@@ -1,0 +1,39 @@
+import {clsx} from "clsx";
+import {calculator} from "../../../shared/styles/layout";
+import {recipes} from "../../../data/recipes.mock";
+import {RecipeCard} from "../../../widgets/recipe-card/ui/RecipeCard";
+import {LyeType} from "../../../app/providers/SoapRecipeContext.types";
+
+export const RecipesPage = () => {
+    return (
+        <section className={clsx(calculator.wrapper.layout, calculator.wrapper.theme.light, "relative")}>
+                <h2
+                    className={`w-full text-3xl xs:text-4xl text-center font-bold min-h-[2.5rem] bg-transparent outline-none transition text-gray-700 mb-4`}
+                >
+                    Рецепты
+                </h2>
+
+            <div className="flex flex-wrap -mx-2">
+                {recipes.map((it, index) => (
+                    <RecipeCard
+                        key={index}
+                        recipeName={it.recipeName}
+                        selectedOils={it.selectedOils}
+                        totalOilAmount={it.totalOilAmount}
+                        totalLyeAmount={it.totalLyeAmount}
+                        totalWaterAmount={it.totalWaterAmount}
+                        totalResultAmount={it.totalResultAmount}
+                        lyeType={it.lyeType as LyeType}
+                        superfatPercent={it.superfatPercent}
+                        waterPercent={it.waterPercent}
+                        properties={it.properties}
+                    />
+                ))}
+            </div>
+
+
+        </section>
+
+
+    );
+};

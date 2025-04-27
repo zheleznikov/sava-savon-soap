@@ -1,7 +1,6 @@
 import {useSoapRecipe} from "./useSoapRecipe";
 import {useEffect, useState} from "react";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
-import {TOil} from "../../../entities/oil/model/oil.types";
 
 type SoapPropertiesResult = {
     hardness: number;
@@ -14,16 +13,10 @@ type SoapPropertiesResult = {
 };
 
 
-interface SoapPropertiesOverrides {
-    selectedOils?: TOil[];
-    inputType?: InputType;
-}
 
-export const useSoapProperties = (overrides: SoapPropertiesOverrides = {}): SoapPropertiesResult => {
-    const context = useSoapRecipe();
 
-    const selectedOils = overrides.selectedOils ?? context.selectedOils;
-    const inputType = overrides.inputType ?? context.inputType;
+export const useSoapProperties = (): SoapPropertiesResult => {
+    const { selectedOils, inputType } = useSoapRecipe();
 
     const [properties, setProperties] = useState<SoapPropertiesResult>({
         hardness: 0,

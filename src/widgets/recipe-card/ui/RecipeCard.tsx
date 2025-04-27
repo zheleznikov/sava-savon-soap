@@ -8,6 +8,9 @@ import {CalcBlockWrapper} from "@/shared/ui/CalcBlockWrapper";
 import React, {FC} from "react";
 import {LyeType} from "@/app/providers/SoapRecipeContext.types";
 import {TOil} from "@/entities/oil/model/oil.types";
+import {RecipeParametersTableProps} from "../../../feature/recipe-params-table/RecipeParametersTable";
+
+import { useNavigate } from "react-router-dom";
 
 
 interface Props {
@@ -20,6 +23,7 @@ interface Props {
     lyeType: LyeType;
     superfatPercent: number;
     waterPercent: number;
+    properties: RecipeParametersTableProps
 }
 
 export const RecipeCard: FC<Props> = ({
@@ -32,7 +36,28 @@ export const RecipeCard: FC<Props> = ({
                                           lyeType,
                                           superfatPercent,
                                           waterPercent,
+                                          properties
                                       }) => {
+
+    const navigate = useNavigate();
+
+    const handleEdit = () => {
+        navigate('/calculator', {
+            state: {
+                mode: "edit",
+                recipeName,
+                selectedOils,
+                totalOilAmount,
+                totalLyeAmount,
+                totalWaterAmount,
+                totalResultAmount,
+                lyeType,
+                superfatPercent,
+                waterPercent,
+                properties
+            }
+        });
+    };
 
 
     return (
@@ -41,7 +66,8 @@ export const RecipeCard: FC<Props> = ({
             <div className={"mb-4"}>
                 <RecipeTitleInput
                     recipeName={recipeName}
-                    setRecipeName={() => {}}
+                    setRecipeName={() => {
+                    }}
                 />
             </div>
 
@@ -77,7 +103,27 @@ export const RecipeCard: FC<Props> = ({
                     </InputBlockWrapper>
 
                 </div>
-                <RecipeParametersTable/>
+                <RecipeParametersTable
+                    hardness={properties.hardness}
+                    cleansing={properties.cleansing}
+                    soften={properties.soften}
+                    bubbling={properties.bubbling}
+                    creaminess={properties.creaminess}
+                    iodine={properties.iodine}
+                />
+            </div>
+
+            {/* КНОПКА "Редактировать" */}
+            <div className="flex justify-end mt-4 px-4">
+                <button
+                    className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-semibold transition"
+                    onClick={() => {
+                        handleEdit();
+                        // Тут можно потом открывать модалку или переходить на страницу редактирования
+                    }}
+                >
+                    Редактировать
+                </button>
             </div>
 
 

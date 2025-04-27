@@ -10,32 +10,25 @@ import {
 } from "../libs/calcRecipeUtils";
 import {TOil} from "../../../entities/oil/model/oil.types";
 
-interface SoapCalculationsOverrides {
-    selectedOils?: TOil[];
-    lyeType?: LyeType;
-    superfatPercent?: number;
-    waterPercent?: number;
-    inputType?: InputType;
-    userDefinedTotalWeight?: number;
-}
 
 
-export const useSoapCalculations = (overrides: SoapCalculationsOverrides = {}) => {
-    const context  = useSoapRecipe();
 
-    const selectedOils = overrides.selectedOils ?? context.selectedOils;
-    const lyeType = overrides.lyeType ?? context.lyeType;
-    const superfatPercent = overrides.superfatPercent ?? context.superfatPercent;
-    const waterPercent = overrides.waterPercent ?? context.waterPercent;
-    const inputType = overrides.inputType ?? context.inputType;
-    const userDefinedTotalWeight = overrides.userDefinedTotalWeight ?? context.userDefinedTotalWeight;
+export const useSoapCalculations = () => {
+    const {
+        selectedOils,
+        lyeType,
+        superfatPercent,
+        waterPercent,
+        inputType,
+        userDefinedTotalWeight,
+        setSelectedOils,
+    } = useSoapRecipe();
 
 
 
     const [totalOilAmount, setTotalOilAmount] = useState(0);
     const [totalLyeAmount, setTotalLyeAmount] = useState(0);
     const [totalWaterAmount, setTotalWaterAmount] = useState(0);
-
     const [totalResultAmount, setTotalResultAmount] = useState(0);
 
     useEffect(() => {
@@ -75,7 +68,7 @@ export const useSoapCalculations = (overrides: SoapCalculationsOverrides = {}) =
                     const hasChanged = updatedOils.some((o, i) => o.gram !== selectedOils[i].gram);
 
                     if (hasChanged) {
-                        context.setSelectedOils(updatedOils);
+                        setSelectedOils(updatedOils);
                     }
                 }
             }

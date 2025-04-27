@@ -34,7 +34,7 @@ export const ParametersList = ({
                         </span>
                         <span className="text-center text-gray-800 font-medium">
   {item.label === "Вода" || item.label === lyeType ? (
-      <span className="inline-block border border-emerald-500 text-sm font-medium rounded-full px-2 py-0.5">
+      <span className="inline-flex items-center justify-center border border-emerald-500 text-base font-medium rounded-full px-3 py-1 min-w-[40px]">
       {item.gram} г
     </span>
   ) : (

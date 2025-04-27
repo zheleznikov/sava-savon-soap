@@ -9,6 +9,14 @@ import logo_white from "@/assets/logo4.svg";
 import logo_black from "@/assets/logo-black.svg";
 
 
+const isLinkActive = (link: { href: string; aliases?: string[] }) => {
+    const { pathname } = location;
+    if (pathname === link.href) return true;
+    if (link.aliases?.includes(pathname)) return true;
+    return false;
+};
+
+
 export const Navbar = () => {
     const location = useLocation();
 
@@ -42,15 +50,13 @@ export const Navbar = () => {
                             </div>
 
                             <div className={clsx(s.desktop_menu)}>
-                                {navLinks.map((link) => (
+                                {navLinks.map((link: any) => (
                                     <Link
                                         key={link.name_rus}
                                         to={link.href}
                                         className={clsx(
                                             s.desktop_link,
-                                            location.pathname === link.href
-                                                ? s.desktop_link_active
-                                                : s.desktop_link_inactive
+                                            isLinkActive(link) ? s.desktop_link_active : s.desktop_link_inactive
                                         )}
                                     >
                                         {link.name_rus}
@@ -58,6 +64,7 @@ export const Navbar = () => {
                                 ))}
                                 <ThemeHandler />
                             </div>
+
 
 
                             <div className={s.mobile_wrapper}>
@@ -122,7 +129,7 @@ export const Navbar = () => {
 
 
                         <nav className={s.sidebar_nav}>
-                            {navLinks.map((link) => (
+                            {navLinks.map((link: any) => (
                                 <Link
                                     key={link.name_rus}
                                     to={link.href}
