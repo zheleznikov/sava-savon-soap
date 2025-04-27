@@ -95,49 +95,44 @@ export const useCreateRecipePdf = () => {
 
         setIsDownloadingPdf(true);
 
-
-        const canvas = await html2canvas(pdfRef.current, {
-            scale: 1.5,
-            backgroundColor: "#ffffff",
-            useCORS: true,
-        });
-
-        const imgData = canvas.toDataURL('image/jpeg', 0.8);
-
         try {
-            const response = await fetch(imgData);
-            const blob = await response.blob();
+            const canvas = await html2canvas(pdfRef.current, {
+                scale: 1.5,
+                backgroundColor: "#ffffff",
+                useCORS: true,
+            });
+
+            const blob: Blob = await new Promise((resolve) => {
+                canvas.toBlob((blob) => {
+                    if (blob) resolve(blob);
+                }, 'image/jpeg', 0.8);
+            });
+
             const file = new File([blob], `${name}.jpg`, { type: "image/jpeg" });
 
-            // if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
                     files: [file],
                     title: "Рецепт мыла",
                     text: "Посмотрите мой рецепт мыла!",
                 });
-            // } else {
-            //     // fallback на скачивание
-            //     const link = document.createElement('a');
-            //     link.href = imgData;
-            //     link.download = `${name}.jpg`;
-            //     document.body.appendChild(link);
-            //     link.click();
-            //     document.body.removeChild(link);
-            // }
+            } else {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${name}.jpg`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }
         } catch (error) {
             console.error("Ошибка при попытке поделиться:", error);
-
-            // fallback на скачивание
-            const link = document.createElement('a');
-            link.href = imgData;
-            link.download = `${name}.jpg`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
         }
 
         setIsDownloadingPdf(false);
     };
+
 
 
     return {
