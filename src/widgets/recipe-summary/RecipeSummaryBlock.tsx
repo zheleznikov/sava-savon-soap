@@ -54,6 +54,21 @@ export const RecipeSummaryBlock: FC = () => {
     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 
+    const handleShareTest = async (name: string) => {
+        const file = new File(["Hello world"], "test.txt", { type: "text/plain" });
+
+        if (navigator.canShare({ files: [file] })) {
+            await navigator.share({
+                files: [file],
+                title: "Test File",
+                text: "This is a test file!",
+            });
+        } else {
+            console.log("Cannot share files.");
+        }
+    };
+
+
     return (
         <CalcBlockWrapper className={"relative px-0 sm:px-2"}>
             {isDownloadingPdf && (
@@ -139,9 +154,9 @@ export const RecipeSummaryBlock: FC = () => {
                 {/*</button>*/}
                 <button
                     className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition"
-                    onClick={() => isMobile ? shareImageFile(recipeName) :  createPdf(recipeName)}
+                    onClick={() => isMobile ? handleShareTest(recipeName) :  createPdf(recipeName)}
                 >
-                    {isMobile ? "Сохранить как картинку" : "Сохранить как PDF"}
+                    {isMobile ? "Поделиться" : "Сохранить как PDF"}
                 </button>
             </div>
 

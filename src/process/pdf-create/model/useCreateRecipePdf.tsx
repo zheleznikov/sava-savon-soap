@@ -14,7 +14,6 @@ export const useCreateRecipePdf = () => {
 
         setIsDownloadingPdf(true);
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
 
         // 1. Делаем скриншот содержимого
         const canvas = await html2canvas(pdfRef.current, {
@@ -111,21 +110,21 @@ export const useCreateRecipePdf = () => {
             const blob = await response.blob();
             const file = new File([blob], `${name}.jpg`, { type: "image/jpeg" });
 
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            // if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
                     files: [file],
                     title: "Рецепт мыла",
                     text: "Посмотрите мой рецепт мыла!",
                 });
-            } else {
-                // fallback на скачивание
-                const link = document.createElement('a');
-                link.href = imgData;
-                link.download = `${name}.jpg`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
+            // } else {
+            //     // fallback на скачивание
+            //     const link = document.createElement('a');
+            //     link.href = imgData;
+            //     link.download = `${name}.jpg`;
+            //     document.body.appendChild(link);
+            //     link.click();
+            //     document.body.removeChild(link);
+            // }
         } catch (error) {
             console.error("Ошибка при попытке поделиться:", error);
 
@@ -140,6 +139,7 @@ export const useCreateRecipePdf = () => {
 
         setIsDownloadingPdf(false);
     };
+
 
     return {
         pdfRef,
