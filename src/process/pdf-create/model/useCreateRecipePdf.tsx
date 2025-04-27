@@ -107,18 +107,18 @@ export const useCreateRecipePdf = () => {
         const imgData = canvas.toDataURL('image/jpeg', 0.8);
 
         try {
-            if (navigator.canShare && navigator.canShare({ files: [] })) {
-                const response = await fetch(imgData);
-                const blob = await response.blob();
-                const file = new File([blob], `${name}.jpg`, { type: "image/jpeg" });
+            const response = await fetch(imgData);
+            const blob = await response.blob();
+            const file = new File([blob], `${name}.jpg`, { type: "image/jpeg" });
 
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 await navigator.share({
                     files: [file],
                     title: "Рецепт мыла",
                     text: "Посмотрите мой рецепт мыла!",
                 });
             } else {
-                // если Web Share API нет — просто скачать
+                // fallback на скачивание
                 const link = document.createElement('a');
                 link.href = imgData;
                 link.download = `${name}.jpg`;
