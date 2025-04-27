@@ -1,38 +1,38 @@
-import {RecipeTitleInput} from "../../feature/recipe-title/RecipeTitleInput";
-import {ScaleRecipeBlock} from "../../feature/scale-recipe/ScaleRecipeBlock";
-import {ParametersList} from "../../feature/output-recipe-parameters/ParametersList";
-import {OilsList} from "../../feature/outpt-oils-list/OilsList";
-import {ResultSummary} from "../../feature/output-summary/ResultSummary";
-import {RecipeParametersTable} from "../../feature/recipe-params-table/RecipeParametersTable";
-import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
-import {CalcBlockWrapper} from "../../shared/ui/CalcBlockWrapper";
+import {RecipeTitleInput} from "@/feature/recipe-title/RecipeTitleInput";
+import {ParametersList} from "@/feature/output-recipe-parameters/ParametersList";
+import {OilsList} from "@/feature/outpt-oils-list/OilsList";
+import {ResultSummary} from "@/feature/output-summary/ResultSummary";
+import {RecipeParametersTable} from "@/feature/recipe-params-table/RecipeParametersTable";
+import {InputBlockWrapper} from "@/shared/ui/InputBlockWrapper";
+import {CalcBlockWrapper} from "@/shared/ui/CalcBlockWrapper";
 import React, {FC} from "react";
-import {useSoapCalculations} from "../../feature/recipe-calculation/model/useSoapCalculations";
-import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecipe";
+import {LyeType} from "@/app/providers/SoapRecipeContext.types";
+import {TOil} from "@/entities/oil/model/oil.types";
 
 
-export const RecipeSummaryBlock: FC = () => {
+interface Props {
+    recipeName: string;
+    selectedOils: TOil[];
+    totalOilAmount: number;
+    totalLyeAmount: number;
+    totalWaterAmount: number;
+    totalResultAmount: number;
+    lyeType: LyeType;
+    superfatPercent: number;
+    waterPercent: number;
+}
 
-
-    const {
-        totalLyeAmount,
-        totalWaterAmount,
-        totalResultAmount,
-        totalOilAmount
-    } = useSoapCalculations();
-
-    const {
-        selectedOils,
-        lyeType,
-        superfatPercent,
-        waterPercent,
-        inputType,
-        setInputType,
-        userDefinedTotalWeight,
-        setUserDefinedTotalWeight,
-        recipeName,
-        setRecipeName
-    } = useSoapRecipe();
+export const RecipeCard: FC<Props> = ({
+                                          recipeName,
+                                          selectedOils,
+                                          totalOilAmount,
+                                          totalLyeAmount,
+                                          totalWaterAmount,
+                                          totalResultAmount,
+                                          lyeType,
+                                          superfatPercent,
+                                          waterPercent,
+                                      }) => {
 
 
     return (
@@ -41,7 +41,7 @@ export const RecipeSummaryBlock: FC = () => {
             <div className={"mb-4"}>
                 <RecipeTitleInput
                     recipeName={recipeName}
-                    setRecipeName={setRecipeName}
+                    setRecipeName={() => {}}
                 />
             </div>
 
@@ -74,15 +74,7 @@ export const RecipeSummaryBlock: FC = () => {
 
                         <ResultSummary totalResultAmount={totalResultAmount}/>
 
-
                     </InputBlockWrapper>
-                    <ScaleRecipeBlock
-                        inputType={inputType}
-                        setInputType={setInputType}
-                        userDefinedTotalWeight={userDefinedTotalWeight}
-                        setUserDefinedTotalWeight={setUserDefinedTotalWeight}
-                        totalResultAmount={totalResultAmount}
-                    />
 
                 </div>
                 <RecipeParametersTable/>
