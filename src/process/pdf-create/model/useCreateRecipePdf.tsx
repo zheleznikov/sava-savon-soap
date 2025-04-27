@@ -95,7 +95,6 @@ export const useCreateRecipePdf = () => {
 
         setIsDownloadingPdf(true);
 
-        await new Promise((resolve) => setTimeout(resolve, 100));
 
         const canvas = await html2canvas(pdfRef.current, {
             scale: 1.5,

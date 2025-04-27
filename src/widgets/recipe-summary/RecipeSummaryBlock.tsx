@@ -154,7 +154,7 @@ export const RecipeSummaryBlock: FC = () => {
                 {/*</button>*/}
                 <button
                     className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition"
-                    onClick={() => isMobile ? handleShareTest(recipeName) :  createPdf(recipeName)}
+                    onClick={() => isMobile ? shareImageFile(recipeName) :  createPdf(recipeName)}
                 >
                     {isMobile ? "Поделиться" : "Сохранить как PDF"}
                 </button>
