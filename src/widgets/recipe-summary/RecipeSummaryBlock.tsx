@@ -54,28 +54,13 @@ export const RecipeSummaryBlock: FC = () => {
     const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 
-    const handleShareTest = async (name: string) => {
-        const file = new File(["Hello world"], "test.txt", { type: "text/plain" });
-
-        if (navigator.canShare({ files: [file] })) {
-            await navigator.share({
-                files: [file],
-                title: "Test File",
-                text: "This is a test file!",
-            });
-        } else {
-            console.log("Cannot share files.");
-        }
-    };
-
-
     return (
         <CalcBlockWrapper className={"relative px-0 sm:px-2"}>
             {isDownloadingPdf && (
                 <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="flex flex-col items-center space-y-2">
                         <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-                        <span className="text-gray-700 font-semibold text-lg">Создание PDF...</span>
+                        <span className="text-gray-700 font-semibold text-lg">Создание файла...</span>
                     </div>
                 </div>
             )}
@@ -153,7 +138,7 @@ export const RecipeSummaryBlock: FC = () => {
                 {/*    Сохранить*/}
                 {/*</button>*/}
                 <button
-                    className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition"
+                    className="w-full sm:w-auto px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 transition"
                     onClick={() => isMobile ? shareImageFile(recipeName) :  createPdf(recipeName)}
                 >
                     {isMobile ? "Скачать" : "Скачать PDF"}

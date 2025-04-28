@@ -10,7 +10,7 @@ export const common = {
     transition: "transition duration-200",
     flexColumn: "flex flex-col",
     labelText: "text-sm text-gray-600 mb-1",
-    textSm: "text-sm",
+    textSm: "text-sm mb-1",
 };
 
 export const colors = {
@@ -18,7 +18,6 @@ export const colors = {
         border: "border border-gray-200",
         bg: "bg-white/50",
         text: "text-gray-800",
-        labelText: "text-gray-600",
         inputDisabled: "bg-gray-100 text-gray-500 cursor-not-allowed",
         unitText: "text-gray-500",
         radioText: "text-gray-700",
@@ -26,11 +25,11 @@ export const colors = {
         radioHover: "hover:bg-gray-100",
         radioActiveBg: "bg-emerald-500",
         radioActiveText: "text-white",
+        labelText: "text-gray-600"
     },
     dark: {
         border: "border border-gray-700",
         bg: "bg-gray-900/90",
-        labelText: "text-gray-600",
         inputDisabled: "bg-gray-100 text-gray-500 cursor-not-allowed",
         text: "text-white",
         unitText: "text-gray-300",
@@ -39,6 +38,7 @@ export const colors = {
         radioHover: "hover:bg-gray-700",
         radioActiveBg: "bg-emerald-400",
         radioActiveText: "text-white",
+        labelText: "text-white"
     },
 };
 
@@ -114,51 +114,7 @@ export const input = {
             light: `${colors.light.border} ${colors.light.bg} focus:border-gray-200 focus:outline-none focus:ring-0`,
             dark: `${colors.light.border} ${colors.light.bg}`
         }
-    },
-    toggle_input_type: {
-        layout: {
-            wrapper: "flex flex-wrap gap-6 sm:gap-8",
-            field_wrapper: common.flexColumn,
-            weight_row: "flex items-center gap-1",
-        },
-        theme: {
-            light: {
-                label: common.labelText,
-                button_base: `px-4 py-1 ${common.textSm} ${common.transition}`,
-                button_active: "bg-emerald-500 text-white",
-                button_inactive: "bg-white text-gray-700 hover:bg-gray-100",
-                input_base: "w-[120px] text-sm",
-                input_disabled: colors.light.inputDisabled,
-                hint: "text-xs mt-1 transition-opacity duration-200 min-h-[1rem]",
-                hint_visible: "text-gray-400 opacity-100 visible",
-                hint_hidden: "opacity-0 invisible",
-                button_group: `flex ${colors.light.border} ${common.borderRadius} overflow-hidden w-fit`,
-                unit_text: colors.light.unitText,
-            },
-            dark: {}
-        }
-    },
-    // basic_params: {
-    //     layout: {
-    //         wrapper: "space-y-4",
-    //         lye_type_row: `${common.flexColumn} flex-row gap-1`,
-    //         button_group: `flex overflow-hidden w-fit ${colors.light.border} ${common.borderRadius}`,
-    //         param_row: "flex flex-wrap gap-4 sm:items-center",
-    //         field_wrapper: `${common.flexColumn} min-w-[140px]`,
-    //         field_inner: "flex items-center gap-1",
-    //         input: `w-full max-w-[100px] ${common.textSm}`,
-    //     },
-    //     theme: {
-    //         light: {
-    //             label: common.labelText,
-    //             button_base: `px-4 py-1 ${common.textSm} ${common.transition}`,
-    //             button_active: "bg-emerald-500 text-white",
-    //             button_inactive: "bg-white text-gray-700 hover:bg-gray-100",
-    //             unit_text: colors.light.unitText,
-    //         },
-    //         dark: {} // можно позже заполнить
-    //     }
-    // }
+    }
 };
 
 

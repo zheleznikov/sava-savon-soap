@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {Trash2} from "lucide-react";
-import {SmartNumberInput} from "../../../shared/ui/SmartNumberInput";
+import {SmartNumberInput} from "@/shared/smart-number-input";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {useSoapRecipe} from "../../recipe-calculation/model/useSoapRecipe";
 import {useSoapCalculations} from "../../recipe-calculation/model/useSoapCalculations";

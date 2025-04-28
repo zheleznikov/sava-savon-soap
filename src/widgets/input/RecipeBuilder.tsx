@@ -4,8 +4,8 @@ import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecip
 import {OilWeightSummary} from "../../feature/percent-progress-bar/OilWeightSummary";
 import {CalcBlockWrapper} from "../../shared/ui/CalcBlockWrapper";
 import {RecipeNameInput} from "../../feature/recipe-name-input/RecipeNameInput";
-import {BasicParamsBlock} from "../../feature/input-basic-params";
-import {InputTypeToggle} from "../../feature/input-toogle-input-type/InputTypeToggle";
+import {LyeWaterSuperfatSetup} from "../../feature/recipe-setup";
+import {InputTypeSetup} from "@/feature/recipe-setup";
 
 export const RecipeBuilder = () => {
 
@@ -28,8 +28,8 @@ export const RecipeBuilder = () => {
                 {/* Первый блок: Название, переключатель, параметры */}
                 <div className="w-full lg:w-1/2">
                     <RecipeNameInput />
-                    <InputTypeToggle />
-                    <BasicParamsBlock />
+                    <InputTypeSetup />
+                    <LyeWaterSuperfatSetup />
                 </div>
 
                 {/* Второй блок: Автокомплит и масла */}

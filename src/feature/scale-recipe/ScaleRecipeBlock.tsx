@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {InputType} from "../../app/providers/SoapRecipeContext.types";
-import {SmartNumberInput} from "../../shared/ui/SmartNumberInput";
+import {SmartNumberInput} from "@/shared/smart-number-input";
 import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
 
 

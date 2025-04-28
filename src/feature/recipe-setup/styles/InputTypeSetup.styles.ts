@@ -1,6 +1,5 @@
 import { colors, common } from "@/shared/styles/layout";
 
-// === Базовые переменные light ===
 const themeLight = {
     border: colors.light.border,
     unitText: colors.light.unitText,
@@ -9,43 +8,49 @@ const themeLight = {
     buttonHover: colors.light.radioHover,
     buttonActiveBg: colors.light.radioActiveBg,
     buttonActiveText: colors.light.radioActiveText,
-    labelText: common.labelText,
+
+    labelText: colors.light.labelText,
+    inputDisabled: colors.light.inputDisabled,
+    input: `${colors.light.bg} ${colors.light.text}`
 };
 
-// === Базовые переменные dark ===
 const themeDark = {
-    border: colors.dark?.border || "border-gray-700", // если пока нет — заготовка
-    unitText: colors.dark?.unitText || "text-gray-400",
+    border: colors.dark.border,
+    unitText: colors.dark.unitText ,
     buttonText: colors.dark.radioText,
     buttonBg: colors.dark.radioBg,
     buttonHover: colors.dark.radioHover,
     buttonActiveBg: colors.dark.radioActiveBg,
     buttonActiveText: colors.dark.radioActiveText,
-    labelText: common.labelText,
+    labelText: colors.dark.labelText,
+    inputDisabled: colors.light.inputDisabled,
+    input: `${colors.dark.bg} ${colors.dark.text}`
 };
 
-// === Функция для создания темы Layout/Calculator ===
 const createLayoutTheme = (theme: typeof themeLight) => ({
     layout: {
-        wrapper: "space-y-4",
-        lyeTypeRow: `${common.flexColumn} flex-row gap-1`,
+        wrapper: "flex flex-wrap gap-6 sm:gap-8",
+        fieldWrapper: common.flexColumn,
+        weightRow: "flex items-center gap-1",
         buttonGroup: `flex overflow-hidden w-fit ${theme.border} ${common.borderRadius}`,
-        paramRow: "flex flex-wrap gap-4 sm:items-center",
-        fieldWrapper: `${common.flexColumn} min-w-[140px]`,
-        fieldInner: "flex items-center gap-1",
-        input: `w-full max-w-[100px] ${common.textSm}`,
+        label: common.labelText
     },
     theme: {
         label: theme.labelText,
         buttonBase: `px-4 py-1 ${common.textSm} ${common.transition}`,
         buttonActive: `${theme.buttonActiveBg} ${theme.buttonActiveText}`,
         buttonInactive: `${theme.buttonBg} ${theme.buttonText} ${theme.buttonHover}`,
+        inputBase: "w-[120px] text-sm",
+        inputDisabled: theme.inputDisabled,
+        hint: "text-xs mt-1 transition-opacity duration-200 min-h-[1rem]",
+        hintVisible: "text-gray-400 opacity-100 visible",
+        hintHidden: "opacity-0 invisible",
         unitText: theme.unitText,
+        input: theme.input
     },
 });
 
-// === Экспорт стилей Layout ===
-export const styles = {
+export const inputTypeSetupStyles = {
     light: createLayoutTheme(themeLight),
     dark: createLayoutTheme(themeDark),
 };

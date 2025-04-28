@@ -1,15 +1,16 @@
 import {FC} from "react";
-import {SmartNumberInput} from "@/shared/ui/SmartNumberInput";
-import {useSoapRecipe} from "../../recipe-calculation/model/useSoapRecipe";
+import {useSoapRecipe} from "@/feature/recipe-calculation/model/useSoapRecipe";
 import {LyeType} from "@/app/providers/SoapRecipeContext.types";
 import {InputBlockWrapper} from "@/shared/ui/InputBlockWrapper";
 import {localization} from "@/shared/config/localization";
 import {useTheme} from "@/app/providers/ThemeContext";
-import {styles} from "@/feature/input-basic-params";
+import {lyeWaterSuperfatSetupStyles} from "@/feature/recipe-setup";
+import {clsx} from "clsx";
+import {SmartNumberInput} from "@/shared/smart-number-input";
 
 
 const l = localization.ru.soap_controls;
-export const BasicParamsBlock: FC = () => {
+export const LyeWaterSuperfatSetup: FC = () => {
 
     const {
         lyeType, setLyeType,
@@ -19,27 +20,30 @@ export const BasicParamsBlock: FC = () => {
 
 
     const {appTheme} = useTheme();
-    const {layout, theme} = styles[appTheme];
+    const {layout, theme} = lyeWaterSuperfatSetupStyles[appTheme];
 
     return (
         <InputBlockWrapper className={layout.wrapper}>
 
             {/* Строка 1 — выбор щёлочи */}
             <div className={layout.lyeTypeRow}>
-                <label className={theme.label}>{l.label_lye_type}</label>
+                <label className={clsx(theme.label, layout.label)}>{l.label_lye_type}</label>
                 <div className={layout.buttonGroup}>
-                    {[LyeType.NaOH, LyeType.KOH].map((type) => (
-                        <button
-                            key={type}
-                            type="button"
-                            onClick={() => setLyeType(type as LyeType.NaOH | LyeType.KOH)}
-                            className={`${theme.buttonBase} ${
-                                lyeType === type ? theme.buttonActive : theme.buttonInactive
-                            }`}
-                        >
-                            {type}
-                        </button>
-                    ))}
+                    {
+                        [LyeType.NaOH, LyeType.KOH].map((type) => (
+                            <button
+                                key={type}
+                                type="button"
+                                onClick={() => setLyeType(type as LyeType.NaOH | LyeType.KOH)}
+                                className={clsx(
+                                    theme.buttonBase,
+                                    lyeType === type ? theme.buttonActive : theme.buttonInactive
+                                )}
+                            >
+                                {type}
+                            </button>
+                        ))
+                    }
                 </div>
             </div>
 
@@ -47,7 +51,7 @@ export const BasicParamsBlock: FC = () => {
             <div className={layout.paramRow}>
                 {/* Вода */}
                 <div className={layout.fieldWrapper}>
-                    <label className={theme.label}>{l.label_water_percent}</label>
+                    <label className={clsx(theme.label, layout.label)}>{l.label_water_percent}</label>
                     <div className={layout.fieldInner}>
                         <SmartNumberInput
                             decimalPlaces={0}
@@ -56,7 +60,7 @@ export const BasicParamsBlock: FC = () => {
                             placeholder="%"
                             min={10}
                             max={100}
-                            className={layout.input}
+                            className={`${layout.input} ${theme.input}`}
                         />
                         <span className={theme.unitText}>{l.placeholder_percent}</span>
                     </div>
@@ -64,7 +68,7 @@ export const BasicParamsBlock: FC = () => {
 
                 {/* Пережир */}
                 <div className={layout.fieldWrapper}>
-                    <label className={theme.label}>{l.label_superfat_percent}</label>
+                    <label className={clsx(theme.label, layout.label)}>{l.label_superfat_percent}</label>
                     <div className={layout.fieldInner}>
                         <SmartNumberInput
                             decimalPlaces={0}
@@ -73,7 +77,7 @@ export const BasicParamsBlock: FC = () => {
                             placeholder={l.placeholder_percent}
                             min={0}
                             max={20}
-                            className={layout.input}
+                            className={clsx(layout.input, theme.input)}
                         />
                         <span className={theme.unitText}>{l.placeholder_percent}</span>
                     </div>
