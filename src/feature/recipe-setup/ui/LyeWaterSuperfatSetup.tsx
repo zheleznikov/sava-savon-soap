@@ -22,28 +22,39 @@ export const LyeWaterSuperfatSetup: FC = () => {
     const {appTheme} = useTheme();
     const {layout, theme} = lyeWaterSuperfatSetupStyles[appTheme];
 
+    const isNaOHMode = lyeType === LyeType.NaOH;
+
     return (
         <InputBlockWrapper className={layout.wrapper}>
 
             {/* Строка 1 — выбор щёлочи */}
             <div className={layout.lyeTypeRow}>
-                <label className={clsx(theme.label, layout.label)}>{l.label_lye_type}</label>
+                <label className={clsx(theme.label, layout.label)}>
+                    {l.label_lye_type}
+                </label>
                 <div className={layout.buttonGroup}>
-                    {
-                        [LyeType.NaOH, LyeType.KOH].map((type) => (
-                            <button
-                                key={type}
-                                type="button"
-                                onClick={() => setLyeType(type as LyeType.NaOH | LyeType.KOH)}
-                                className={clsx(
-                                    theme.buttonBase,
-                                    lyeType === type ? theme.buttonActive : theme.buttonInactive
-                                )}
-                            >
-                                {type}
-                            </button>
-                        ))
-                    }
+
+                    <button
+                        type="button"
+                        onClick={() => setLyeType(LyeType.NaOH)}
+                        className={clsx(
+                            theme.buttonBase,
+                            isNaOHMode ? theme.buttonActive : theme.buttonInactive
+                        )}
+                    >
+                        {LyeType.NaOH}
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => setLyeType(LyeType.KOH)}
+                        className={clsx(
+                            theme.buttonBase,
+                            !isNaOHMode ? theme.buttonActive : theme.buttonInactive
+                        )}
+                    >
+                        {LyeType.KOH}
+                    </button>
                 </div>
             </div>
 

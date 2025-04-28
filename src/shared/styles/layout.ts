@@ -10,7 +10,7 @@ export const common = {
     transition: "transition duration-200",
     flexColumn: "flex flex-col",
     labelText: "text-sm text-gray-600 mb-1",
-    textSm: "text-sm mb-1",
+    textSm: "text-sm",
 };
 
 export const colors = {
@@ -23,7 +23,7 @@ export const colors = {
         radioText: "text-gray-700",
         radioBg: "bg-white",
         radioHover: "hover:bg-gray-100",
-        radioActiveBg: "bg-emerald-500",
+        radioActiveBg: "bg-indigo-500",
         radioActiveText: "text-white",
         labelText: "text-gray-600"
     },

@@ -4,13 +4,13 @@ import {OilsList} from "@/feature/outpt-oils-list/OilsList";
 import {ResultSummary} from "@/feature/output-summary/ResultSummary";
 import {RecipeParametersTable} from "@/feature/recipe-params-table/RecipeParametersTable";
 import {InputBlockWrapper} from "@/shared/ui/InputBlockWrapper";
-import {CalcBlockWrapper} from "@/shared/ui/CalcBlockWrapper";
 import React, {FC} from "react";
 import {LyeType} from "@/app/providers/SoapRecipeContext.types";
 import {TOil} from "@/entities/oil/model/oil.types";
 import {RecipeParametersTableProps} from "../../../feature/recipe-params-table/RecipeParametersTable";
 
 import { useNavigate } from "react-router-dom";
+import {RecipeContainer} from "../../../shared/ui/RecipeContainer";
 
 
 interface Props {
@@ -61,7 +61,7 @@ export const RecipeCard: FC<Props> = ({
 
 
     return (
-        <CalcBlockWrapper className={"px-0 sm:px-2"}>
+        <RecipeContainer className={"px-0 sm:px-2"}>
 
             <div className={"mb-4"}>
                 <RecipeTitleInput
@@ -127,7 +127,7 @@ export const RecipeCard: FC<Props> = ({
             </div>
 
 
-        </CalcBlockWrapper>
+        </RecipeContainer>
     );
 };
 

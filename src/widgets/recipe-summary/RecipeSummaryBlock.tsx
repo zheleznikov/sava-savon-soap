@@ -5,7 +5,7 @@ import {OilsList} from "../../feature/outpt-oils-list/OilsList";
 import {ResultSummary} from "../../feature/output-summary/ResultSummary";
 import {RecipeParametersTable} from "../../feature/recipe-params-table/RecipeParametersTable";
 import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
-import {CalcBlockWrapper} from "../../shared/ui/CalcBlockWrapper";
+import {RecipeContainer} from "../../shared/ui/RecipeContainer";
 import React, {FC} from "react";
 import {useSoapCalculations} from "../../feature/recipe-calculation/model/useSoapCalculations";
 import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecipe";
@@ -55,7 +55,7 @@ export const RecipeSummaryBlock: FC = () => {
 
 
     return (
-        <CalcBlockWrapper className={"relative px-0 sm:px-2"}>
+        <RecipeContainer className={"relative px-0 sm:px-2"}>
             {isDownloadingPdf && (
                 <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="flex flex-col items-center space-y-2">
@@ -146,7 +146,7 @@ export const RecipeSummaryBlock: FC = () => {
             </div>
 
 
-        </CalcBlockWrapper>
+        </RecipeContainer>
     );
 };
 

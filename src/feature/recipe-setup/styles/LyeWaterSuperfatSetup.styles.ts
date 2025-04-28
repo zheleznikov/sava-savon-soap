@@ -37,7 +37,7 @@ const createLayoutTheme = (theme: typeof themeLight) => ({
     },
     theme: {
         label: theme.labelText,
-        buttonBase: `px-4 py-1 ${common.textSm} ${common.transition}`,
+        buttonBase: `px-4 py-1 ${common.textSm} ${common.transition} h-full`,
         buttonActive: `${theme.buttonActiveBg} ${theme.buttonActiveText}`,
         buttonInactive: `${theme.buttonBg} ${theme.buttonText} ${theme.buttonHover}`,
         unitText: theme.unitText,

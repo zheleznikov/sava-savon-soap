@@ -2,7 +2,7 @@ import {OilAutocomplete} from "../../feature/oil-management/ui/OilAutocomplete";
 import {OilAddedLine} from "../../feature/oil-management/ui/OilAddedLine";
 import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecipe";
 import {OilWeightSummary} from "../../feature/percent-progress-bar/OilWeightSummary";
-import {CalcBlockWrapper} from "../../shared/ui/CalcBlockWrapper";
+import {RecipeContainer} from "../../shared/ui/RecipeContainer";
 import {RecipeNameInput} from "../../feature/recipe-name-input/RecipeNameInput";
 import {LyeWaterSuperfatSetup} from "../../feature/recipe-setup";
 import {InputTypeSetup} from "@/feature/recipe-setup";
@@ -12,7 +12,7 @@ export const RecipeBuilder = () => {
     const {selectedOils, handleToggleOil} = useSoapRecipe();
 
     return (
-        <CalcBlockWrapper className={"z-50"}>
+        <RecipeContainer className={"z-50"}>
 
             <div className={"mb-4"}>
                 <h2
@@ -47,6 +47,6 @@ export const RecipeBuilder = () => {
                 </div>
             </div>
 
-        </CalcBlockWrapper>
+        </RecipeContainer>
     );
 };

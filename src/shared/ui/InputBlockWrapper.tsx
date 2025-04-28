@@ -11,6 +11,7 @@ interface CardBlockProps {
 export const InputBlockWrapper = ({ children, className = "" }: CardBlockProps) => {
 
     const {appTheme} = useTheme();
+
     const classList = clsx(
         className,
         input_block_wrapper.layout,
