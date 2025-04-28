@@ -3,17 +3,20 @@ import {calculator} from "../../../shared/styles/layout";
 import {recipes} from "../../../data/recipes.mock";
 import {RecipeCard} from "../../../widgets/recipe-card/ui/RecipeCard";
 import {LyeType} from "../../../app/providers/SoapRecipeContext.types";
+import {useTheme} from "../../../app/providers/ThemeContext";
 
 export const RecipesPage = () => {
-    return (
-        <section className={clsx(calculator.wrapper.layout, calculator.wrapper.theme.light, "relative")}>
-                <h2
-                    className={`w-full text-3xl xs:text-4xl text-center font-bold min-h-[2.5rem] bg-transparent outline-none transition text-gray-700 mb-4`}
-                >
-                    Рецепты
-                </h2>
 
-            <div className="flex flex-wrap -mx-2">
+    const {appTheme} = useTheme();
+    return (
+        <section className={clsx(calculator.wrapper.layout, calculator.wrapper.theme[appTheme], "relative")}>
+                {/*<h2*/}
+                {/*    className={`w-full text-3xl xs:text-4xl text-center font-bold min-h-[2.5rem] bg-transparent outline-none transition text-gray-700 mb-4`}*/}
+                {/*>*/}
+                {/*    Рецепты*/}
+                {/*</h2>*/}
+
+            <div className="flex flex-col items-center">
                 {recipes.map((it, index) => (
                     <RecipeCard
                         key={index}

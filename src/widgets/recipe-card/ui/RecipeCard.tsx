@@ -61,7 +61,7 @@ export const RecipeCard: FC<Props> = ({
 
 
     return (
-        <RecipeContainer className={"px-0 sm:px-2"}>
+        <RecipeContainer className={"px-0 sm:px-2 mb-4"}>
 
             <div className={"mb-4"}>
                 <RecipeTitleInput
