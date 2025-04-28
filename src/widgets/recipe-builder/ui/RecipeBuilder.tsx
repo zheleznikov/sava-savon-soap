@@ -1,22 +1,28 @@
-import {OilAutocomplete} from "../../feature/oil-management/ui/OilAutocomplete";
-import {OilAddedLine} from "../../feature/oil-management/ui/OilAddedLine";
-import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecipe";
-import {OilWeightSummary} from "../../feature/percent-progress-bar/OilWeightSummary";
-import {RecipeContainer} from "../../shared/ui/RecipeContainer";
-import {RecipeNameInput} from "../../feature/recipe-name-input/RecipeNameInput";
-import {LyeWaterSuperfatSetup} from "../../feature/recipe-setup";
+import {OilAutocomplete} from "@/feature/oil-management";
+import {OilAddedLine} from "@/feature/oil-management";
+import {useSoapRecipe} from "../../../feature/recipe-calculation/model/useSoapRecipe";
+import {OilWeightSummary} from "../../../feature/percent-progress-bar/OilWeightSummary";
+import {RecipeContainer} from "../../../shared/ui/RecipeContainer";
+import {RecipeNameInput} from "../../../feature/recipe-name-input/RecipeNameInput";
+import {LyeWaterSuperfatSetup} from "../../../feature/recipe-setup";
 import {InputTypeSetup} from "@/feature/recipe-setup";
+import {useTheme} from "../../../app/providers/ThemeContext";
+import {pageHeader} from "../../../shared/styles/layout";
+import {clsx} from "clsx";
 
 export const RecipeBuilder = () => {
 
     const {selectedOils, handleToggleOil} = useSoapRecipe();
+
+    const {appTheme} = useTheme();
+    const {layout, theme} = pageHeader;
 
     return (
         <RecipeContainer className={"z-50"}>
 
             <div className={"mb-4"}>
                 <h2
-                    className={`w-full text-3xl xs:text-4xl text-center font-bold min-h-[2.5rem] bg-transparent outline-none transition text-gray-700`}
+                    className={clsx(layout, theme[appTheme])}
                 >
                    Калькулятор мыла
                 </h2>

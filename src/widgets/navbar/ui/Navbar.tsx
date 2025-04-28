@@ -1,4 +1,4 @@
-import {Link, useLocation} from "react-router-dom";
+import {Link} from "react-router-dom";
 import clsx from "clsx";
 import {Menu, X} from "lucide-react";
 
@@ -10,7 +10,7 @@ import logo_black from "@/assets/logo-black.svg";
 
 
 const isLinkActive = (link: { href: string; aliases?: string[] }) => {
-    const { pathname } = location;
+    const {pathname} = location;
     if (pathname === link.href) return true;
     if (link.aliases?.includes(pathname)) return true;
     return false;
@@ -18,10 +18,9 @@ const isLinkActive = (link: { href: string; aliases?: string[] }) => {
 
 
 export const Navbar = () => {
-    const location = useLocation();
 
-    const { menuOpen, menuVisible, isVisible, openMenu, closeMenu } = useNavbar();
-    const { appTheme } = useTheme();
+    const {menuOpen, menuVisible, isVisible, openMenu, closeMenu} = useNavbar();
+    const {appTheme} = useTheme();
 
     const s = navbar[appTheme];
 
@@ -62,9 +61,8 @@ export const Navbar = () => {
                                         {link.name_rus}
                                     </Link>
                                 ))}
-                                <ThemeHandler />
+                                <ThemeHandler/>
                             </div>
-
 
 
                             <div className={s.mobile_wrapper}>
@@ -73,7 +71,7 @@ export const Navbar = () => {
                                         onClick={openMenu}
                                         className={s.mobile_menu_button}
                                     >
-                                        <Menu size={28} />
+                                        <Menu size={28}/>
                                     </button>
                                     <div className={s.logo}>
                                         <img
@@ -84,7 +82,7 @@ export const Navbar = () => {
                                     </div>
                                 </div>
 
-                                <ThemeHandler />
+                                <ThemeHandler/>
                             </div>
 
 
@@ -123,7 +121,7 @@ export const Navbar = () => {
                                 onClick={closeMenu}
                                 className={s.sidebar_close_button}
                             >
-                                <X size={28} />
+                                <X size={28}/>
                             </button>
                         </div>
 
@@ -136,9 +134,7 @@ export const Navbar = () => {
                                     onClick={closeMenu}
                                     className={clsx(
                                         s.sidebar_link,
-                                        location.pathname === link.href
-                                            ? s.sidebar_link_active
-                                            : s.sidebar_link_inactive
+                                        isLinkActive(link) ? s.sidebar_link_active : s.sidebar_link_inactive
                                     )}
                                 >
                                     {link.name_rus}

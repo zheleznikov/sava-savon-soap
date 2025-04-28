@@ -1,5 +1,4 @@
 import {FC, useEffect} from "react";
-import {RecipeBuilder} from "../../../widgets/input/RecipeBuilder";
 import {RecipeSummaryBlock} from "../../../widgets/recipe-summary/RecipeSummaryBlock";
 import {clsx} from "clsx";
 import {calculator} from "../../../shared/styles/layout";
@@ -8,6 +7,7 @@ import {useLocation} from "react-router-dom";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {LyeType} from "../../../app/providers/SoapRecipeContext.types";
 import {oils} from "../../../entities/oil/model/oils";
+import {RecipeBuilder} from "@/widgets/recipe-builder";
 
 
 export const Calculator: FC = () => {

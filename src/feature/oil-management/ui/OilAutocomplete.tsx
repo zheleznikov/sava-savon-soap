@@ -3,9 +3,10 @@ import {TOil} from "../../../entities/oil/model/oil.types";
 import {ChevronDown, ChevronUp, X} from "lucide-react";
 import {useOilAutocomplete} from "../model/useOilAutocompete";
 import {OilOptionItem} from "./OilOptionItem";
-import {autocomplete} from "../../../shared/styles/layout";
 import {clsx} from "clsx";
 import {localization} from "../../../shared/config/localization";
+import {oilAutocompleteStyles} from "../styles/OilAutocomplete.styles";
+import {useTheme} from "../../../app/providers/ThemeContext";
 
 
 type OilAutocompleteProps = {
@@ -26,6 +27,11 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({selectedOils, onToggl
         handler
     } = useOilAutocomplete(selectedOils, onToggleOil);
 
+    const {appTheme} = useTheme();
+
+    const {layout, theme} = oilAutocompleteStyles;
+    const styles = theme[appTheme];
+
 
     return (
         <section className="relative mb-4" ref={containerRef}>
@@ -33,8 +39,8 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({selectedOils, onToggl
             <input
                 name={"OIL SEARCH"}
                 className={clsx(
-                    autocomplete.layout.input,
-                    autocomplete.theme.light.input,
+                    layout.input,
+                    styles.input,
                     isDropdownOpen ? "rounded-t-xl border-b-0" : "rounded-xl mb-2"
                 )}
 
@@ -53,7 +59,7 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({selectedOils, onToggl
                     type="button"
                     onMouseDown={handler.onClearSearchButtonMouseDown}
                     onClick={handler.onClearSearchButtonClick}
-                    className={clsx(autocomplete.layout.clear, autocomplete.theme.light.clear)}
+                    className={clsx(layout.clear, styles.clear)}
                 >
                     <span className="block sm:hidden"><X size={32} color="red"/></span>
                     <span className="hidden sm:block"><X size={24} color="red"/></span>
@@ -64,7 +70,7 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({selectedOils, onToggl
                 name={"OPEN/CLOSE LIST"}
                 type="button"
                 onClick={handler.onArrowClick}
-                className={autocomplete.layout.arrow}
+                className={layout.arrow}
             >
                 <span className="block sm:hidden">
                     {
@@ -87,7 +93,7 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({selectedOils, onToggl
             {isDropdownOpen && (
                 <ul
                     ref={dropdownRef}
-                    className={clsx(autocomplete.layout.dropdown, autocomplete.theme.light.dropdown)}
+                    className={clsx(layout.dropdown, styles.dropdown)}
                 >
                     {listToShow.map(oil => <OilOptionItem
                             key={oil.id}

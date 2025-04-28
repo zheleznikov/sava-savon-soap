@@ -1,7 +1,8 @@
 import React, {FC} from "react";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {clsx} from "clsx";
-import {autocomplete} from "../../../shared/styles/layout";
+import {oilAutocompleteStyles} from "../styles/OilAutocomplete.styles";
+import {useTheme} from "../../../app/providers/ThemeContext";
 
 interface Props {
     oil: TOil,
@@ -11,10 +12,15 @@ interface Props {
 }
 export const OilOptionItem: FC<Props> = ({oil, isChecked, onClick, onMouseDown}) => {
 
+    const {appTheme} = useTheme();
+
+    const {layout, theme} = oilAutocompleteStyles;
+    const styles = theme[appTheme];
+
     const listItemClass = clsx(
-        autocomplete.layout.dropdown_item,
-        autocomplete.theme.light.dropdown_item,
-        isChecked && autocomplete.theme.light.dropdown_item_checked
+        layout.dropdown_item,
+        styles.dropdown_item,
+        isChecked && styles.dropdown_item_checked
     );
 
 
