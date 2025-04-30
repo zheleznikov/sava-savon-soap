@@ -23,7 +23,7 @@ const themeDark = {
     buttonActiveBg: colors.dark.radioActiveBg,
     buttonActiveText: colors.dark.radioActiveText,
     labelText: colors.dark.labelText,
-    inputDisabled: colors.light.inputDisabled,
+    inputDisabled: colors.dark.inputDisabled,
     input: `${colors.dark.bg} ${colors.dark.text}`
 };
 
@@ -46,7 +46,6 @@ const createLayoutTheme = (theme: typeof themeLight) => ({
         hintVisible: "text-gray-400 opacity-100 visible",
         hintHidden: "opacity-0 invisible",
         unitText: theme.unitText,
-        input: theme.input
     },
 });
 

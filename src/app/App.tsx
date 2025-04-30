@@ -10,10 +10,9 @@ import {ScrollToTop} from "../shared/ui/ScrollToTop";
 
 export const App: FC = () => {
 
-
     return (
         <Layout>
-            <ScrollToTop /> {/* вставляем перед роутами */}
+            <ScrollToTop />
             <Routes>
                 <Route path="/" element={<Calculator />} />
                 <Route path="/calculator" element={<Calculator />} />

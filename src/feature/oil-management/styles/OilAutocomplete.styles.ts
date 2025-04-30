@@ -13,9 +13,9 @@ export const oilAutocompleteStyles = {
             input: `${colors.light.border} ${colors.light.bg} ${colors.light.text} focus:border-gray-200 focus:outline-none focus:ring-0`,
             clear: "text-gray-400",
             dropdown: `${common.blur} ${colors.light.border} border-t-0 shadow rounded-b-xl bg-white`,
-            dropdown_checkbox: "form-checkbox text-emerald-500 accent-emerald-500",
-            dropdown_item: "hover:bg-emerald-50",
-            dropdown_item_checked: "bg-emerald-100 font-medium"
+            dropdown_checkbox: "form-checkbox text-indigo-500 accent-indigo-500",
+            dropdown_item: "hover:bg-indigo-50",
+            dropdown_item_checked: "bg-indigo-100 font-medium"
         },
         dark: {
             input: `${colors.dark.border} ${colors.dark.bg} ${colors.dark.text} focus:border-gray-500 focus:outline-none focus:ring-0`,

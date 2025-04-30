@@ -5,6 +5,10 @@ import {TOil} from "../../../entities/oil/model/oil.types";
 import {useSoapRecipe} from "../../recipe-calculation/model/useSoapRecipe";
 import {useSoapCalculations} from "../../recipe-calculation/model/useSoapCalculations";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
+import {useTheme} from "../../../app/providers/ThemeContext";
+import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
+import {localization} from "@/shared/config/localization";
+import {clsx} from "clsx";
 
 interface Props {
     oil: TOil;
@@ -18,64 +22,56 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
         updateOilGramWithRecalculatedPercents
     } = useSoapRecipe();
 
-    const { totalOilAmount } = useSoapCalculations();
-
+    const {totalOilAmount} = useSoapCalculations();
 
     const isGramMode = inputType === InputType.Gram;
     const isPercentMode = inputType === InputType.Percent;
 
+    const {appTheme} = useTheme();
+
+    const {layout, theme} = oilAddedLineStyles[appTheme];
+    const t = localization.ru.oil_line;
 
     return (
-        <div
-            className="border border-purple-100 bg-white/70 backdrop-blur-sm
-      rounded-xl p-3 sm:p-4 shadow-sm relative text-sm sm:text-base mb-2"
-        >
-            {/* Верхняя строка — название и корзина */}
-            <div className="flex justify-between items-start mb-3">
-                <div className="text-gray-800 font-semibold truncate flex items-center gap-1">
-                    {oil.name_rus}
-                </div>
+        <div className={theme.block}>
+            <div className={layout.topRow}>
+                <div className={theme.name}>{oil.name_rus}</div>
+
                 <button
                     onClick={() => handleToggleOil(oil)}
-                    className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 md:hover:text-red-500 transition"
-                    title="Удалить масло"
+                    className={theme.deleteButton}
+                    title={t.delete_button_title}
                 >
-                    <Trash2 size={20}/>
+                    <Trash2 size={20} />
                 </button>
             </div>
 
-            {/* Нижняя строка — проценты и граммы */}
-            <div className="flex flex-col xs:flex-row items-start xs:items-center gap-3 sm:gap-6">
-                {/* Граммы */}
-                <div className="flex items-center gap-1">
+            <div className={layout.bottomRow}>
+                <div className={layout.inputWrapper}>
                     <SmartNumberInput
-                        placeholder="Граммы"
+                        placeholder={t.placeholder_grams}
                         value={oil.gram || 0}
-                        onChange={(newGram) => {updateOilGramWithRecalculatedPercents(oil, newGram)}}
-
+                        onChange={newGram =>
+                            updateOilGramWithRecalculatedPercents(oil, newGram)
+                        }
                         disabled={isPercentMode}
-                        className={`w-24 sm:w-28 border rounded px-2 py-1 text-gray-800 placeholder:text-xs placeholder:text-gray-400
-              ${isPercentMode ? "bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200" : "border-gray-300"}`}
+                        className={clsx(theme.input, isPercentMode && theme.inputDisabled)}
                     />
-                    <span className="text-gray-500">г</span>
+                    <span className={theme.unitText}>{t.unit_grams}</span>
                 </div>
 
-                <div className="flex items-center gap-1">
-                {/* Проценты */}
-                <SmartNumberInput
-                    placeholder="Проценты"
-                    value={oil.percent || 0} // 👈 всегда берём из состояния
-                    onChange={(newPercent) => {
-                        updateOilPercentWithGramRecalculation(oil, newPercent, totalOilAmount);
-                    }}
-                    disabled={isGramMode}
-                    className={`w-24 sm:w-28 border rounded px-2 py-1 text-gray-800 placeholder:text-xs placeholder:text-gray-400
-    ${isGramMode ? "bg-gray-100 text-gray-500 cursor-not-allowed border-gray-200" : "border-gray-300"}`}
-                />
-                    <span className="text-gray-500">%</span>
+                <div className={layout.inputWrapper}>
+                    <SmartNumberInput
+                        placeholder={t.placeholder_percent}
+                        value={oil.percent || 0}
+                        onChange={newPercent =>
+                            updateOilPercentWithGramRecalculation(oil, newPercent, totalOilAmount)
+                        }
+                        disabled={isGramMode}
+                        className={clsx(theme.input, isGramMode && theme.inputDisabled)}
+                    />
+                    <span className={theme.unitText}>{t.unit_percent}</span>
                 </div>
-
-
             </div>
         </div>
     );

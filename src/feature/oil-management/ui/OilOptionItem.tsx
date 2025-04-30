@@ -35,7 +35,7 @@ export const OilOptionItem: FC<Props> = ({oil, isChecked, onClick, onMouseDown})
                 type="checkbox"
                 checked={isChecked}
                 readOnly
-                className="form-checkbox text-emerald-500 accent-emerald-500"
+                className={styles.dropdown_checkbox}
             />
             <span>{oil.name_rus}</span>
         </li>

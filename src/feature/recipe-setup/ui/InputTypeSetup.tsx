@@ -77,7 +77,7 @@ export const InputTypeSetup: FC = () => {
                             min={10}
                             max={10000}
                             className={clsx(
-                                theme.inputBase, theme.input,
+                                theme.inputBase,
                                 isGramMode && theme.inputDisabled
                             )}
                         />

@@ -37,6 +37,13 @@ export const localization = {
                 "Мы продолжаем развивать проект, добавляя новые функции, рецепты и идеи, чтобы сделать всё ещё удобнее и приятнее.",
                 "Рады, что вы с нами!",
             ],
-        }
+        },
+        oil_line: {
+            delete_button_title: "Удалить масло",
+            placeholder_grams: "Граммы",
+            placeholder_percent: "Проценты",
+            unit_grams: "г",
+            unit_percent: "%",
+        },
     }
 };

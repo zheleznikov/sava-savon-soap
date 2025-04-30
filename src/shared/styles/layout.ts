@@ -30,7 +30,7 @@ export const colors = {
     dark: {
         border: "border border-gray-700",
         bg: "bg-gray-900/90",
-        inputDisabled: "bg-gray-100 text-gray-500 cursor-not-allowed",
+        inputDisabled: "bg-gray-300 text-gray-500 cursor-not-allowed",
         text: "text-white",
         unitText: "text-gray-300",
         radioText: "text-gray-300",
