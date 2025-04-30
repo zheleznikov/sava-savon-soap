@@ -1,4 +1,4 @@
-import { colors, common } from "@/shared/styles/layout";
+import { colors, common, smartInput } from "@/shared/styles/layout";
 
 const layout = {
     block: `${common.borderRadius} p-3 sm:p-4 relative text-sm sm:text-base mb-2`,
@@ -15,7 +15,7 @@ const themeLight = {
     title: colors.light.text,
     unitText: colors.light.unitText,
     deleteButton: "text-gray-400 md:hover:text-red-500",
-    input: `border-gray-300 ${colors.light.text} `,
+    input: smartInput.light,
     inputDisabled: colors.light.inputDisabled + " border-gray-200",
 };
 
@@ -24,7 +24,7 @@ const themeDark = {
     title: colors.dark.text,
     unitText: colors.dark.unitText,
     deleteButton: "text-gray-500 md:hover:text-red-400",
-    input: `border-gray-500 ${colors.light.text}`,
+    input: smartInput.dark,
     inputDisabled: colors.dark.inputDisabled + " border-gray-700",
 };
 

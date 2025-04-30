@@ -1,4 +1,4 @@
-import { colors, common } from "@/shared/styles/layout";
+import { colors, common, smartInput } from "@/shared/styles/layout";
 
 const themeLight = {
     border: colors.light.border,
@@ -9,7 +9,7 @@ const themeLight = {
     buttonActiveBg: colors.light.radioActiveBg,
     buttonActiveText: colors.light.radioActiveText,
     labelText: colors.light.labelText,
-    input: `${colors.light.bg} ${colors.light.text}`
+    input: smartInput.light
 };
 
 const themeDark = {
@@ -21,7 +21,7 @@ const themeDark = {
     buttonActiveBg: colors.dark.radioActiveBg,
     buttonActiveText: colors.dark.radioActiveText,
     labelText: colors.dark.labelText,
-    input: `${colors.dark.bg} ${colors.dark.text}`
+    input: smartInput.dark
 };
 
 const createLayoutTheme = (theme: typeof themeLight) => ({

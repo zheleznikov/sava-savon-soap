@@ -78,7 +78,7 @@ export const InputTypeSetup: FC = () => {
                             max={10000}
                             className={clsx(
                                 theme.inputBase,
-                                isGramMode && theme.inputDisabled
+                                isGramMode ? theme.inputDisabled : theme.input
                             )}
                         />
                         <span className={theme.unitText}>

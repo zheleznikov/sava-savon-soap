@@ -13,6 +13,7 @@ import {useSaveRecipe} from "../../feature/recipe-calculation/model/useSaveRecip
 import {useSoapProperties} from "../../feature/recipe-calculation/model/useSoapProperties";
 import {clsx} from "clsx";
 import {useCreateRecipePdf} from "@/process/pdf-create/model/useCreateRecipePdf";
+import {Bookmark, Download} from "lucide-react";
 
 
 export const RecipeSummaryBlock: FC = () => {
@@ -130,20 +131,44 @@ export const RecipeSummaryBlock: FC = () => {
             </div>
 
             {/* Блок кнопок */}
-            <div className="mt-3 flex flex-col sm:flex-row gap-2 justify-end">
-                {/*<button*/}
-                {/*    className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"*/}
-                {/*    onClick={handleSaveRecipe}*/}
-                {/*>*/}
-                {/*    Сохранить*/}
-                {/*</button>*/}
-                <button
-                    className="w-full sm:w-auto px-4 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 transition"
-                    onClick={() => isMobile ? shareImageFile(recipeName) :  createPdf(recipeName)}
-                >
-                    {isMobile ? "Скачать" : "Скачать PDF"}
-                </button>
+            <div className="mt-3 flex justify-between items-center px-2">
+                {/* Левая часть — кнопка Сохранить */}
+
+                <div className={clsx(true && "invisible pointer-events-none")}>
+                    <button
+                        className="w-full sm:w-auto px-16 py-3 bg-emerald-600 text-white rounded-lg shadow-md hover:bg-emerald-700 transition text-base font-semibold flex items-center justify-center gap-2"
+                        onClick={handleSaveRecipe}
+                        title="Сохранить рецепт"
+                    >
+                        <Bookmark size={18} />
+                        Сохранить
+                    </button>
+                </div>
+
+                {/* Правая часть — кнопки скачать */}
+                <div className="flex justify-center items-center space-x-2">
+                    <button
+                        className="flex flex-col items-center justify-center w-14 h-14 sm:w-12 sm:h-12 bg-indigo-600 text-white rounded-full shadow-md hover:bg-indigo-700 transition"
+                        onClick={() => shareImageFile(recipeName)}
+                        title="Скачать JPG"
+                    >
+                        <Download size={22} />
+                        <span className="text-[11px] mt-0.5">JPG</span>
+                    </button>
+
+                    <button
+                        className="flex flex-col items-center justify-center w-14 h-14 sm:w-12 sm:h-12 bg-emerald-600 text-white rounded-full shadow-md hover:bg-emerald-700 transition"
+                        onClick={() => createPdf(recipeName)}
+                        title="Скачать PDF"
+                    >
+                        <Download size={22} />
+                        <span className="text-[11px] mt-0.5">PDF</span>
+                    </button>
+
+                </div>
             </div>
+
+
 
 
         </RecipeContainer>

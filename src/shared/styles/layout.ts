@@ -25,12 +25,12 @@ export const colors = {
         radioHover: "hover:bg-gray-100",
         radioActiveBg: "bg-indigo-500",
         radioActiveText: "text-white",
-        labelText: "text-gray-600"
+        labelText: "text-gray-600",
     },
     dark: {
         border: "border border-gray-700",
         bg: "bg-gray-900/90",
-        inputDisabled: "bg-gray-300 text-gray-500 cursor-not-allowed",
+        inputDisabled: "bg-gray-700 text-gray-500 cursor-not-allowed border-none",
         text: "text-white",
         unitText: "text-gray-300",
         radioText: "text-gray-300",
@@ -41,6 +41,11 @@ export const colors = {
         labelText: "text-white"
     },
 };
+
+export const smartInput = {
+    light: `${colors.light.bg} ${colors.light.text}`,
+    dark: `border border-gray-700 ${colors.dark.bg} ${colors.dark.text}`
+}
 
 // === Темы ===
 export const theme = {
@@ -73,19 +78,6 @@ export const calculator = {
     },
     main: {
         layout: "flex flex-col lg:flex-row gap-4"
-    }
-};
-
-
-
-// === Input fields ===
-export const input = {
-    recipe_name: {
-        layout: `w-full ${common.inputPadding} ${common.blur} ${common.shadowSm} ${common.borderRadius} mb-4`,
-        theme: {
-            light: `${colors.light.border} ${colors.light.bg} focus:border-gray-200 focus:outline-none focus:ring-0`,
-            dark: `${colors.light.border} ${colors.light.bg}`
-        }
     }
 };
 

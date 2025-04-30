@@ -18,9 +18,9 @@ export const OilOptionItem: FC<Props> = ({oil, isChecked, onClick, onMouseDown})
     const styles = theme[appTheme];
 
     const listItemClass = clsx(
-        layout.dropdown_item,
-        styles.dropdown_item,
-        isChecked && styles.dropdown_item_checked
+        layout.dropdownItem,
+        styles.dropdownItem,
+        isChecked && styles.dropdownItemChecked
     );
 
 
@@ -35,7 +35,7 @@ export const OilOptionItem: FC<Props> = ({oil, isChecked, onClick, onMouseDown})
                 type="checkbox"
                 checked={isChecked}
                 readOnly
-                className={styles.dropdown_checkbox}
+                className={styles.dropdownCheckbox}
             />
             <span>{oil.name_rus}</span>
         </li>

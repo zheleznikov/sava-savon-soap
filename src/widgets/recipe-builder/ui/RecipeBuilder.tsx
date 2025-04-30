@@ -3,7 +3,7 @@ import {OilAddedLine} from "@/feature/oil-management";
 import {useSoapRecipe} from "../../../feature/recipe-calculation/model/useSoapRecipe";
 import {OilWeightSummary} from "../../../feature/percent-progress-bar/OilWeightSummary";
 import {RecipeContainer} from "../../../shared/ui/RecipeContainer";
-import {RecipeNameInput} from "../../../feature/recipe-name-input/RecipeNameInput";
+import {RecipeTitleSetup} from "../../../feature/recipe-setup";
 import {LyeWaterSuperfatSetup} from "../../../feature/recipe-setup";
 import {InputTypeSetup} from "@/feature/recipe-setup";
 import {useTheme} from "../../../app/providers/ThemeContext";
@@ -33,7 +33,7 @@ export const RecipeBuilder = () => {
             <div className="flex flex-col md:flex-row gap-4">
                 {/* Первый блок: Название, переключатель, параметры */}
                 <div className="w-full lg:w-1/2">
-                    <RecipeNameInput />
+                    <RecipeTitleSetup />
                     <InputTypeSetup />
                     <LyeWaterSuperfatSetup />
                 </div>

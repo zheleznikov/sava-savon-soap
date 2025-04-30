@@ -42,7 +42,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                     className={theme.deleteButton}
                     title={t.delete_button_title}
                 >
-                    <Trash2 size={20} />
+                    <Trash2 size={20}/>
                 </button>
             </div>
 
@@ -55,8 +55,9 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                             updateOilGramWithRecalculatedPercents(oil, newGram)
                         }
                         disabled={isPercentMode}
-                        className={clsx(theme.input, isPercentMode && theme.inputDisabled)}
-                    />
+                        className={clsx(layout.input,
+                            isPercentMode ? theme.inputDisabled : theme.input
+                        )}                    />
                     <span className={theme.unitText}>{t.unit_grams}</span>
                 </div>
 
@@ -68,7 +69,9 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                             updateOilPercentWithGramRecalculation(oil, newPercent, totalOilAmount)
                         }
                         disabled={isGramMode}
-                        className={clsx(theme.input, isGramMode && theme.inputDisabled)}
+                        className={clsx(layout.input,
+                            isGramMode ? theme.inputDisabled : theme.input
+                        )}
                     />
                     <span className={theme.unitText}>{t.unit_percent}</span>
                 </div>

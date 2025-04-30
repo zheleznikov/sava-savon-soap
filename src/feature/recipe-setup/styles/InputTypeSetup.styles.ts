@@ -1,4 +1,5 @@
 import { colors, common } from "@/shared/styles/layout";
+import {smartInput} from "../../../shared/styles/layout";
 
 const themeLight = {
     border: colors.light.border,
@@ -11,7 +12,7 @@ const themeLight = {
 
     labelText: colors.light.labelText,
     inputDisabled: colors.light.inputDisabled,
-    input: `${colors.light.bg} ${colors.light.text}`
+    input: smartInput.light
 };
 
 const themeDark = {
@@ -24,7 +25,7 @@ const themeDark = {
     buttonActiveText: colors.dark.radioActiveText,
     labelText: colors.dark.labelText,
     inputDisabled: colors.dark.inputDisabled,
-    input: `${colors.dark.bg} ${colors.dark.text}`
+    input: smartInput.dark
 };
 
 const createLayoutTheme = (theme: typeof themeLight) => ({
@@ -41,11 +42,12 @@ const createLayoutTheme = (theme: typeof themeLight) => ({
         buttonActive: `${theme.buttonActiveBg} ${theme.buttonActiveText}`,
         buttonInactive: `${theme.buttonBg} ${theme.buttonText} ${theme.buttonHover}`,
         inputBase: "w-[120px] text-sm",
-        inputDisabled: theme.inputDisabled,
+        inputDisabled: `border-none ${theme.inputDisabled}`,
         hint: "text-xs mt-1 transition-opacity duration-200 min-h-[1rem]",
         hintVisible: "text-gray-400 opacity-100 visible",
         hintHidden: "opacity-0 invisible",
         unitText: theme.unitText,
+        input: theme.input
     },
 });
 
