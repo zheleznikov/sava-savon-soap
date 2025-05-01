@@ -1,7 +1,7 @@
 import {OilAutocomplete} from "@/feature/oil-management";
 import {OilAddedLine} from "@/feature/oil-management";
 import {useSoapRecipe} from "../../../feature/recipe-calculation/model/useSoapRecipe";
-import {OilWeightSummary} from "../../../feature/percent-progress-bar/OilWeightSummary";
+import {PercentProgressBar} from "@/feature/percent-progress-bar";
 import {RecipeContainer} from "../../../shared/ui/RecipeContainer";
 import {RecipeTitleSetup} from "../../../feature/recipe-setup";
 import {LyeWaterSuperfatSetup} from "../../../feature/recipe-setup";
@@ -49,7 +49,7 @@ export const RecipeBuilder = () => {
                         <OilAddedLine oil={oil} key={oil.id} />
                     ))}
 
-                    <OilWeightSummary />
+                    <PercentProgressBar />
                 </div>
             </div>
 

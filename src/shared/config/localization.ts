@@ -45,5 +45,11 @@ export const localization = {
             unit_grams: "г",
             unit_percent: "%",
         },
+        percent_progress_bar: {
+            summary: "Общий процент — {{percent}}%",
+            hint_main: "Для правильного расчёта общий процент масел должен быть от 99% до 101%.",
+            hint_add: "Добавьте {{amount}}%.",
+            hint_remove: "Убавьте {{amount}}%.",
+        },
     }
 };
