@@ -1,9 +1,9 @@
-import {RecipeTitleInput} from "../../feature/recipe-title/RecipeTitleInput";
-import {ScaleRecipeBlock} from "../../feature/scale-recipe/ScaleRecipeBlock";
-import {ParametersList} from "../../feature/output-recipe-parameters/ParametersList";
-import {OilsList} from "../../feature/outpt-oils-list/OilsList";
-import {ResultSummary} from "../../feature/output-summary/ResultSummary";
-import {RecipeParametersTable} from "../../feature/recipe-params-table/RecipeParametersTable";
+import {RecipeTitleInput} from "../../feature/recipe-summary/RecipeTitleInput";
+import {ScaleRecipeBlock} from "../../feature/recipe-summary/ScaleRecipeBlock";
+import {ParametersList} from "../../feature/recipe-summary/ParametersList";
+import {OilsList} from "../../feature/recipe-summary/OilsList";
+import {ResultSummary} from "../../feature/recipe-summary/ResultSummary";
+import {RecipeParametersTable} from "../../feature/recipe-summary/RecipeParametersTable";
 import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
 import {RecipeContainer} from "../../shared/ui/RecipeContainer";
 import React, {FC} from "react";
@@ -136,7 +136,7 @@ export const RecipeSummaryBlock: FC = () => {
 
                 <div className={clsx(true && "invisible pointer-events-none")}>
                     <button
-                        className="w-full sm:w-auto px-16 py-3 bg-emerald-600 text-white rounded-lg shadow-md hover:bg-emerald-700 transition text-base font-semibold flex items-center justify-center gap-2"
+                        className="w-full sm:w-auto px-8 py-3 bg-emerald-600 text-white rounded-lg shadow-md hover:bg-emerald-700 transition text-base font-semibold flex items-center justify-center gap-2"
                         onClick={handleSaveRecipe}
                         title="Сохранить рецепт"
                     >
@@ -164,8 +164,8 @@ export const RecipeSummaryBlock: FC = () => {
                         <Download size={22} />
                         <span className="text-[11px] mt-0.5">PDF</span>
                     </button>
-
                 </div>
+
             </div>
 
 

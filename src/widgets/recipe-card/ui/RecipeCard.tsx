@@ -1,13 +1,13 @@
-import {RecipeTitleInput} from "@/feature/recipe-title/RecipeTitleInput";
-import {ParametersList} from "@/feature/output-recipe-parameters/ParametersList";
-import {OilsList} from "@/feature/outpt-oils-list/OilsList";
-import {ResultSummary} from "@/feature/output-summary/ResultSummary";
-import {RecipeParametersTable} from "@/feature/recipe-params-table/RecipeParametersTable";
+import {RecipeTitleInput} from "@/feature/recipe-summary/RecipeTitleInput";
+import {ParametersList} from "@/feature/recipe-summary/ParametersList";
+import {OilsList} from "@/feature/recipe-summary/OilsList";
+import {ResultSummary} from "@/feature/recipe-summary/ResultSummary";
+import {RecipeParametersTable} from "@/feature/recipe-summary/RecipeParametersTable";
 import {InputBlockWrapper} from "@/shared/ui/InputBlockWrapper";
 import React, {FC} from "react";
 import {LyeType} from "@/app/providers/SoapRecipeContext.types";
 import {TOil} from "@/entities/oil/model/oil.types";
-import {RecipeParametersTableProps} from "../../../feature/recipe-params-table/RecipeParametersTable";
+import {RecipeParametersTableProps} from "../../../feature/recipe-summary/RecipeParametersTable";
 
 import { useNavigate } from "react-router-dom";
 import {RecipeContainer} from "../../../shared/ui/RecipeContainer";
