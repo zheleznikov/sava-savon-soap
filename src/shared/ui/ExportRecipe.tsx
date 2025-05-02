@@ -60,12 +60,12 @@ export const ExportRecipe: FC<ExportRecipeProps> = ({
 
 
     return (
-        <div className="relative w-[800px] p-6 bg-white text-black font-sans overflow-hidden">
+        <div className="relative w-[600px] p-6 bg-white text-black font-sans overflow-hidden">
             {/* Название */}
             <img
                 src={logo}
                 alt="Sava Savon watermark"
-                className="absolute inset-0 m-auto w-[500px] opacity-5 pointer-events-none select-none rotate-45 mix-blend-multiply"
+                className="absolute inset-0 m-auto w-[400px] opacity-5 pointer-events-none select-none rotate-45 mix-blend-multiply"
             />
 
 
@@ -124,8 +124,8 @@ export const ExportRecipe: FC<ExportRecipeProps> = ({
             <h2 className={`${layout.blockTitle} mt-6 mb-2`}>Свойства мыла</h2>
             <div className={`${layout.paramHeader} items-end`}>
                 <span className={layout.paramHeaderText}>Параметр</span>
-                <span className={layout.paramValueHeader}>Знач.</span>
-                <span className={layout.paramRangeHeader}>Диап.</span>
+                <span className={layout.paramValueHeader}>Значение</span>
+                <span className={layout.paramRangeHeader}>Диапазон</span>
             </div>
             <ul className="text-sm">
                 {parameters.map((param, index) => {
@@ -166,10 +166,11 @@ export const ExportRecipe: FC<ExportRecipeProps> = ({
 
             <p className="mt-8 text-xs text-gray-500 text-center">
                 Рецепт был создан в калькуляторе мыла sava savon —{" "}
-                {typeof window !== "undefined" && window.location.href
-                    ? window.location.href
+                {typeof window !== "undefined" && window.location.origin
+                    ? window.location.origin
                     : "через приложение."}
             </p>
+
 
         </div>
     );

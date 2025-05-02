@@ -15,7 +15,7 @@ import {useSaveRecipe} from "../../feature/recipe-calculation/model/useSaveRecip
 import {useSoapProperties} from "../../feature/recipe-calculation/model/useSoapProperties";
 import {clsx} from "clsx";
 import {RecipeActions} from "../../feature/recipe-summary/RecipeActions";
-import {useExportRecipe} from "../../shared/model/useExportRecipe";
+import {useExportRecipe} from "../../shared/model/useExportRecipe/useExportRecipe";
 import {LoadingOverlay} from "../../shared/ui/LoadingOverlay";
 
 
