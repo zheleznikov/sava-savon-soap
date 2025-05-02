@@ -1,9 +1,9 @@
-import {RecipeTitleInput} from "../../feature/recipe-summary/RecipeTitleInput";
-import {ScaleRecipeBlock} from "../../feature/recipe-summary/ScaleRecipeBlock";
-import {ParametersList} from "../../feature/recipe-summary/ParametersList";
-import {OilsList} from "../../feature/recipe-summary/OilsList";
-import {ResultSummary} from "../../feature/recipe-summary/ResultSummary";
-import {RecipeParametersTable} from "../../feature/recipe-summary/RecipeParametersTable";
+import {RecipeTitleInput} from "../../feature/recipe-summary";
+import {ScaleRecipeBlock} from "../../feature/recipe-summary";
+import {ParametersList} from "../../feature/recipe-summary";
+import {OilsList} from "../../feature/recipe-summary";
+import {ResultSummary} from "../../feature/recipe-summary";
+import {RecipeParametersTable} from "../../feature/recipe-summary";
 import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
 import {RecipeContainer} from "../../shared/ui/RecipeContainer";
 import React, {FC} from "react";

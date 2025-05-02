@@ -51,5 +51,11 @@ export const localization = {
             hint_add: "Добавьте {{amount}}%.",
             hint_remove: "Убавьте {{amount}}%.",
         },
+        oils_list: {
+            title: "Масла",
+            summary_label: "Масса масел",
+            percent_unit: "%",
+            gram_unit: "г"
+        }
     }
 };

@@ -1,4 +1,4 @@
-import {formatNumber} from "../../shared/lib/utils";
+import {formatNumber} from "../../../shared/lib/utils";
 
 export const ResultSummary = ({ totalResultAmount }: { totalResultAmount: number }) => (
     <div>

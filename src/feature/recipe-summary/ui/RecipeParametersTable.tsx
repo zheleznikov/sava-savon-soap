@@ -1,6 +1,6 @@
 import {FC} from "react";
-import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
-import {formatNumber} from "../../shared/lib/utils";
+import {InputBlockWrapper} from "../../../shared/ui/InputBlockWrapper";
+import {formatNumber} from "../../../shared/lib/utils";
 
 
 function isInRange(value: number, range: string): boolean {
