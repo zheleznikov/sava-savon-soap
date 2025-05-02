@@ -1,8 +1,9 @@
 import {formatNumber} from "../../../shared/lib/utils";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {localization} from "../../../shared/config/localization";
-import {FC} from "react";
+import React, {FC} from "react";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
+import {clsx} from "clsx";
 
 export interface ParametersListProps {
     superfatPercent: number;
@@ -35,6 +36,14 @@ export const ParametersList: FC<ParametersListProps> = (
 
     return (
         <div className={styles.wrapper}>
+            <h4 className={styles.paramsTitle}>
+                Состав
+            </h4>
+            <div className={styles.paramHeader}>
+                <span className={clsx(styles.paramHeaderText, "text-center")}></span>
+                <span className={styles.paramHeaderText}> %</span>
+                <span className={styles.paramHeaderText}> г</span>
+            </div>
             <h4 className={styles.title}>{t.title}</h4>
             <ul className={styles.list}>
                 {items.map((item, index) => (

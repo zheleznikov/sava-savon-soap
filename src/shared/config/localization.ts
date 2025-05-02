@@ -89,6 +89,14 @@ export const localization = {
             creaminess: "Кремовость пены",
             bubbling: "Пузыристость пены",
             iodine: "Йодное число"
+        },
+        actions: {
+            save: "Сохранить",
+            saveTitle: "Сохранить рецепт",
+            downloadJpg: "Скачать JPG",
+            downloadPdf: "Скачать PDF",
+            jpgLabel: "JPG",
+            pdfLabel: "PDF"
         }
     }
 };

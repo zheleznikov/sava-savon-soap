@@ -74,6 +74,7 @@ const createRecipeBlockLayout = (theme: typeof themeLight) => ({
 
     // summary table
     paramHeader: "grid grid-cols-[2fr_1fr_1fr] gap-2 font-semibold text-sm pb-1 border-b mb-2",
+    paramsTitle: `text-center text-2xl font-bold ${theme.colors.value} mb-4 mt-1`,
     paramHeaderText: `${theme.colors.label} pl-2`,
     paramValueHeader: "text-center",
     paramRangeHeader: "text-right",
@@ -86,6 +87,15 @@ const createRecipeBlockLayout = (theme: typeof themeLight) => ({
         `grid grid-cols-[2fr_1fr_1fr] gap-2 px-2 py-1 items-center rounded-md ${
             index % 2 === 1 ? theme.colors.rowOdd : theme.colors.rowEven
         }`,
+    actions: {
+        wrapper: "mt-3 flex justify-between items-center px-2",
+        saveWrapper: "w-full sm:w-auto px-8 py-3 bg-emerald-600 text-white rounded-lg shadow-md hover:bg-emerald-700 transition text-base font-semibold flex items-center justify-center gap-2",
+        buttonGroup: "flex justify-center items-center space-x-2",
+        iconButton: "flex flex-col items-center justify-center w-14 h-14 sm:w-12 sm:h-12 rounded-full shadow-md transition transform hover:scale-95",
+        jpgButton: "bg-indigo-600 hover:bg-indigo-700 text-white",
+        pdfButton: "bg-emerald-600 hover:bg-emerald-700 text-white",
+        iconLabel: "text-[11px] mt-0.5"
+    }
 
 });
 

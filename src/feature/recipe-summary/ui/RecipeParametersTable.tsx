@@ -46,7 +46,7 @@ export const RecipeParametersTable: FC<RecipeParametersTableProps> = (
 
     return (
         <InputBlockWrapper className="lg:w-1/2 px-0">
-            <h4 className={styles.title}>{t.title}</h4>
+            <h4 className={styles.paramsTitle}>{t.title}</h4>
 
             <div className={styles.paramHeader}>
                 <span className={styles.paramHeaderText}>{t.param}</span>
