@@ -1,12 +1,26 @@
 import {formatNumber} from "../../../shared/lib/utils";
+import {FC} from "react";
+import {useTheme} from "../../../app/providers/ThemeContext";
+import {localization} from "../../../shared/config/localization";
+import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 
-export const ResultSummary = ({ totalResultAmount }: { totalResultAmount: number }) => (
-    <div>
-        <h4 className="text-md font-semibold text-emerald-700 mb-2 mt-1">Итог</h4>
-        <div className="grid grid-cols-3 gap-2 pt-1 font-semibold text-gray-800 bg-stone-100 rounded-md px-2 py-2 items-center mt-1">
-            <span>Общий вес</span>
-            <span className="text-center text-gray-400">—</span>
-            <span className="text-center font-bold">{formatNumber(totalResultAmount)} г</span>
+export interface ResultSummaryProps {
+    totalResultAmount: number;
+}
+
+export const ResultSummary: FC<ResultSummaryProps> = ({ totalResultAmount }) => {
+    const { appTheme } = useTheme();
+    const styles = recipeBlockStyles[appTheme];
+    const t = localization.ru.result_summary;
+
+    return (
+        <div className={styles.wrapper}>
+            <h4 className={styles.title}>{t.title}</h4>
+            <div className={styles.summary}>
+                <span>{t.label}</span>
+                <span className={styles.resultPlaceholder}>—</span>
+                <span className={styles.resultTotal}>{formatNumber(totalResultAmount)} {t.unit}</span>
+            </div>
         </div>
-    </div>
-);
+    );
+};

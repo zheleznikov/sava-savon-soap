@@ -2,9 +2,9 @@ import {formatNumber} from "../../../shared/lib/utils";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {FC} from "react";
 import {useTheme} from "../../../app/providers/ThemeContext";
-import {oilsListStyles} from "../styles/OilsList.styles";
 import {getTotalOilPercent} from "../utils/utils";
 import {localization} from "../../../shared/config/localization";
+import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 
 
 interface Props {
@@ -17,7 +17,7 @@ export const OilsList: FC<Props> = ({selectedOils, totalOilAmount}) => {
     const t = localization.ru.oils_list;
 
     const { appTheme } = useTheme();
-    const styles = oilsListStyles[appTheme].layout;
+    const styles = recipeBlockStyles[appTheme];
     const getRowClass = (index: number) => `${styles.rowBase} ${index % 2 === 0 ? styles.rowEven : styles.rowOdd}`;
 
     const totalPercent = getTotalOilPercent(selectedOils);

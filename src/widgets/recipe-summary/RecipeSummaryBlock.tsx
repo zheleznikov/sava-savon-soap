@@ -65,6 +65,7 @@ export const RecipeSummaryBlock: FC = () => {
                     </div>
                 </div>
             )}
+
             {/* Блок PDF */}
             <div ref={pdfRef}>
                 <div className="mb-4">
@@ -167,8 +168,6 @@ export const RecipeSummaryBlock: FC = () => {
                 </div>
 
             </div>
-
-
 
 
         </RecipeContainer>

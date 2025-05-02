@@ -1,49 +1,57 @@
 import {formatNumber} from "../../../shared/lib/utils";
+import {useTheme} from "../../../app/providers/ThemeContext";
+import {localization} from "../../../shared/config/localization";
+import {FC} from "react";
+import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 
-export const ParametersList = ({
-                                   superfatPercent,
-                                   waterPercent,
-                                   lyeType,
-                                   totalLyeAmount,
-                                   totalWaterAmount
-                               }: {
+export interface ParametersListProps {
     superfatPercent: number;
     waterPercent: number;
     lyeType: string;
     totalLyeAmount: number;
     totalWaterAmount: number;
-}) => {
-    const getRowClass = (index: number) =>
-        `grid grid-cols-3 gap-2 py-1 ${index % 2 === 0 ? "bg-stone-50/90" : "bg-white"} rounded-md px-2 items-center`;
+}
+
+export const ParametersList: FC<ParametersListProps> = (
+    {
+        superfatPercent,
+        waterPercent,
+        lyeType,
+        totalLyeAmount,
+        totalWaterAmount
+    }) => {
+
+    const {appTheme} = useTheme();
+    const styles = recipeBlockStyles[appTheme];
+    const t = localization.ru.parameters;
 
     const items = [
-        { label: "Пережир", percent: Math.round(superfatPercent), gram: "—" },
-        { label: "Вода", percent: Math.round(waterPercent), gram: formatNumber(totalWaterAmount) },
-        { label: lyeType, percent: "—", gram: formatNumber(totalLyeAmount) }
+        {label: t.superfat, percent: Math.round(superfatPercent), gram: "—"},
+        {label: t.water, percent: Math.round(waterPercent), gram: formatNumber(totalWaterAmount)},
+        {label: lyeType, percent: "—", gram: formatNumber(totalLyeAmount)}
     ];
 
+    const getRowClass = (index: number) => `${styles.rowBase} ${index % 2 === 0 ? styles.rowEven : styles.rowOdd}`;
+
     return (
-        <div>
-            <h4 className="text-md font-semibold text-emerald-700 mb-2 mt-1">Параметры ввода</h4>
-            <ul className="space-y-1 mt-2">
+        <div className={styles.wrapper}>
+            <h4 className={styles.title}>{t.title}</h4>
+            <ul className={styles.list}>
                 {items.map((item, index) => (
                     <li key={index} className={getRowClass(index)}>
-                        <span className="text-gray-600">{item.label}</span>
-                        <span className="text-center text-gray-800 font-medium">
-                            {item.percent !== "—" ? `${item.percent}%` : "—"}
+                        <span className={styles.label}>{item.label}</span>
+                        <span className={styles.percent}>
+                            {item.percent !== "—" ? `${item.percent}${t.percentUnit}` : "—"}
                         </span>
-                        <span className="text-center text-gray-800 font-medium">
-  {item.label === "Вода" || item.label === lyeType ? (
-      <span className="inline-flex items-center justify-center border border-emerald-500 text-base font-medium rounded-full px-3 py-1 min-w-[40px]">
-      {item.gram} г
-    </span>
-  ) : (
-      <>
-          {item.gram} {item.gram !== "—" ? "г" : ""}
-      </>
-  )}
-</span>
-
+                        <span className={styles.gram}>
+                            {item.label === t.water || item.label === lyeType ? (
+                                <span className={styles.pill}>{item.gram} {t.gramUnit}</span>
+                            ) : (
+                                <>
+                                    {item.gram} {item.gram !== "—" ? t.gramUnit : ""}
+                                </>
+                            )}
+                        </span>
                     </li>
                 ))}
             </ul>

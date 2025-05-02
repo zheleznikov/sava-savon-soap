@@ -56,6 +56,39 @@ export const localization = {
             summary_label: "Масса масел",
             percent_unit: "%",
             gram_unit: "г"
+        },
+        parameters: {
+            title: "Параметры ввода",
+            superfat: "Пережир",
+            water: "Вода",
+            percentUnit: "%",
+            gramUnit: "г"
+        },
+        recipe_title_default: {
+            placeholder: "Мой рецепт"
+        },
+        result_summary: {
+            title: "Итог",
+            label: "Общий вес",
+            unit: "г"
+        },
+        scale: {
+            title: "Масштабирование рецепта",
+            description: "Измените общий вес готового мыла — рецепт пересчитается автоматически.",
+            placeholder: "Вес мыла, г",
+            unit: "г"
+        },
+        parameters_table: {
+            title: "Параметры",
+            param: "Параметр",
+            value: "Значение",
+            range: "Диапазон",
+            hardness: "Твёрдость",
+            cleansing: "Очищающие качества",
+            softening: "Смягчающие качества",
+            creaminess: "Кремовость пены",
+            bubbling: "Пузыристость пены",
+            iodine: "Йодное число"
         }
     }
 };

@@ -1,25 +1,33 @@
 import {FC} from "react";
+import {useTheme} from "../../../app/providers/ThemeContext";
+import {localization} from "../../../shared/config/localization";
+import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 
 interface RecipeTitleInputProps {
     recipeName: string;
     setRecipeName: (value: string) => void;
 }
 
-export const RecipeTitleInput: FC<RecipeTitleInputProps> = ({
-                                                                recipeName,
-                                                                setRecipeName,
-                                                            }) => {
+export const RecipeTitleInput: FC<RecipeTitleInputProps> = (
+    {
+        recipeName,
+        setRecipeName,
+    }) => {
+
+    const { appTheme } = useTheme();
+    const styles = recipeBlockStyles[appTheme].input;
+    const t = localization.ru.recipe_title_default;
 
     const isEmpty = recipeName.trim() === "";
+    const textClass = isEmpty ? styles.textEmpty : styles.textFilled;
 
     return (
         <input
             type="text"
             value={recipeName}
             onChange={(e) => setRecipeName(e.target.value)}
-            placeholder="Мой рецепт"
-            className={`w-full text-4xl text-center font-semibold min-h-[2.5rem] bg-transparent outline-none transition
-                ${isEmpty ? "text-gray-400" : "text-green-700"}`}
+            placeholder={t.placeholder}
+            className={`${styles.base} ${textClass}`}
         />
     );
 };

@@ -5,4 +5,4 @@ export {ResultSummary} from "./ui/ResultSummary";
 export {RecipeTitleInput} from "./ui/RecipeTitleInput";
 export {ScaleRecipeBlock} from "./ui/ScaleRecipeBlock";
 
-export {oilsListStyles} from "./styles/OilsList.styles";
+export {recipeBlockStyles} from "./styles/RecipeBlock.styles";

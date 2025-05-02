@@ -2,6 +2,9 @@ import {FC} from "react";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {SmartNumberInput} from "@/shared/smart-number-input";
 import {InputBlockWrapper} from "../../../shared/ui/InputBlockWrapper";
+import {localization} from "../../../shared/config/localization";
+import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
+import {useTheme} from "../../../app/providers/ThemeContext";
 
 
 interface ScaleRecipeBlockProps {
@@ -19,12 +22,13 @@ export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
                                                                 setUserDefinedTotalWeight,
                                                                 totalResultAmount,
                                                             }) => {
-
+    const { appTheme } = useTheme();
+    const styles = recipeBlockStyles[appTheme];
+    const t = localization.ru.scale;
 
     const isGramMode = inputType === InputType.Gram;
 
     const handleInputChange = (value: number) => {
-        // Переключаем только если введено новое значение, отличное от текущего
         if (isGramMode && value !== totalResultAmount) {
             setInputType(InputType.Percent);
         }
@@ -33,26 +37,22 @@ export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
 
     return (
         <InputBlockWrapper>
-            <div className="flex flex-col gap-2 mb-4">
-                <h2 className="text-lg font-bold text-gray-800 text-center">
-                    Масштабирование рецепта
-                </h2>
-                <p className="text-sm text-gray-600">
-                    Измените общий вес готового мыла — рецепт пересчитается автоматически.
-                </p>
+            <div className={styles.blockHeader}>
+                <h2 className={styles.blockTitle}>{t.title}</h2>
+                <p className={styles.blockText}>{t.description}</p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className={styles.blockInputRow}>
                 <SmartNumberInput
                     decimalPlaces={0}
                     value={isGramMode ? totalResultAmount : userDefinedTotalWeight}
                     onChange={handleInputChange}
-                    placeholder="Вес мыла, г"
+                    placeholder={t.placeholder}
                     min={10}
                     max={10000}
-                    className="text-lg px-4 py-2 w-full h-14 rounded-md border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400 transition"
+                    className={styles.inputSmart}
                 />
-                <span className="text-md text-gray-500">г</span>
+                <span className={styles.inputUnit}>{t.unit}</span>
             </div>
         </InputBlockWrapper>
     );
