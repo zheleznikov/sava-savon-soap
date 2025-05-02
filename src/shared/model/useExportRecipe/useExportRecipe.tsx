@@ -10,7 +10,7 @@ export const useExportRecipe = () => {
 
     const waitRender = () => new Promise((r) => setTimeout(r, 100));
 
-    const exportPdf = async (data: ExportRecipeProps) => {
+    const exportPdfStable = async (data: ExportRecipeProps) => {
         setCurrentData(data);
         setIsCreatingImg(true);
 
@@ -58,6 +58,88 @@ export const useExportRecipe = () => {
         pdf.save(`${data.recipeName}.pdf`);
         setIsCreatingImg(false);
     };
+
+    const exportPdf = async (data: ExportRecipeProps) => {
+        setCurrentData(data);
+        setIsCreatingImg(true);
+
+        await new Promise((r) => setTimeout(r, 100));
+
+        const element = exportRef.current;
+        if (!element) {
+            console.error("❌ exportRef пустой");
+            return;
+        }
+
+        const canvas = await html2canvas(element, {
+            backgroundColor: "#fff",
+            useCORS: true,
+            scale: 2,
+        });
+
+        const imgData = canvas.toDataURL("image/jpeg", 0.92);
+        if (!imgData.startsWith("data:image")) {
+            console.error("❌ Невалидное изображение:", imgData.slice(0, 30));
+            return;
+        }
+
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 10;
+
+        const contentWidth = pageWidth - margin * 2;
+        const ratio = canvas.height / canvas.width;
+        const imgHeightMm = contentWidth * ratio;
+
+        const offsetX = (pageWidth - contentWidth) / 2;
+
+        if (imgHeightMm <= pageHeight - margin * 2) {
+            // Влезает на одну страницу
+            pdf.addImage(imgData, "JPEG", offsetX, margin, contentWidth, imgHeightMm);
+        } else {
+            // Надо разбивать по высоте
+            const pxPerMm = canvas.height / imgHeightMm;
+            const pageHeightPx = (pageHeight - margin * 2) * pxPerMm;
+
+            let remainingHeight = canvas.height;
+            let position = 0;
+
+            while (remainingHeight > 0) {
+                const tempCanvas = document.createElement("canvas");
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = Math.min(pageHeightPx, remainingHeight);
+
+                const ctx = tempCanvas.getContext("2d");
+                if (ctx) {
+                    ctx.drawImage(
+                        canvas,
+                        0,
+                        position,
+                        canvas.width,
+                        tempCanvas.height,
+                        0,
+                        0,
+                        canvas.width,
+                        tempCanvas.height
+                    );
+                }
+
+                const img = tempCanvas.toDataURL("image/jpeg", 0.92);
+                const heightMm = (tempCanvas.height / pxPerMm);
+
+                if (position > 0) pdf.addPage();
+                pdf.addImage(img, "JPEG", offsetX, margin, contentWidth, heightMm);
+
+                position += tempCanvas.height;
+                remainingHeight -= tempCanvas.height;
+            }
+        }
+
+        pdf.save(`${data.recipeName}.pdf`);
+        setIsCreatingImg(false);
+    };
+
 
     const exportImageOrShare = async (data: ExportRecipeProps) => {
         setCurrentData(data);
