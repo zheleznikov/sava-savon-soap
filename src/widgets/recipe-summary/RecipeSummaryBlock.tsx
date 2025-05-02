@@ -46,8 +46,10 @@ export const RecipeSummaryBlock: FC = () => {
     };
 
     const handleShare = () => {
+        const name = recipeName.trim() !== "" ? recipeName.trim() : "Мой рецепт";
+
         exportImageOrShare({
-            recipeName,
+            recipeName:name,
             superfatPercent,
             waterPercent,
             lyeType,

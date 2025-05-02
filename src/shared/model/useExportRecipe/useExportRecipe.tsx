@@ -47,14 +47,7 @@ export const useExportRecipe = () => {
 
         pdf.addImage(imgData, "JPEG", offsetX, margin, targetWidth, targetHeight);
 
-        // if (!isApp()) {
-        //     const linkText = "https://sava-savon.net";
-        //     const pageWidth = pdf.internal.pageSize.getWidth();
-        //     const y = pdf.internal.pageSize.getHeight() - 10; // отступ снизу
-        //     const x = (pageWidth - pdf.getTextWidth(linkText)) / 2;
-        //
-        //     pdf.textWithLink(linkText, x, y, { url: linkText });
-        // }
+
         pdf.save(`${data.recipeName}.pdf`);
         setIsCreatingImg(false);
     };
