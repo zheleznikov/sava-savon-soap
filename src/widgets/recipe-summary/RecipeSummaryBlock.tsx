@@ -14,14 +14,58 @@ import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecip
 import {useSaveRecipe} from "../../feature/recipe-calculation/model/useSaveRecipe";
 import {useSoapProperties} from "../../feature/recipe-calculation/model/useSoapProperties";
 import {clsx} from "clsx";
-import {useCreateRecipePdf} from "@/process/pdf-create/model/useCreateRecipePdf";
 import {RecipeActions} from "../../feature/recipe-summary/RecipeActions";
+import {useExportRecipe} from "../../shared/model/useExportRecipe";
 import {LoadingOverlay} from "../../shared/ui/LoadingOverlay";
 
 
 export const RecipeSummaryBlock: FC = () => {
 
-    const {pdfRef, createPdf, isDownloadingPdf, shareImageFile} = useCreateRecipePdf();
+    const { exportPdf, ExportContainer, exportImageOrShare, isCreatingImg } = useExportRecipe();
+
+    const handleExport = () => {
+        exportPdf({
+            recipeName,
+            superfatPercent,
+            waterPercent,
+            lyeType,
+            totalLyeAmount,
+            totalWaterAmount,
+            totalOilAmount,
+            totalResultAmount,
+            selectedOils,
+            properties: {
+                hardness,
+                cleansing,
+                soften,
+                bubbling,
+                creaminess,
+                iodine
+            },
+        });
+    };
+
+    const handleShare = () => {
+        exportImageOrShare({
+            recipeName,
+            superfatPercent,
+            waterPercent,
+            lyeType,
+            totalLyeAmount,
+            totalWaterAmount,
+            totalOilAmount,
+            totalResultAmount,
+            selectedOils,
+            properties: {
+                hardness,
+                cleansing,
+                soften,
+                bubbling,
+                creaminess,
+                iodine
+            },
+        });
+    };
 
 
     const {
@@ -55,70 +99,74 @@ export const RecipeSummaryBlock: FC = () => {
 
     const {handleSaveRecipe} = useSaveRecipe();
 
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
 
     return (
-        <RecipeContainer className={"relative px-0 sm:px-2"}>
-            {isDownloadingPdf && <LoadingOverlay text="Создание файла..."/>}
+        <>
+            <RecipeContainer className={"relative px-0 sm:px-2"}>
+                {isCreatingImg && <LoadingOverlay text="Создание файла..."/>}
 
-            <div ref={pdfRef}>
-                <div className="mb-4">
-                    <RecipeTitleInput
-                        recipeName={recipeName}
-                        setRecipeName={setRecipeName}
-                    />
-                </div>
-
-                <div className={`flex flex-col gap-2 md:flex-row`}>
-                    <div className={clsx("w-full", "lg:w-1/2")}>
-                        <InputBlockWrapper className={"px-0"}>
-
-                            <ParametersList
-                                superfatPercent={superfatPercent}
-                                waterPercent={waterPercent}
-                                lyeType={lyeType}
-                                totalWaterAmount={totalWaterAmount}
-                                totalLyeAmount={totalLyeAmount}
-                            />
-
-                            <OilsList
-                                selectedOils={selectedOils}
-                                totalOilAmount={totalOilAmount}
-                            />
-
-                            <ResultSummary totalResultAmount={totalResultAmount}/>
-                        </InputBlockWrapper>
-
-                        <ScaleRecipeBlock
-                            inputType={inputType}
-                            setInputType={setInputType}
-                            userDefinedTotalWeight={userDefinedTotalWeight}
-                            setUserDefinedTotalWeight={setUserDefinedTotalWeight}
-                            totalResultAmount={totalResultAmount}
+                <div>
+                    <div className="mb-4">
+                        <RecipeTitleInput
+                            recipeName={recipeName}
+                            setRecipeName={setRecipeName}
                         />
                     </div>
 
-                    <RecipeParametersTable
-                        hardness={hardness}
-                        cleansing={cleansing}
-                        soften={soften}
-                        bubbling={bubbling}
-                        creaminess={creaminess}
-                        iodine={iodine}
-                    />
+                    <div className={`flex flex-col gap-2 md:flex-row`}>
+                        <div className={clsx("w-full", "lg:w-1/2")}>
+                            <InputBlockWrapper className={"px-0"}>
+
+                                <ParametersList
+                                    superfatPercent={superfatPercent}
+                                    waterPercent={waterPercent}
+                                    lyeType={lyeType}
+                                    totalWaterAmount={totalWaterAmount}
+                                    totalLyeAmount={totalLyeAmount}
+                                />
+
+                                <OilsList
+                                    selectedOils={selectedOils}
+                                    totalOilAmount={totalOilAmount}
+                                />
+
+                                <ResultSummary totalResultAmount={totalResultAmount}/>
+                            </InputBlockWrapper>
+
+                            <ScaleRecipeBlock
+                                inputType={inputType}
+                                setInputType={setInputType}
+                                userDefinedTotalWeight={userDefinedTotalWeight}
+                                setUserDefinedTotalWeight={setUserDefinedTotalWeight}
+                                totalResultAmount={totalResultAmount}
+                            />
+                        </div>
+
+                        <RecipeParametersTable
+                            hardness={hardness}
+                            cleansing={cleansing}
+                            soften={soften}
+                            bubbling={bubbling}
+                            creaminess={creaminess}
+                            iodine={iodine}
+                        />
+                    </div>
                 </div>
-            </div>
 
-            <RecipeActions
-                onSave={handleSaveRecipe}
-                onDownloadJpg={() => shareImageFile(recipeName)}
-                onDownloadPdf={() => createPdf(recipeName)}
-                isSaveHidden={true} // или по логике: isDownloadingPdf
-            />
+                <RecipeActions
+                    onSave={handleSaveRecipe}
+                    onDownloadJpg={handleShare}
+                    onDownloadPdf={handleExport}
+                    isSaveHidden={true} // или по логике: isDownloadingPdf
+                />
 
 
-        </RecipeContainer>
+            </RecipeContainer>
+            <ExportContainer />
+
+        </>
+
+
     );
 };
 

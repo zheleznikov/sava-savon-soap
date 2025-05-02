@@ -95,7 +95,8 @@ const createRecipeBlockLayout = (theme: typeof themeLight) => ({
         jpgButton: "bg-indigo-600 hover:bg-indigo-700 text-white",
         pdfButton: "bg-emerald-600 hover:bg-emerald-700 text-white",
         iconLabel: "text-[11px] mt-0.5"
-    }
+    },
+    value: theme.colors.value
 
 });
 
