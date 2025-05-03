@@ -1,10 +1,10 @@
 import {FC} from "react";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
-import {SmartNumberInput} from "@/shared/smart-number-input";
 import {InputBlockWrapper} from "../../../shared/ui/InputBlockWrapper";
 import {localization} from "../../../shared/config/localization";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 import {useTheme} from "../../../app/providers/ThemeContext";
+import {SmartNumberInput} from "../../../shared";
 
 
 interface ScaleRecipeBlockProps {

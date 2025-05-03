@@ -1,14 +1,17 @@
 import {FC} from "react";
-import {Bookmark, Download} from "lucide-react";
+import {Download, Share2} from "lucide-react";
 import clsx from "clsx";
 import {localization} from "../../shared/config/localization";
 import {recipeBlockStyles} from "./styles/RecipeBlock.styles";
 import {useTheme} from "../../app/providers/ThemeContext";
 
+
 interface RecipeActionsProps {
     onSave: () => void;
     onDownloadJpg: () => void;
     onDownloadPdf: () => void;
+    onSharePdf: () => void;
+    onShareJpg: () => void;
     isSaveHidden?: boolean;
 }
 
@@ -17,26 +20,34 @@ export const RecipeActions: FC<RecipeActionsProps> = (
         onSave,
         onDownloadJpg,
         onDownloadPdf,
+        onSharePdf,
+        onShareJpg,
         isSaveHidden = false,
     }) => {
     const {appTheme} = useTheme();
     const styles = recipeBlockStyles[appTheme].actions;
     const t = localization.ru.actions;
 
+
+    // const isSharingAvailable = (isMobile || Capacitor.isNativePlatform());
+    const isSharingAvailable = true;
+
+
     return (
         <div className={styles.wrapper}>
-            <div className={clsx(isSaveHidden && "invisible pointer-events-none")}>
-                <button
-                    className={styles.saveWrapper}
-                    onClick={onSave}
-                    title={t.saveTitle}
-                >
-                    <Bookmark size={18}/>
-                    {t.save}
-                </button>
-            </div>
+            {/*<div className={clsx(isSaveHidden && "invisible pointer-events-none")}>*/}
+            {/*    <button*/}
+            {/*        className={styles.saveWrapper}*/}
+            {/*        onClick={onSave}*/}
+            {/*        title={t.saveTitle}*/}
+            {/*    >*/}
+            {/*        <Bookmark size={18}/>*/}
+            {/*        {t.save}*/}
+            {/*    </button>*/}
+            {/*</div>*/}
 
             <div className={styles.buttonGroup}>
+
                 <button
                     className={clsx(styles.iconButton, styles.jpgButton)}
                     onClick={onDownloadJpg}
@@ -46,6 +57,18 @@ export const RecipeActions: FC<RecipeActionsProps> = (
                     <span className={styles.iconLabel}>{t.jpgLabel}</span>
                 </button>
 
+                {isSharingAvailable && (
+                    <button
+                        className={clsx(styles.iconButton, styles.jpgShareButton)}
+                        onClick={onShareJpg}
+                        title={t.downloadJpg}
+                    >
+                        <Share2 size={22}/>
+                        <span className={styles.iconLabel}>{t.jpgLabel}</span>
+                    </button>
+
+                )}
+
                 <button
                     className={clsx(styles.iconButton, styles.pdfButton)}
                     onClick={onDownloadPdf}
@@ -54,6 +77,17 @@ export const RecipeActions: FC<RecipeActionsProps> = (
                     <Download size={22}/>
                     <span className={styles.iconLabel}>{t.pdfLabel}</span>
                 </button>
+
+                {isSharingAvailable && (
+                    <button
+                        className={clsx(styles.iconButton, styles.pdfShareButton)}
+                        onClick={onSharePdf}
+                        title={t.downloadJpg}
+                    >
+                        <Share2 size={22}/>
+                        <span className={styles.iconLabel}>{t.pdfLabel}</span>
+                    </button>
+                )}
             </div>
         </div>
     );

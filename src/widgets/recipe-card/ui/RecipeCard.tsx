@@ -75,16 +75,6 @@ export const RecipeCard: FC<Props> = ({
                 <div className="w-full lg:w-1/2">
                     <InputBlockWrapper className={"px-0"}>
 
-                        <h4 className="text-center text-2xl font-bold text-gray-800 mb-3 mt-1">
-                            Состав
-                        </h4>
-
-                        <div className="grid grid-cols-3 gap-2 font-semibold text-gray-500 border-b pb-1">
-                            <span></span>
-                            <span className="text-center">%</span>
-                            <span className="text-center">г</span>
-                        </div>
-
                         <ParametersList
                             superfatPercent={superfatPercent}
                             waterPercent={waterPercent}

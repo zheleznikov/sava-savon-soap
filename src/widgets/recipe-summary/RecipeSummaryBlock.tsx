@@ -15,16 +15,16 @@ import {useSaveRecipe} from "../../feature/recipe-calculation/model/useSaveRecip
 import {useSoapProperties} from "../../feature/recipe-calculation/model/useSoapProperties";
 import {clsx} from "clsx";
 import {RecipeActions} from "../../feature/recipe-summary/RecipeActions";
-import {useExportRecipe} from "../../shared/model/useExportRecipe/useExportRecipe";
+import {useExportRecipe} from "../../shared/model/useExportRecipe";
 import {LoadingOverlay} from "../../shared/ui/LoadingOverlay";
 
 
 export const RecipeSummaryBlock: FC = () => {
 
-    const { exportPdf, ExportContainer, exportImageOrShare, isCreatingImg } = useExportRecipe();
+    const { downloadPdfOnly, ExportContainer, downloadImageOnly, shareOrDownloadImage, shareOrDownloadPdf, isCreatingImg } = useExportRecipe();
 
-    const handleExport = () => {
-        exportPdf({
+    const downloadPdf = () => {
+        downloadPdfOnly({
             recipeName,
             superfatPercent,
             waterPercent,
@@ -45,10 +45,56 @@ export const RecipeSummaryBlock: FC = () => {
         });
     };
 
-    const handleShare = () => {
+    const sharePdf = () => {
+        shareOrDownloadPdf({
+            recipeName,
+            superfatPercent,
+            waterPercent,
+            lyeType,
+            totalLyeAmount,
+            totalWaterAmount,
+            totalOilAmount,
+            totalResultAmount,
+            selectedOils,
+            properties: {
+                hardness,
+                cleansing,
+                soften,
+                bubbling,
+                creaminess,
+                iodine
+            },
+        });
+    };
+
+    const shareImage = () => {
         const name = recipeName.trim() !== "" ? recipeName.trim() : "Мой рецепт";
 
-        exportImageOrShare({
+        shareOrDownloadImage({
+            recipeName:name,
+            superfatPercent,
+            waterPercent,
+            lyeType,
+            totalLyeAmount,
+            totalWaterAmount,
+            totalOilAmount,
+            totalResultAmount,
+            selectedOils,
+            properties: {
+                hardness,
+                cleansing,
+                soften,
+                bubbling,
+                creaminess,
+                iodine
+            },
+        });
+    };
+
+    const downloadImage = () => {
+        const name = recipeName.trim() !== "" ? recipeName.trim() : "Мой рецепт";
+
+        downloadImageOnly({
             recipeName:name,
             superfatPercent,
             waterPercent,
@@ -157,8 +203,10 @@ export const RecipeSummaryBlock: FC = () => {
 
                 <RecipeActions
                     onSave={handleSaveRecipe}
-                    onDownloadJpg={handleShare}
-                    onDownloadPdf={handleExport}
+                    onDownloadJpg={downloadImage}
+                    onShareJpg={shareImage}
+                    onDownloadPdf={downloadPdf}
+                    onSharePdf={sharePdf}
                     isSaveHidden={true} // или по логике: isDownloadingPdf
                 />
 

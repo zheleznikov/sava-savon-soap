@@ -12,12 +12,13 @@ import {RecipeBuilder} from "@/widgets/recipe-builder";
 
 export const Calculator: FC = () => {
     const location = useLocation();
-    const context = useSoapRecipe(); // доступ к сеттерам
+    const context = useSoapRecipe();
 
     const mode = (location.state as any)?.mode ?? "new";
 
     useEffect(() => {
         if (location.state) {
+
             const state = location.state as {
                 recipeName: string;
                 selectedOils: TOil[];

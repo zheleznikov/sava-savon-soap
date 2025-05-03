@@ -97,6 +97,12 @@ export const localization = {
             downloadPdf: "Скачать PDF",
             jpgLabel: "JPG",
             pdfLabel: "PDF"
+        },
+        recipe_reminder: {
+            main: "Вы создали этот рецепт в калькуляторе мыла sava savon — ",
+            via: "через приложение.",
+            above: "выше нормы",
+            below: "ниже нормы",
         }
     }
 };

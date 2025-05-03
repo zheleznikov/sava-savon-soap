@@ -6,7 +6,7 @@ import {localization} from "@/shared/config/localization";
 import {useTheme} from "@/app/providers/ThemeContext";
 import {lyeWaterSuperfatSetupStyles} from "@/feature/recipe-setup";
 import {clsx} from "clsx";
-import {SmartNumberInput} from "@/shared/smart-number-input";
+import {SmartNumberInput} from "../../../shared";
 
 
 const l = localization.ru.soap_controls;

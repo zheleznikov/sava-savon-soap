@@ -88,12 +88,14 @@ const createRecipeBlockLayout = (theme: typeof themeLight) => ({
             index % 2 === 1 ? theme.colors.rowOdd : theme.colors.rowEven
         }`,
     actions: {
-        wrapper: "mt-3 flex justify-between items-center px-2",
-        saveWrapper: "w-full sm:w-auto px-8 py-3 bg-emerald-600 text-white rounded-lg shadow-md hover:bg-emerald-700 transition text-base font-semibold flex items-center justify-center gap-2",
-        buttonGroup: "flex justify-center items-center space-x-2",
+        wrapper: "mt-3 flex flex-wrap items-center px-2 justify-end",
+        saveWrapper: "w-full sm:w-auto py-3 bg-emerald-600 text-white rounded-lg shadow-md hover:bg-emerald-700 transition text-base font-semibold flex items-center justify-center gap-2",
+        buttonGroup: "flex justify-end items-center gap-2 flex-wrap",
         iconButton: "flex flex-col items-center justify-center w-14 h-14 sm:w-12 sm:h-12 rounded-full shadow-md transition transform hover:scale-95",
         jpgButton: "bg-indigo-600 hover:bg-indigo-700 text-white",
         pdfButton: "bg-emerald-600 hover:bg-emerald-700 text-white",
+        jpgShareButton: "bg-sky-600 hover:bg-sky-700 text-white",
+        pdfShareButton: "bg-rose-600 hover:bg-rose-700 text-white",
         iconLabel: "text-[11px] mt-0.5"
     },
     value: theme.colors.value

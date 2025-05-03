@@ -1,6 +1,5 @@
 import {FC} from "react";
 import {useSoapRecipe} from "../../recipe-calculation/model/useSoapRecipe";
-import {SmartNumberInput} from "@/shared/smart-number-input";
 import {useSoapCalculations} from "../../recipe-calculation/model/useSoapCalculations";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {InputBlockWrapper} from "../../../shared/ui/InputBlockWrapper";
@@ -8,6 +7,7 @@ import {clsx} from "clsx";
 import {localization} from "../../../shared/config/localization";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {inputTypeSetupStyles} from "@/feature/recipe-setup";
+import {SmartNumberInput} from "../../../shared";
 
 
 const l = localization.ru.input_type_toggle;

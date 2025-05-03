@@ -1,6 +1,5 @@
 import {FC} from "react";
 import {Trash2} from "lucide-react";
-import {SmartNumberInput} from "@/shared/smart-number-input";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {useSoapRecipe} from "../../recipe-calculation/model/useSoapRecipe";
 import {useSoapCalculations} from "../../recipe-calculation/model/useSoapCalculations";
@@ -9,6 +8,7 @@ import {useTheme} from "../../../app/providers/ThemeContext";
 import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
 import {localization} from "@/shared/config/localization";
 import {clsx} from "clsx";
+import {SmartNumberInput} from "../../../shared";
 
 interface Props {
     oil: TOil;

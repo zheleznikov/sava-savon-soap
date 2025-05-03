@@ -10,12 +10,6 @@ export const RecipesPage = () => {
     const {appTheme} = useTheme();
     return (
         <section className={clsx(calculator.wrapper.layout, calculator.wrapper.theme[appTheme], "relative")}>
-                {/*<h2*/}
-                {/*    className={`w-full text-3xl xs:text-4xl text-center font-bold min-h-[2.5rem] bg-transparent outline-none transition text-gray-700 mb-4`}*/}
-                {/*>*/}
-                {/*    Рецепты*/}
-                {/*</h2>*/}
-
             <div className="flex flex-col items-center">
                 {recipes.map((it, index) => (
                     <RecipeCard
