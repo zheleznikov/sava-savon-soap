@@ -4,6 +4,8 @@ import clsx from "clsx";
 import {localization} from "../../shared/config/localization";
 import {recipeBlockStyles} from "./styles/RecipeBlock.styles";
 import {useTheme} from "../../app/providers/ThemeContext";
+import { isMobile } from "react-device-detect";
+import {Capacitor} from "@capacitor/core";
 
 
 interface RecipeActionsProps {
@@ -29,9 +31,7 @@ export const RecipeActions: FC<RecipeActionsProps> = (
     const t = localization.ru.actions;
 
 
-    // const isSharingAvailable = (isMobile || Capacitor.isNativePlatform());
-    const isSharingAvailable = true;
-
+    const isSharingAvailable = (isMobile || Capacitor.isNativePlatform());
 
     return (
         <div className={styles.wrapper}>

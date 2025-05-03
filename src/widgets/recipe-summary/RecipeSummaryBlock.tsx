@@ -17,104 +17,45 @@ import {clsx} from "clsx";
 import {RecipeActions} from "../../feature/recipe-summary/RecipeActions";
 import {useExportRecipe} from "../../shared/model/useExportRecipe";
 import {LoadingOverlay} from "../../shared/ui/LoadingOverlay";
+import {ExportRecipeProps} from "../../shared/ui/ExportRecipe";
 
 
 export const RecipeSummaryBlock: FC = () => {
 
-    const { downloadPdfOnly, ExportContainer, downloadImageOnly, shareOrDownloadImage, shareOrDownloadPdf, isCreatingImg } = useExportRecipe();
+    const {
+        downloadPdfOnly,
+        ExportContainer,
+        downloadImageOnly,
+        shareOrDownloadImage,
+        shareOrDownloadPdf,
+        isCreatingImg
+    } = useExportRecipe();
 
-    const downloadPdf = () => {
-        downloadPdfOnly({
-            recipeName,
-            superfatPercent,
-            waterPercent,
-            lyeType,
-            totalLyeAmount,
-            totalWaterAmount,
-            totalOilAmount,
-            totalResultAmount,
-            selectedOils,
-            properties: {
-                hardness,
-                cleansing,
-                soften,
-                bubbling,
-                creaminess,
-                iodine
-            },
-        });
-    };
+    const getExportData = (): ExportRecipeProps => ({
+        recipeName: recipeName.trim() || "Мой рецепт",
+        superfatPercent,
+        waterPercent,
+        lyeType,
+        totalLyeAmount,
+        totalWaterAmount,
+        totalOilAmount,
+        totalResultAmount,
+        selectedOils,
+        properties: {
+            hardness,
+            cleansing,
+            soften,
+            bubbling,
+            creaminess,
+            iodine,
+        },
+    });
 
-    const sharePdf = () => {
-        shareOrDownloadPdf({
-            recipeName,
-            superfatPercent,
-            waterPercent,
-            lyeType,
-            totalLyeAmount,
-            totalWaterAmount,
-            totalOilAmount,
-            totalResultAmount,
-            selectedOils,
-            properties: {
-                hardness,
-                cleansing,
-                soften,
-                bubbling,
-                creaminess,
-                iodine
-            },
-        });
-    };
 
-    const shareImage = () => {
-        const name = recipeName.trim() !== "" ? recipeName.trim() : "Мой рецепт";
-
-        shareOrDownloadImage({
-            recipeName:name,
-            superfatPercent,
-            waterPercent,
-            lyeType,
-            totalLyeAmount,
-            totalWaterAmount,
-            totalOilAmount,
-            totalResultAmount,
-            selectedOils,
-            properties: {
-                hardness,
-                cleansing,
-                soften,
-                bubbling,
-                creaminess,
-                iodine
-            },
-        });
-    };
-
-    const downloadImage = () => {
-        const name = recipeName.trim() !== "" ? recipeName.trim() : "Мой рецепт";
-
-        downloadImageOnly({
-            recipeName:name,
-            superfatPercent,
-            waterPercent,
-            lyeType,
-            totalLyeAmount,
-            totalWaterAmount,
-            totalOilAmount,
-            totalResultAmount,
-            selectedOils,
-            properties: {
-                hardness,
-                cleansing,
-                soften,
-                bubbling,
-                creaminess,
-                iodine
-            },
-        });
-    };
-
+    const downloadPdf = () => downloadPdfOnly(getExportData());
+    const sharePdf = () => shareOrDownloadPdf(getExportData());
+    const shareImage = () => shareOrDownloadImage(getExportData());
+    const downloadImage = () => downloadImageOnly(getExportData());
 
     const {
         totalLyeAmount,
@@ -146,7 +87,6 @@ export const RecipeSummaryBlock: FC = () => {
     } = useSoapProperties();
 
     const {handleSaveRecipe} = useSaveRecipe();
-
 
     return (
         <>
@@ -212,7 +152,7 @@ export const RecipeSummaryBlock: FC = () => {
 
 
             </RecipeContainer>
-            <ExportContainer />
+            <ExportContainer/>
 
         </>
 
