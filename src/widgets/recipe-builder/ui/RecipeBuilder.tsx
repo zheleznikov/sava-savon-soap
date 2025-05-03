@@ -1,8 +1,8 @@
 import {OilAutocomplete} from "@/feature/oil-management";
 import {OilAddedLine} from "@/feature/oil-management";
-import {useSoapRecipe} from "../../../feature/recipe-calculation/model/useSoapRecipe";
+import {useSoapRecipe} from "../../../feature/recipe-calculation";
 import {PercentProgressBar} from "@/feature/percent-progress-bar";
-import {RecipeContainer} from "../../../shared/ui/RecipeContainer";
+import {RecipeContainer} from "../../../shared";
 import {RecipeTitleSetup} from "../../../feature/recipe-setup";
 import {LyeWaterSuperfatSetup} from "../../../feature/recipe-setup";
 import {InputTypeSetup} from "@/feature/recipe-setup";
@@ -31,14 +31,12 @@ export const RecipeBuilder = () => {
             </div>
 
             <div className="flex flex-col md:flex-row gap-4">
-                {/* Первый блок: Название, переключатель, параметры */}
                 <div className="w-full lg:w-1/2">
                     <RecipeTitleSetup />
                     <InputTypeSetup />
                     <LyeWaterSuperfatSetup />
                 </div>
 
-                {/* Второй блок: Автокомплит и масла */}
                 <div className="w-full lg:w-1/2">
                     <OilAutocomplete
                         onToggleOil={handleToggleOil}

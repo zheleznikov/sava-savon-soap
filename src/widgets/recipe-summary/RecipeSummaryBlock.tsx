@@ -6,17 +6,17 @@ import {
     ResultSummary,
     ScaleRecipeBlock
 } from "../../feature/recipe-summary";
-import {InputBlockWrapper} from "../../shared/ui/InputBlockWrapper";
-import {RecipeContainer} from "../../shared/ui/RecipeContainer";
+import {InputBlockWrapper} from "../../shared";
+import {RecipeContainer} from "../../shared";
 import React, {FC} from "react";
-import {useSoapCalculations} from "../../feature/recipe-calculation/model/useSoapCalculations";
-import {useSoapRecipe} from "../../feature/recipe-calculation/model/useSoapRecipe";
-import {useSaveRecipe} from "../../feature/recipe-calculation/model/useSaveRecipe";
-import {useSoapProperties} from "../../feature/recipe-calculation/model/useSoapProperties";
+import {useSoapCalculations} from "../../feature/recipe-calculation";
+import {useSoapRecipe} from "../../feature/recipe-calculation";
+import {useSaveRecipe} from "../../feature/recipe-calculation";
+import {useSoapProperties} from "../../feature/recipe-calculation";
 import {clsx} from "clsx";
-import {RecipeActions} from "../../feature/recipe-summary/RecipeActions";
+import {RecipeActions} from "../../feature/recipe-summary";
 import {useExportRecipe} from "../../shared/model/useExportRecipe";
-import {LoadingOverlay} from "../../shared/ui/LoadingOverlay";
+import {LoadingOverlay} from "../../shared";
 import {ExportRecipeProps} from "../../shared/ui/ExportRecipe";
 
 

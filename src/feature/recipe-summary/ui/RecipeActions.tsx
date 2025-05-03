@@ -1,9 +1,9 @@
 import {FC} from "react";
 import {Download, Share2} from "lucide-react";
 import clsx from "clsx";
-import {localization} from "../../shared/config/localization";
-import {recipeBlockStyles} from "./styles/RecipeBlock.styles";
-import {useTheme} from "../../app/providers/ThemeContext";
+import {localization} from "../../../shared/config/localization";
+import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
+import {useTheme} from "../../../app/providers/ThemeContext";
 import { isMobile } from "react-device-detect";
 import {Capacitor} from "@capacitor/core";
 

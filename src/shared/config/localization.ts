@@ -5,7 +5,8 @@ export const localization = {
             placeholder: "Введите название масла"
         },
         calculator: {
-            header: "Калькулятор мыла"
+            header: "Калькулятор мыла",
+            edit_notice: "Вы редактируете сохранённый рецепт: "
         },
         recipe_input: {
             placeholder: "Введите название рецепта"

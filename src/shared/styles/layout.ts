@@ -60,26 +60,7 @@ export const layout = {
 };
 
 
-// === Calculator ===
-export const calculator = {
-    wrapper: {
-        layout: `w-full lg:w-[70%] xl:w-[60%] max-w-[1600px] rounded-none sm:rounded-xl p-2 sm:p-8 flex-grow`,
-        theme: {
-            light: `${colors.light.bg} ${common.blurMd} ${common.shadowMd}`,
-            dark: "",
-        }
-    },
-    header: {
-        layout: "text-3xl sm:text-4xl font-bold mb-8 text-center tracking-tight drop-shadow-sm",
-        theme: {
-            light: "text-emerald-700",
-            dark: "text-emerald-700"
-        }
-    },
-    main: {
-        layout: "flex flex-col lg:flex-row gap-4"
-    }
-};
+
 
 
 export const pageHeader = {

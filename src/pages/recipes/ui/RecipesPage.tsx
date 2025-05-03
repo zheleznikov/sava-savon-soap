@@ -1,9 +1,9 @@
 import {clsx} from "clsx";
-import {calculator} from "../../../shared/styles/layout";
 import {recipes} from "../../../data/recipes.mock";
 import {RecipeCard} from "../../../widgets/recipe-card/ui/RecipeCard";
 import {LyeType} from "../../../app/providers/SoapRecipeContext.types";
 import {useTheme} from "../../../app/providers/ThemeContext";
+import {calculator} from "../../calculator/styles/Calculator.styles";
 
 export const RecipesPage = () => {
 

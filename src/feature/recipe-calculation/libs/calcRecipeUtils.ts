@@ -84,34 +84,6 @@ type TScaleReipe = {
     superfatPercent: number,
     lyeType: LyeType
 };
-export const scaleRecipeToTotalWeightSaved = (
-    {
-        selectedOils,
-        userDefinedTotalWeight,
-        waterPercent,
-        superfatPercent,
-        lyeType
-    }: TScaleReipe
-): TOil[] => {
-    const totalOil = selectedOils.reduce((sum, oil) => sum + (oil.gram || 0), 0);
-
-    const totalLye = selectedOils.reduce((sum, oil) => {
-        const sap = getOilSAP(oil, lyeType);
-        return sum + (oil.gram || 0) * sap * (1 - superfatPercent / 100);
-    }, 0);
-
-    const totalWater = totalOil * (waterPercent / 100);
-    const totalCurrent = totalOil + totalLye + totalWater;
-
-    if (totalCurrent === 0) return selectedOils;
-
-    const scale = userDefinedTotalWeight / totalCurrent;
-
-    return selectedOils.map((oil) => ({
-        ...oil,
-        gram: (oil.gram || 0) * scale,
-    }));
-};
 
 export const scaleRecipeToTotalWeight = ({
                                              selectedOils,

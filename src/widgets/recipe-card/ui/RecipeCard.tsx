@@ -9,7 +9,7 @@ import {
 } from "../../../feature/recipe-summary/ui/RecipeParametersTable";
 
 import { useNavigate } from "react-router-dom";
-import {RecipeContainer} from "../../../shared/ui/RecipeContainer";
+import {RecipeContainer} from "../../../shared";
 import {OilsList, ParametersList, RecipeTitleInput, ResultSummary} from "../../../feature/recipe-summary";
 
 
@@ -109,7 +109,6 @@ export const RecipeCard: FC<Props> = ({
                     className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl font-semibold transition"
                     onClick={() => {
                         handleEdit();
-                        // Тут можно потом открывать модалку или переходить на страницу редактирования
                     }}
                 >
                     Редактировать

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import {clsx} from "clsx";
-import {input_block_wrapper} from "@/shared/styles/inputBlockWrapper";
+import {inputBlockWrapperStyles} from "@/shared/styles/InputBlockWrapper.styles";
 import {useTheme} from "../../app/providers/ThemeContext";
 
 interface CardBlockProps {
@@ -14,8 +14,8 @@ export const InputBlockWrapper = ({ children, className = "" }: CardBlockProps) 
 
     const classList = clsx(
         className,
-        input_block_wrapper.layout,
-        input_block_wrapper.theme[appTheme],
+        inputBlockWrapperStyles.layout,
+        inputBlockWrapperStyles.theme[appTheme],
     );
 
     return (
