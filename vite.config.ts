@@ -11,8 +11,8 @@ export default defineConfig({
           registerType: 'autoUpdate',
           includeAssets: ['favicon.svg', 'robots.txt', 'apple-touch-icon.png'],
           manifest: {
-              name: 'Sava Savon',
-              short_name: 'Sava',
+              name: 'sava savon',
+              short_name: 'sava savon',
               description: 'Калькулятор мыла — веб-приложение',
               theme_color: '#ffffff',
               background_color: '#ffffff',

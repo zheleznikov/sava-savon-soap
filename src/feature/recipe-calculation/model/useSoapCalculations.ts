@@ -1,6 +1,6 @@
 import {useSoapRecipe} from "./useSoapRecipe";
 import {useEffect, useState} from "react";
-import {InputType, LyeType} from "../../../app/providers/SoapRecipeContext.types";
+import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {
     calculateLyeSum,
     calculateOilSum,
@@ -8,9 +8,6 @@ import {
     isValidPercentRange,
     scaleRecipeToTotalWeight
 } from "../libs/calcRecipeUtils";
-import {TOil} from "../../../entities/oil/model/oil.types";
-
-
 
 
 export const useSoapCalculations = () => {

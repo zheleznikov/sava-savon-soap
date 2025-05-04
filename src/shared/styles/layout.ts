@@ -56,7 +56,7 @@ export const theme = {
 // === Layout ===
 export const layout = {
     page: "min-h-screen flex p-0 pt-16 md:pt-10 lg:p-2 lg:pt-20",
-    wrapper: "mx-auto max-w-8xl flex flex-col lg:flex-row flex-grow justify-center"
+    wrapper: "mx-auto max-w-8xl flex flex-col lg:flex-row flex-grow justify-start"
 };
 
 

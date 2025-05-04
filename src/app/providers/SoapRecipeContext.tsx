@@ -1,7 +1,7 @@
 import {createContext, ReactNode, useState} from "react";
 import {TOil} from "../../entities/oil/model/oil.types";
 import {InputType, LyeType, SoapRecipeContextType} from "./SoapRecipeContext.types";
-import {recalculatePercents} from "../../feature/recipe-calculation/libs/calcRecipeUtils";
+import {recalculatePercents} from "../../feature/recipe-calculation";
 import {oils} from "../../entities/oil/model/oils";
 
 export const SoapRecipeContext = createContext<SoapRecipeContextType | undefined>(undefined);
@@ -14,7 +14,7 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
     const [recipeName, setRecipeName] = useState("");
     const [inputType, setInputType] = useState<InputType>(InputType.Gram);
     const [lyeType, setLyeType] = useState<LyeType>(LyeType.NaOH);
-    const [waterPercent, setWaterPercent] = useState(30);
+    const [waterPercent, setWaterPercent] = useState(33);
     const [superfatPercent, setSuperfatPercent] = useState(5);
 
 

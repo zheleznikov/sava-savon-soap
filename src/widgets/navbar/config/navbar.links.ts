@@ -12,4 +12,8 @@ export const navLinks = [
         name_rus: "О проекте",
         href: "/about",
     },
+    {
+        name_rus: "Как мы считаем",
+        href: "/how-we-calculate",
+    },
 ];
