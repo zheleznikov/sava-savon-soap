@@ -1,14 +1,17 @@
 import {FC} from "react";
 import {Trash2} from "lucide-react";
 import {TOil} from "../../../entities/oil/model/oil.types";
-import {useSoapRecipe} from "../../recipe-calculation/model/useSoapRecipe";
-import {useSoapCalculations} from "../../recipe-calculation/model/useSoapCalculations";
+import {useSoapRecipe} from "../../recipe-calculation";
+import {useSoapCalculations} from "../../recipe-calculation";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
 import {localization} from "@/shared/config/localization";
 import {clsx} from "clsx";
 import {SmartNumberInput} from "../../../shared";
+import { useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+
 
 interface Props {
     oil: TOil;
@@ -31,6 +34,10 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
 
     const {layout, theme} = oilAddedLineStyles[appTheme];
     const t = localization.ru.oil_line;
+
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+    const toggleDetails = () => setIsDetailsOpen(prev => !prev);
+
 
     return (
         <div className={theme.block}>
@@ -75,7 +82,83 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                     />
                     <span className={theme.unitText}>{t.unit_percent}</span>
                 </div>
+
             </div>
+            <button
+                onClick={toggleDetails}
+                className={theme.expandButton}
+                title="Подробнее"
+            >
+                {isDetailsOpen ? <ChevronUp size={32}/> : <ChevronDown size={32}/>}
+            </button>
+
+            {isDetailsOpen && (
+                <div
+                    className={clsx(
+                        layout.details,
+                        theme.details,
+                    )}
+                >
+                    <hr className="my-2 border-t border-gray-200" />
+                    <div className="mb-2">
+                        <div className="font-semibold text-[13px] mb-1 text-center">Свойства:</div>
+                        <ul className="list-disc pl-4 text-xs grid grid-cols-2 gap-x-4 gap-y-1">
+                            <li>
+                                Твёрдость: <span className={theme.valueNumber}>{oil.properties?.hardness}</span>
+                            </li>
+                            <li>
+                                Очищение: <span className={theme.valueNumber}>{oil.properties?.cleansing}</span>
+                            </li>
+                            <li>
+                                Смягчение: <span className={theme.valueNumber}>{oil.properties?.soften}</span>
+                            </li>
+                            <li>
+                                Пузыристость: <span className={theme.valueNumber}>{oil.properties?.bubbling}</span>
+                            </li>
+                            <li>
+                                Кремовость: <span className={theme.valueNumber}>{oil.properties?.creaminess}</span>
+                            </li>
+                            <li>
+                                Йодное число: <span className={theme.valueNumber}>{oil.iodine}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr className="my-2 border-t border-gray-200" />
+
+                    <div>
+                        <div className="font-semibold text-[13px] mb-1 text-center">Жирные кислоты:</div>
+                        <ul className="list-disc pl-4 text-xs grid grid-cols-2 gap-x-4 gap-y-1 mb-6">
+                            <li>
+                                Лауриновая: <span className={theme.valueNumber}>{oil.fatty_acids?.lauric}%</span>
+                            </li>
+                            <li>
+                                Миристиновая: <span className={theme.valueNumber}>{oil.fatty_acids?.myristine}%</span>
+                            </li>
+                            <li>
+                                Пальмитиновая: <span className={theme.valueNumber}>{oil.fatty_acids?.palmitic}%</span>
+                            </li>
+                            <li>
+                                Стеариновая: <span className={theme.valueNumber}>{oil.fatty_acids?.stearin}%</span>
+                            </li>
+                            <li>
+                                Рицинолеиновая: <span className={theme.valueNumber}>{oil.fatty_acids?.ricin}%</span>
+                            </li>
+                            <li>
+                                Олеиновая: <span className={theme.valueNumber}>{oil.fatty_acids?.oleic}%</span>
+                            </li>
+                            <li>
+                                Линолевая: <span className={theme.valueNumber}>{oil.fatty_acids?.linoleic}%</span>
+                            </li>
+                            <li>
+                                Линоленовая: <span className={theme.valueNumber}>{oil.fatty_acids?.linolenic}%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            )}
+
+
         </div>
     );
 };
