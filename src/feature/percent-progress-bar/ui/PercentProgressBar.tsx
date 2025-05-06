@@ -35,7 +35,7 @@ export const PercentProgressBar: FC = () => {
                             <span className={s.text}>
                               {t.summary.replace(
                                   "{{percent}}",
-                                  formatNumber(percentSum, 0) + "%"
+                                  formatNumber(percentSum, 0)
                               )}
                             </span>
                         </div>

@@ -1,31 +1,34 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 
 interface UseSmartNumberInputProps {
     value: number;
     onChange: (value: number) => void;
     decimalPlaces: number;
+    inputRef: React.RefObject<HTMLInputElement | null>;
 }
 
-export const useSmartNumberInput = (
-    {
-        value,
-        onChange,
-        decimalPlaces,
-    }: UseSmartNumberInputProps) => {
-    const format = (v: number) => v.toFixed(decimalPlaces);
 
+export const useSmartNumberInput = ({
+    value,
+    onChange,
+    decimalPlaces,
+    inputRef
+}: UseSmartNumberInputProps) => {
+    const format = (v: number) => v.toFixed(decimalPlaces);
     const [internalValue, setInternalValue] = useState(value === 0 ? '' : format(value));
 
     useEffect(() => {
         setInternalValue(value === 0 ? '' : format(value));
     }, [value, decimalPlaces]);
 
+    const blurInput = () => {
+        inputRef.current?.blur(); // скрыть клавиатуру
+    };
 
     const handlers = {
         change: (e: React.ChangeEvent<HTMLInputElement>) => {
             const raw = e.target.value;
             const regex = new RegExp(`^\\d*\\.?\\d{0,${decimalPlaces}}$`);
-
             if (regex.test(raw)) {
                 setInternalValue(raw);
                 const numeric = parseFloat(raw);
@@ -53,8 +56,14 @@ export const useSmartNumberInput = (
             if (value === 0) {
                 e.target.select();
             }
+        },
+
+        keyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') {
+                blurInput(); // скрыть клавиатуру при нажатии Enter/Done
+            }
         }
     };
 
-    return {internalValue, handlers};
+    return { internalValue, handlers };
 };

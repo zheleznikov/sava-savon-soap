@@ -41,7 +41,7 @@ const createLayoutTheme = (theme: typeof themeLight) => ({
         buttonBase: `px-4 py-1 ${common.textSm} ${common.transition} h-full`,
         buttonActive: `${theme.buttonActiveBg} ${theme.buttonActiveText}`,
         buttonInactive: `${theme.buttonBg} ${theme.buttonText} ${theme.buttonHover}`,
-        inputBase: "w-[120px] text-sm",
+        inputBase: "w-[120px] text-base xs:text-sm",
         inputDisabled: `border-none ${theme.inputDisabled}`,
         hint: "text-xs mt-1 transition-opacity duration-200 min-h-[1rem]",
         hintVisible: "text-gray-400 opacity-100 visible",

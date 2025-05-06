@@ -32,7 +32,7 @@ const createLayoutTheme = (theme: typeof themeLight) => ({
         paramRow: "flex flex-wrap gap-4 sm:items-center",
         fieldWrapper: `${common.flexColumn} min-w-[140px]`,
         fieldInner: "flex items-center gap-1",
-        input: `w-full max-w-[100px] ${common.textSm}`,
+        input: `w-full max-w-[100px] text-base xs:text-sm`,
         label: common.labelText
     },
     theme: {
