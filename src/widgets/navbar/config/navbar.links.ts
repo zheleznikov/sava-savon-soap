@@ -8,12 +8,13 @@ export const navLinks = [
     //     name_rus: "Рецепты",
     //     href: "/recipes",
     // },
+
+    {
+        name_rus: "Принципы расчёта",
+        href: "/how-we-calculate",
+    },
     {
         name_rus: "О проекте",
         href: "/about",
-    },
-    {
-        name_rus: "Как мы считаем",
-        href: "/how-we-calculate",
-    },
+    }
 ];

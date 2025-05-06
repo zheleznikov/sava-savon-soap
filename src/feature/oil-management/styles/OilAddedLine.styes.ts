@@ -16,7 +16,7 @@ const layout = {
     expandButton: "flex items-center gap-1 text-sm",
     blockInner: "relative p-3 sm:p-4 pb-10",
     hr: "border-t border-gray-200",
-    sectionTitle: "font-semibold text-[13px] mb-1 text-center",
+    sectionTitle: "font-semibold text-[13px] mb-1 text-left ml-2",
     ul: "list-disc pl-4 text-xs grid grid-cols-2 gap-x-4 gap-y-1",
     sectionSpacing: "my-2",
 

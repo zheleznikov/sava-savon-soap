@@ -53,7 +53,7 @@ export const localization = {
             expand_title_closed: "Показать подробности",
             section_properties: "Свойства",
             section_fatty_acids: "Жирные кислоты",
-            section_lye: "Щелочь",
+            section_lye: "Коэффициент омыления",
             property_hardness: "Твёрдость",
             property_cleansing: "Очищение",
             property_soften: "Смягчение",
