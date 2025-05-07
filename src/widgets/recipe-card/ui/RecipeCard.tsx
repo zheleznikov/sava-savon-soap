@@ -76,6 +76,7 @@ export const RecipeCard: FC<Props> = ({
                     <InputBlockWrapper className={"px-0"}>
 
                         <ParametersList
+                            selectedOils={selectedOils}
                             superfatPercent={superfatPercent}
                             waterPercent={waterPercent}
                             lyeType={lyeType}

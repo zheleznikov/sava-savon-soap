@@ -14,6 +14,7 @@ const themeLight = {
         placeholder: "text-gray-400",
         pillBorder: "border-emerald-500",
         summaryBg: "bg-stone-100",
+        hint: "text-gray-800 group-hover:text-gray-600"
     },
     input: {
         base: "w-full text-4xl text-center font-bold min-h-[2.5rem] bg-transparent outline-none transition",
@@ -33,6 +34,8 @@ const themeDark = {
         placeholder: "text-gray-500",
         pillBorder: "border-emerald-400",
         summaryBg: "bg-black",
+        hint: "text-gray-300 group-hover:text-gray-100"
+
     },
     input: {
         base: "w-full text-4xl text-center font-bold min-h-[2.5rem] bg-transparent outline-none transition",
@@ -42,6 +45,7 @@ const themeDark = {
 };
 
 const createRecipeBlockLayout = (theme: typeof themeLight) => ({
+    hint: theme.colors.hint,
     wrapper,
     title: `${titleBase} ${theme.colors.title}`,
     list: "space-y-1 mt-2",

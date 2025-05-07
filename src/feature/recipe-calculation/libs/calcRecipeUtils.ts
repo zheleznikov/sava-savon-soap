@@ -63,10 +63,20 @@ export const calculateLyeSum = (
 ): number => {
 
     return selectedOils.reduce((acc, oil) => {
-        const sap = getOilSAP(oil, lyeType);
-        return acc + (oil.gram || 0) * sap * (1 - superfatPercent / 100);
+        return acc +  calculateLyeForOil(oil, lyeType, superfatPercent);
     }, 0);
 }
+
+export const calculateLyeForOil = (
+    oil: TOil,
+    lyeType: LyeType,
+    superfatPercent: number
+): number => {
+    const sap = getOilSAP(oil, lyeType);
+    return (oil.gram || 0) * sap * (1 - superfatPercent / 100);
+};
+
+
 
 
 export const calculateWaterSum = (
@@ -154,6 +164,6 @@ export const recalculatePercents = (oils: TOil[]): TOil[] => {
     }));
 };
 
-const getOilSAP = (oil: TOil, lyeType: LyeType) => {
+export const getOilSAP = (oil: TOil, lyeType: LyeType) => {
     return lyeType === LyeType.NaOH ? oil.sap.naoh : oil.sap.koh;
 };

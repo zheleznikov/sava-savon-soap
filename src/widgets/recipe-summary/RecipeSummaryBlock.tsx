@@ -111,6 +111,7 @@ export const RecipeSummaryBlock: FC = () => {
                                     lyeType={lyeType}
                                     totalWaterAmount={totalWaterAmount}
                                     totalLyeAmount={totalLyeAmount}
+                                    selectedOils={selectedOils}
                                 />
 
                                 <OilsList

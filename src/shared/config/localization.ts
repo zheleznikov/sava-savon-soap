@@ -215,7 +215,11 @@ export const localization = {
                     },
                 ],
             }
-
+        },
+        lye_info: {
+            explanation: "Щёлочь рассчитывается по SAP-значениям каждого масла с учётом выбранного типа щёлочи и пережира:",
+            formula_code: "масса масла × SAP × (1 − пережир / 100)",
+            total_label: "Всего {lyeType}:"
         }
 
     }
