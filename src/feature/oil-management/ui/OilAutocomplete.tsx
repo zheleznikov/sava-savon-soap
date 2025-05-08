@@ -45,7 +45,7 @@ export const OilAutocomplete: FC<OilAutocompleteProps> = ({selectedOils, onToggl
                 )}
 
                 value={searchTerm}
-                placeholder={localization.ru.autocomplete.placeholder}
+                placeholder={localization.ru.autocomplete_oil.placeholder}
 
                 onChange={handler.onInputSearchChange}
                 onKeyDown={handler.onInputSearchKeyDown}

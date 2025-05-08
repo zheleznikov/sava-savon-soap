@@ -1,21 +1,24 @@
-import React, {ChangeEvent, useEffect, useRef, useState} from "react";
-import {oils } from "../../../entities/oil/model/oils";
-import {TOil} from "../../../entities/oil/model/oil.types";
+import React, {useEffect, useRef, useState, ChangeEvent, useMemo, useCallback} from "react";
+import {TIngredientBase} from "../../../entities/oil/model/ingredient.types";
 
-/* @deprecated - заменено на общий хук управления ингединетами*/
-export const useOilAutocomplete = (selectedOils: TOil[], onToggleOil: (oil: TOil) => void) => {
+export const useIngredientAutocomplete = <T extends TIngredientBase>(
+    selectedItems: T[],
+    allItems: T[],
+    onToggleItem: (item: T) => void
+) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     const containerRef = useRef<HTMLDivElement>(null);
     const dropdownRef = useRef<HTMLUListElement>(null);
 
-    const selectedIds = selectedOils.map((o) => o.id);
-    const [listToShow, setListToShow] = useState(oils);
+    const selectedIds = useMemo(() => selectedItems.map((i) => i.id), [selectedItems]);
+    const [listToShow, setListToShow] = useState<T[]>(allItems);
 
-    const isOilChecked = (oil: TOil) => selectedIds.includes(oil.id);
-
-
+    const isItemChecked = useCallback(
+        (item: T) => selectedIds.includes(item.id),
+        [selectedIds]
+    );
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -29,28 +32,35 @@ export const useOilAutocomplete = (selectedOils: TOil[], onToggleOil: (oil: TOil
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    useEffect(() => {
-        const filtered = oils.filter((oil) => oil.name_rus.toLowerCase().includes(searchTerm.toLowerCase()));
-        const updated = [...filtered];
+    const sortOnOpenRef = useRef(false);
 
-        if (searchTerm.trim() === "") {
+    const getSortedList = useCallback(() => {
+        const filtered = allItems.filter((item) =>
+            item.name_rus.toLowerCase().includes(searchTerm.toLowerCase())
+        );
 
-            updated.sort((a, b) => {
+        if (searchTerm.trim() === "" && sortOnOpenRef.current) {
+            return [...filtered].sort((a, b) => {
                 const aSelected = selectedIds.includes(a.id) ? -1 : 1;
                 const bSelected = selectedIds.includes(b.id) ? -1 : 1;
                 return aSelected - bSelected;
             });
         }
 
-        setListToShow(updated);
-    }, [searchTerm, selectedOils]);
+        return filtered;
+    }, [searchTerm, allItems, selectedIds]);
+
+    useEffect(() => {
+        setListToShow(getSortedList());
+    }, [searchTerm, allItems]);
+
+
 
     const handler = {
         onInputSearchChange: (e: ChangeEvent<HTMLInputElement>) => {
             setSearchTerm(e.currentTarget.value);
             setDropdownOpen(true);
         },
-
         onInputSearchKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === "Enter" || e.key === "Done") {
                 e.preventDefault();
@@ -58,35 +68,36 @@ export const useOilAutocomplete = (selectedOils: TOil[], onToggleOil: (oil: TOil
                 setSearchTerm("");
             }
         },
-
-        onInputSearchBlur: () => { // для i-os при нажатии на кнопку готово
+        onInputSearchBlur: () => {
             setTimeout(() => {
                 setDropdownOpen(false);
                 setSearchTerm("");
+                sortOnOpenRef.current = false;
             }, 100);
         },
-
         onInputSearchFocus: () => {
-            setDropdownOpen(true)
+            sortOnOpenRef.current = true;
+            setDropdownOpen(true);
+            setListToShow(getSortedList());
         },
-
-        onClearSearchButtonMouseDown: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-            // предотвращаем потерю фокуса
+        onClearSearchButtonMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
         },
-
         onClearSearchButtonClick: () => {
             setSearchTerm("");
             setDropdownOpen(true);
         },
-
         onArrowClick: () => {
-            setDropdownOpen((prev) => !prev)
+            const willOpen = !isDropdownOpen;
+            setDropdownOpen(willOpen);
+            if (willOpen) {
+                sortOnOpenRef.current = true;
+                setListToShow(getSortedList());
+            }
         },
-
-        onListElementMouseDown: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-            e.preventDefault()
-        }
+        onListElementMouseDown: (e: React.MouseEvent<HTMLLIElement>) => {
+            e.preventDefault();
+        },
     };
 
     return {
@@ -97,8 +108,8 @@ export const useOilAutocomplete = (selectedOils: TOil[], onToggleOil: (oil: TOil
         listToShow,
         dropdownRef,
         containerRef,
-        onToggleOil,
-        isOilChecked,
+        onToggleItem,
+        isItemChecked,
         handler
     };
 };

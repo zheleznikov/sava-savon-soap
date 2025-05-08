@@ -1,4 +1,6 @@
 // Жирные кислоты, влияющие на свойства мыла
+import {TIngredientBase} from "./ingredient.types";
+
 export type TFattyAcids = {
     lauric: number;     // Лауриновая кислота — пена и очищение
     myristine: number;  // Миристиновая кислота — пена и твердость
@@ -43,4 +45,4 @@ export type TOilUserInput = {
 };
 
 // Финальный тип масла
-export type TOil = TOilBase & TOilUserInput;
+export type TOil =  TIngredientBase & TOilBase;

@@ -1,4 +1,5 @@
 import {TOil} from "../../entities/oil/model/oil.types";
+import {TAcid} from "../../entities/oil/model/acids.types";
 
 export enum InputType {
     Gram = "gram",
@@ -31,7 +32,11 @@ export interface SoapRecipeContextType {
 
     selectedOils: TOil[];
     setSelectedOils: (val: TOil[]) => void;
+
+    selectedAcids: TAcid[];
+    setSelectedAcids: (val: TAcid[]) => void;
     handleToggleOil: (oil: TOil) => void;
+    handleToggleAcid: (oil: TAcid) => void;
     updateOilGramWithRecalculatedPercents: (oil:TOil, newGram: number) => void;
     updateOilPercentWithGramRecalculation: (oil: TOil, newPercent: number, totalOilMass: number) => void;
 

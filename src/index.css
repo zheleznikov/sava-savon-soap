@@ -10,3 +10,9 @@
     background-repeat: repeat;
     background-size: 500px 500px;
 }
+
+
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+

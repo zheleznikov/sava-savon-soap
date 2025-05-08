@@ -1,8 +1,11 @@
 export const localization = {
     ru: {
         logo: "sava savon",
-        autocomplete: {
+        autocomplete_oil: {
             placeholder: "Введите название масла"
+        },
+        autocomplete_acid: {
+            placeholder: "Введите название кислоты"
         },
         calculator: {
             header: "Калькулятор мыла",
@@ -100,9 +103,9 @@ export const localization = {
             unit: "г"
         },
         scale: {
-            title: "Масштабирование рецепта",
+            title: "Масштабирование",
             description: "Измените общий вес готового мыла — рецепт пересчитается автоматически.",
-            placeholder: "Вес мыла, г",
+            placeholder: "Вес мыла",
             unit: "г"
         },
         parameters_table: {

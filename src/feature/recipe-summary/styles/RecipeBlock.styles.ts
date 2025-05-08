@@ -92,7 +92,7 @@ const createRecipeBlockLayout = (theme: typeof themeLight) => ({
             index % 2 === 1 ? theme.colors.rowOdd : theme.colors.rowEven
         }`,
     actions: {
-        wrapper: "mt-3 flex flex-wrap items-center px-2 justify-end",
+        wrapper: "mt-3 flex flex-wrap items-center px-2 justify-center sm:justify-start",
         saveWrapper: "w-full sm:w-auto py-3 bg-emerald-600 text-white rounded-lg shadow-md hover:bg-emerald-700 transition text-base font-semibold flex items-center justify-center gap-2",
         buttonGroup: "flex justify-end items-center gap-2 flex-wrap",
         iconButton: "flex flex-col items-center justify-center w-14 h-14 sm:w-12 sm:h-12 rounded-full shadow-md transition transform hover:scale-95",

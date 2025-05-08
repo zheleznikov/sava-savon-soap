@@ -19,6 +19,7 @@ export const Calculator: FC = () => {
     const t = localization.ru.calculator;
 
     return (
+
         <section className={clsx(calculator.wrapper.layout, calculator.wrapper.theme.light, "relative")}>
 
             {mode === "edit" && (
@@ -27,9 +28,13 @@ export const Calculator: FC = () => {
                 </div>
             )}
             <div className={calculator.main.layout}>
+
+
                 <RecipeBuilder/>
                 <RecipeSummaryBlock/>
             </div>
         </section>
     );
+
+
 };

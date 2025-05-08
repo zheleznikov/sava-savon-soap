@@ -12,7 +12,7 @@ export const recipeContainerStyles = {
        shadow
         p-4
         ${common.transition}
-        transform relative z-10
+        relative z-10
         hover:shadow-xs
     `,
     theme: {

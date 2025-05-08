@@ -3,6 +3,7 @@ import {TOil} from "../../entities/oil/model/oil.types";
 import {InputType, LyeType, SoapRecipeContextType} from "./SoapRecipeContext.types";
 import {recalculatePercents} from "../../feature/recipe-calculation";
 import {oils} from "../../entities/oil/model/oils";
+import {TAcid} from "../../entities/oil/model/acids.types";
 
 export const SoapRecipeContext = createContext<SoapRecipeContextType | undefined>(undefined);
 
@@ -10,13 +11,13 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
 
     const defaultSelectedOils = oils.filter(oil => [2, 1, 29].includes(oil.id));
     const [selectedOils, setSelectedOils] = useState<TOil[]>([...defaultSelectedOils]);
+    const [selectedAcids, setSelectedAcids] = useState<TAcid []>([]);
 
     const [recipeName, setRecipeName] = useState("");
     const [inputType, setInputType] = useState<InputType>(InputType.Gram);
     const [lyeType, setLyeType] = useState<LyeType>(LyeType.NaOH);
     const [waterPercent, setWaterPercent] = useState(33);
     const [superfatPercent, setSuperfatPercent] = useState(5);
-
 
     const [userDefinedTotalWeight, setUserDefinedTotalWeight] = useState(0);
 
@@ -31,6 +32,18 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
             return recalculatePercents(updated);
         });
     };
+
+    const handleToggleAcid = (acid: TAcid) => {
+        setSelectedAcids((prev) => {
+            const isSelected = prev.some((a) => a.id === acid.id);
+            const updated = isSelected
+                ? prev.filter((a) => a.id !== acid.id)
+                : [...prev, acid];
+
+            return updated;
+        });
+    };
+
 
     const updateOilGramWithRecalculatedPercents = (oil: TOil, newGram: number) => {
         const updatedOilsBase = selectedOils.map((o) =>
@@ -69,7 +82,8 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
                 superfatPercent, setSuperfatPercent,
                 selectedOils, setSelectedOils,
                 userDefinedTotalWeight, setUserDefinedTotalWeight,
-
+                selectedAcids, setSelectedAcids,
+                handleToggleAcid,
                 handleToggleOil,
                 updateOilGramWithRecalculatedPercents,
                 updateOilPercentWithGramRecalculation

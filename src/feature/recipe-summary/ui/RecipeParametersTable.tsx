@@ -30,7 +30,7 @@ export const RecipeParametersTable: FC<RecipeParametersTableProps> = (
     const parameters = getRecipeParameters({hardness, cleansing, soften, bubbling, creaminess, iodine});
 
     return (
-        <InputBlockWrapper className="lg:w-1/2 px-0">
+        <InputBlockWrapper className="px-0 w-full">
             <h4 className={styles.paramsTitle}>{t.title}</h4>
 
             <div className={styles.paramHeader}>

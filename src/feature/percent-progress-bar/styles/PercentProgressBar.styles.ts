@@ -13,7 +13,7 @@ const themeDark = {
 };
 
 const createProgressBarTheme = (theme: typeof themeLight) => ({
-    wrapper: "mt-2",
+    wrapper: "mt-2 mb-4",
     barOuterWrapper: "h-6 sm:h-7 relative transition-all duration-300",
     barWrapper: `w-full rounded-full h-full relative overflow-hidden ${theme.barBorder}`,
     bar: "absolute top-0 left-0 h-full transition-all duration-300",

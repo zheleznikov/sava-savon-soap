@@ -35,16 +35,6 @@ export const RecipeActions: FC<RecipeActionsProps> = (
 
     return (
         <div className={styles.wrapper}>
-            {/*<div className={clsx(isSaveHidden && "invisible pointer-events-none")}>*/}
-            {/*    <button*/}
-            {/*        className={styles.saveWrapper}*/}
-            {/*        onClick={onSave}*/}
-            {/*        title={t.saveTitle}*/}
-            {/*    >*/}
-            {/*        <Bookmark size={18}/>*/}
-            {/*        {t.save}*/}
-            {/*    </button>*/}
-            {/*</div>*/}
 
             <div className={styles.buttonGroup}>
 

@@ -36,7 +36,7 @@ export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
     };
 
     return (
-        <InputBlockWrapper>
+        <InputBlockWrapper className={"lg:w-1/3 lg:h-[200px]"}>
             <div className={styles.blockHeader}>
                 <h2 className={styles.blockTitle}>{t.title}</h2>
                 <p className={styles.blockText}>{t.description}</p>
@@ -52,7 +52,7 @@ export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
                     max={10000}
                     className={styles.inputSmart}
                 />
-                <span className={styles.inputUnit}>{t.unit}</span>
+                {/*<span className={styles.inputUnit}>{t.unit}</span>*/}
             </div>
         </InputBlockWrapper>
     );

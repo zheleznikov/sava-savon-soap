@@ -3,7 +3,7 @@ import {colors, common} from "../../../shared/styles/layout";
 
 export const calculator = {
     wrapper: {
-        layout: `w-full lg:w-[70%] xl:w-[60%] max-w-[1600px] rounded-none sm:rounded-xl p-2 sm:p-4 flex-grow mx-auto`,
+        layout: `w-full lg:w-[70%] xl:w-[60%] max-w-screen-2xl rounded-none sm:rounded-xl p-2 sm:p-4 flex-grow mx-auto`,
         theme: {
             light: `${colors.light.bg} ${common.blurMd} ${common.shadowMd}`,
             dark: `${colors.dark.bg} ${common.blurMd} ${common.shadowMd}`,
