@@ -18,6 +18,9 @@ export interface SoapRecipeContextType {
     oilInputType: InputType;
     setOilInputType: (val: InputType) => void;
 
+    acidInputType: InputType;
+    setAcidInputType: (val: InputType) => void;
+
 
     lyeType: LyeType;
     setLyeType: (val: LyeType) => void;

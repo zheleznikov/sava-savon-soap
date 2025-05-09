@@ -21,6 +21,8 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
 
     const [userDefinedTotalWeight, setUserDefinedTotalWeight] = useState(0);
 
+    const [acidInputType, setAcidInputType] = useState<InputType>(InputType.Gram);
+
 
     const handleToggleOil = (oil: TOil) => {
         setSelectedOils((prev) => {
@@ -77,6 +79,7 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
             value={{
                 recipeName, setRecipeName,
                 oilInputType, setOilInputType,
+                acidInputType, setAcidInputType,
                 lyeType, setLyeType,
                 waterPercent, setWaterPercent,
                 superfatPercent, setSuperfatPercent,

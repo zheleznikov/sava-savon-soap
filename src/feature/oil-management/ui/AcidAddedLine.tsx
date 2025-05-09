@@ -20,15 +20,15 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
     const {
         handleToggleOil,
         handleToggleAcid,
-        oilInputType,
+        acidInputType,
         updateOilPercentWithGramRecalculation,
         updateOilGramWithRecalculatedPercents
     } = useSoapRecipe();
 
-    const {totalOilAmount} = useSoapCalculations();
+    const {totalAcidAmount} = useSoapCalculations();
 
-    const isGramMode = oilInputType === InputType.Gram;
-    const isPercentMode = oilInputType === InputType.Percent;
+    const isGramMode = acidInputType === InputType.Gram;
+    const isPercentMode = acidInputType === InputType.Percent;
 
     const {appTheme} = useTheme();
 
@@ -57,9 +57,8 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                             value={acid.gram || 0}
                             // onChange={newGram => updateOilGramWithRecalculatedPercents(oil, newGram)}
                             onChange={() => {}}
-                            // disabled={isPercentMode}
-                            // className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
-                            className={clsx(layout.input, theme.input)}
+                            disabled={isPercentMode}
+                            className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
                         <span className={theme.unitText}>{t.unit_grams}</span>
                     </div>
@@ -73,8 +72,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
                             // onChange={newPercent => updateOilPercentWithGramRecalculation(oil, newPercent, totalOilAmount)}
                             disabled={isGramMode}
-                            // className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
-                            className={clsx(layout.input, theme.input)}
+                            className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
                         />
                         <span className={theme.unitText}>{t.unit_percent}</span>
                     </div>
