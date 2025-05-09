@@ -87,6 +87,12 @@ export const localization = {
             percent_unit: "%",
             gram_unit: "г"
         },
+        acid_list: {
+            title: "Кислоты",
+            summary_label: "Масса кислот",
+            percent_unit: "%",
+            gram_unit: "г"
+        },
         parameters: {
             title: "Параметры ввода",
             superfat: "Пережир",

@@ -1,8 +1,8 @@
 import {FC} from "react";
-import {useSoapRecipe} from "../../recipe-calculation/model/useSoapRecipe";
-import {useSoapCalculations} from "../../recipe-calculation/model/useSoapCalculations";
+import {useSoapRecipe} from "../../recipe-calculation";
+import {useSoapCalculations} from "../../recipe-calculation";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
-import {InputBlockWrapper} from "../../../shared/ui/InputBlockWrapper";
+import {InputBlockWrapper} from "../../../shared";
 import {clsx} from "clsx";
 import {localization} from "../../../shared/config/localization";
 import {useTheme} from "../../../app/providers/ThemeContext";
@@ -14,15 +14,15 @@ const l = localization.ru.input_type_toggle;
 export const InputTypeSetup: FC = () => {
 
     const {
-        inputType,
-        setInputType,
+        oilInputType,
+        setOilInputType,
         userDefinedTotalWeight,
         setUserDefinedTotalWeight
     } = useSoapRecipe();
 
     const {totalResultAmount} = useSoapCalculations();
 
-    const isGramMode = inputType === InputType.Gram;
+    const isGramMode = oilInputType === InputType.Gram;
     const {appTheme} = useTheme();
     const {layout, theme} = inputTypeSetupStyles[appTheme];
 
@@ -39,7 +39,7 @@ export const InputTypeSetup: FC = () => {
                     <div className={layout.buttonGroup}>
                         <button
                             type="button"
-                            onClick={() => setInputType(InputType.Gram)}
+                            onClick={() => setOilInputType(InputType.Gram)}
                             className={clsx(
                                 theme.buttonBase,
                                 isGramMode ? theme.buttonActive : theme.buttonInactive
@@ -50,10 +50,10 @@ export const InputTypeSetup: FC = () => {
 
                         <button
                             type="button"
-                            onClick={() => setInputType(InputType.Percent)}
+                            onClick={() => setOilInputType(InputType.Percent)}
                             className={clsx(
                                 theme.buttonBase,
-                                inputType === InputType.Percent ? theme.buttonActive : theme.buttonInactive
+                                oilInputType === InputType.Percent ? theme.buttonActive : theme.buttonInactive
                             )}
                         >
                             {l.button_percent}

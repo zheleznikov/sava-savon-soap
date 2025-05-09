@@ -1,16 +1,12 @@
-import {FC} from "react";
-import {Trash2} from "lucide-react";
-import {TOil} from "../../../entities/oil/model/oil.types";
-import {useSoapRecipe} from "../../recipe-calculation";
-import {useSoapCalculations} from "../../recipe-calculation";
+import {FC, useState} from "react";
+import {ChevronDown, ChevronUp, Trash2} from "lucide-react";
+import {useSoapCalculations, useSoapRecipe} from "../../recipe-calculation";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
 import {localization} from "@/shared/config/localization";
 import {clsx} from "clsx";
 import {SmartNumberInput} from "../../../shared";
-import {useState} from "react";
-import {ChevronDown, ChevronUp} from "lucide-react";
 import {formatNumber} from "../../../shared/lib/utils";
 import {TAcid} from "../../../entities/oil/model/acids.types";
 
@@ -24,15 +20,15 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
     const {
         handleToggleOil,
         handleToggleAcid,
-        inputType,
+        oilInputType,
         updateOilPercentWithGramRecalculation,
         updateOilGramWithRecalculatedPercents
     } = useSoapRecipe();
 
     const {totalOilAmount} = useSoapCalculations();
 
-    const isGramMode = inputType === InputType.Gram;
-    const isPercentMode = inputType === InputType.Percent;
+    const isGramMode = oilInputType === InputType.Gram;
+    const isPercentMode = oilInputType === InputType.Percent;
 
     const {appTheme} = useTheme();
 
@@ -61,21 +57,24 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                             value={acid.gram || 0}
                             // onChange={newGram => updateOilGramWithRecalculatedPercents(oil, newGram)}
                             onChange={() => {}}
-                            disabled={isPercentMode}
-                            className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
+                            // disabled={isPercentMode}
+                            // className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
+                            className={clsx(layout.input, theme.input)}
                         />
                         <span className={theme.unitText}>{t.unit_grams}</span>
                     </div>
 
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
+                            min={1} max={5}
                             placeholder={t.placeholder_percent}
                             value={acid.percent || 0}
                             onChange={() => {}}
 
                             // onChange={newPercent => updateOilPercentWithGramRecalculation(oil, newPercent, totalOilAmount)}
                             disabled={isGramMode}
-                            className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
+                            // className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
+                            className={clsx(layout.input, theme.input)}
                         />
                         <span className={theme.unitText}>{t.unit_percent}</span>
                     </div>

@@ -1,9 +1,10 @@
 import {InputType, LyeType} from "../../../app/providers/SoapRecipeContext.types";
 import {TOil} from "../../../entities/oil/model/oil.types";
+import {TAcid} from "../../../entities/oil/model/acids.types";
 
 type CalculateOilSumParams = {
     selectedOils: TOil[];
-    inputType: InputType;
+    oilInputType: InputType;
     userDefinedTotalWeight: number;
     waterPercent: number;
     superfatPercent: number;
@@ -12,13 +13,13 @@ type CalculateOilSumParams = {
 export const calculateOilSum = (
     {
         selectedOils,
-        inputType,
+        oilInputType,
         userDefinedTotalWeight,
         waterPercent,
         superfatPercent,
     }: CalculateOilSumParams): number => {
 
-    switch (inputType) {
+    switch (oilInputType) {
         case InputType.Gram: {  // Суммируем вес всех масел
             return selectedOils.reduce((acc, oil) => acc + (oil.gram || 0), 0);
         }
@@ -76,7 +77,13 @@ export const calculateLyeForOil = (
     return (oil.gram || 0) * sap * (1 - superfatPercent / 100);
 };
 
-
+export const calculateLyeForAcid = (
+    acid: TAcid,
+    lyeType: LyeType
+): number => {
+    const neutralization = getAcidNeutralization(acid, lyeType);
+    return (acid.gram || 0) * neutralization;
+};
 
 
 export const calculateWaterSum = (
@@ -166,4 +173,9 @@ export const recalculatePercents = (oils: TOil[]): TOil[] => {
 
 export const getOilSAP = (oil: TOil, lyeType: LyeType) => {
     return lyeType === LyeType.NaOH ? oil.sap.naoh : oil.sap.koh;
+};
+
+export const getAcidNeutralization = (acid : TAcid,  lyeType: LyeType) => {
+    return lyeType === LyeType.NaOH ? acid.neutralization.naoh : acid.neutralization.koh;
+
 };

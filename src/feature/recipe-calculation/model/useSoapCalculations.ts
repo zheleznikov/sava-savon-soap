@@ -16,23 +16,23 @@ export const useSoapCalculations = () => {
         lyeType,
         superfatPercent,
         waterPercent,
-        inputType,
+        oilInputType,
         userDefinedTotalWeight,
         setSelectedOils,
     } = useSoapRecipe();
-
 
 
     const [totalOilAmount, setTotalOilAmount] = useState(0);
     const [totalLyeAmount, setTotalLyeAmount] = useState(0);
     const [totalWaterAmount, setTotalWaterAmount] = useState(0);
     const [totalResultAmount, setTotalResultAmount] = useState(0);
+    const [totalAcidAmount, setTotalAcidAmount] = useState(0);
 
     useEffect(() => {
             // Сумма масел
             const oilSum = calculateOilSum({
                 selectedOils,
-                inputType,
+                oilInputType,
                 userDefinedTotalWeight,
                 waterPercent,
                 superfatPercent
@@ -50,7 +50,7 @@ export const useSoapCalculations = () => {
             setTotalResultAmount(oilSum + lyeSum + waterSum);
 
             // Обновление общего веса
-            if (inputType === InputType.Percent && oilSum > 0) {
+            if (oilInputType === InputType.Percent && oilSum > 0) {
                 const totalPercent = selectedOils.reduce((sum, oil) => sum + (oil.percent || 0), 0);
 
                 if (isValidPercentRange(totalPercent)) {
@@ -70,7 +70,7 @@ export const useSoapCalculations = () => {
                 }
             }
         },
-        [selectedOils, lyeType, superfatPercent, waterPercent, inputType, userDefinedTotalWeight]);
+        [selectedOils, lyeType, superfatPercent, waterPercent, oilInputType, userDefinedTotalWeight]);
 
     return {
         totalOilAmount,
@@ -79,5 +79,7 @@ export const useSoapCalculations = () => {
         totalWaterAmount,
         totalResultAmount,
         setTotalResultAmount,
+        totalAcidAmount,
+        setTotalAcidAmount
     };
 };

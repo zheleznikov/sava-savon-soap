@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
-import {InputBlockWrapper} from "../../../shared/ui/InputBlockWrapper";
+import {InputBlockWrapper} from "../../../shared";
 import {localization} from "../../../shared/config/localization";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 import {useTheme} from "../../../app/providers/ThemeContext";
@@ -8,7 +8,7 @@ import {SmartNumberInput} from "../../../shared";
 
 
 interface ScaleRecipeBlockProps {
-    inputType: InputType;
+    oilInputType: InputType;
     setInputType: (val: InputType) => void;
     userDefinedTotalWeight: number;
     setUserDefinedTotalWeight: (val: number) => void;
@@ -16,7 +16,7 @@ interface ScaleRecipeBlockProps {
 }
 
 export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
-                                                                inputType,
+                                                                oilInputType,
                                                                 setInputType,
                                                                 userDefinedTotalWeight,
                                                                 setUserDefinedTotalWeight,
@@ -26,7 +26,7 @@ export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
     const styles = recipeBlockStyles[appTheme];
     const t = localization.ru.scale;
 
-    const isGramMode = inputType === InputType.Gram;
+    const isGramMode = oilInputType === InputType.Gram;
 
     const handleInputChange = (value: number) => {
         if (isGramMode && value !== totalResultAmount) {

@@ -14,7 +14,7 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
     const [selectedAcids, setSelectedAcids] = useState<TAcid []>([]);
 
     const [recipeName, setRecipeName] = useState("");
-    const [inputType, setInputType] = useState<InputType>(InputType.Gram);
+    const [oilInputType, setOilInputType] = useState<InputType>(InputType.Gram);
     const [lyeType, setLyeType] = useState<LyeType>(LyeType.NaOH);
     const [waterPercent, setWaterPercent] = useState(33);
     const [superfatPercent, setSuperfatPercent] = useState(5);
@@ -76,7 +76,7 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
         <SoapRecipeContext.Provider
             value={{
                 recipeName, setRecipeName,
-                inputType, setInputType,
+                oilInputType, setOilInputType,
                 lyeType, setLyeType,
                 waterPercent, setWaterPercent,
                 superfatPercent, setSuperfatPercent,

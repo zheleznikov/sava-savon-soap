@@ -21,15 +21,15 @@ interface Props {
 export const OilAddedLine: FC<Props> = ({oil}) => {
     const {
         handleToggleOil,
-        inputType,
+        oilInputType,
         updateOilPercentWithGramRecalculation,
         updateOilGramWithRecalculatedPercents
     } = useSoapRecipe();
 
     const {totalOilAmount} = useSoapCalculations();
 
-    const isGramMode = inputType === InputType.Gram;
-    const isPercentMode = inputType === InputType.Percent;
+    const isGramMode = oilInputType === InputType.Gram;
+    const isPercentMode = oilInputType === InputType.Percent;
 
     const {appTheme} = useTheme();
 

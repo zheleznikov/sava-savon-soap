@@ -26,7 +26,7 @@ export const RecipeBuilder: FC = () => {
         handleToggleOil,
         selectedAcids,
         handleToggleAcid,
-        inputType
+        oilInputType
 
     } = useSoapRecipe();
 
@@ -38,11 +38,11 @@ export const RecipeBuilder: FC = () => {
         {key: "base", label: "Параметры"},
         {key: "oilInput", label: "Масла"},
         {key: "acidInputs", label: "Кислоты"},
-        {key: "addInputs", label: "Дополнительно"}
+        // {key: "addInputs", label: "Дополнительно"}
     ];
 
     const [selectedTab, setSelectedTab] = useState<Tab>(tabs[0]);
-    const isPercentMode = inputType === InputType.Percent;
+    const isPercentMode = oilInputType === InputType.Percent;
     const isSmartphone = isMobile && !isTablet;
 
 

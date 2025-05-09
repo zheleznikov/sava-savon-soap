@@ -15,8 +15,8 @@ export interface SoapRecipeContextType {
     recipeName: string;
     setRecipeName: (val: string) => void;
 
-    inputType: InputType;
-    setInputType: (val: InputType) => void;
+    oilInputType: InputType;
+    setOilInputType: (val: InputType) => void;
 
 
     lyeType: LyeType;

@@ -16,7 +16,7 @@ type SoapPropertiesResult = {
 
 
 export const useSoapProperties = (): SoapPropertiesResult => {
-    const { selectedOils, inputType } = useSoapRecipe();
+    const { selectedOils, oilInputType } = useSoapRecipe();
 
     const [properties, setProperties] = useState<SoapPropertiesResult>({
         hardness: 0,
@@ -55,7 +55,7 @@ export const useSoapProperties = (): SoapPropertiesResult => {
         };
 
         selectedOils.forEach((oil) => {
-            const amount = inputType === InputType.Percent ? oil.percent : oil.gram;
+            const amount = oilInputType === InputType.Percent ? oil.percent : oil.gram;
             if (!amount) return;
 
             totalWeight += amount;
@@ -84,7 +84,7 @@ export const useSoapProperties = (): SoapPropertiesResult => {
             iodine: round(iodineAvg),
             ins: round(ins),
         });
-    }, [selectedOils, inputType]);
+    }, [selectedOils, oilInputType]);
 
     return properties;
 };

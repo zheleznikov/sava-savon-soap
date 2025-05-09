@@ -12,10 +12,10 @@ import {useTheme} from "@/app/providers/ThemeContext";
 import {localization} from "@/shared/config/localization";
 
 export const PercentProgressBar: FC = () => {
-    const {selectedOils, inputType} = useSoapRecipe();
+    const {selectedOils, oilInputType} = useSoapRecipe();
 
     const percentSum = calculatePercentSum(selectedOils);
-    const isPercentMode = inputType === InputType.Percent;
+    const isPercentMode = oilInputType === InputType.Percent;
     const percentOutOfRange = isPercentMode && isPercentInvalid(percentSum);
 
     const {appTheme} = useTheme();

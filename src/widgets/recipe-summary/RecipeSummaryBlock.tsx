@@ -20,6 +20,7 @@ import {LoadingOverlay} from "../../shared";
 import {ExportRecipeProps} from "../../shared/ui/ExportRecipe";
 import {Tab, Tabs} from "../../shared/ui/Tabs";
 import {isMobile, isTablet} from "react-device-detect";
+import {AcidList} from "../../feature/recipe-summary/ui/AcidList";
 
 export const RecipeSummaryBlock: FC = () => {
 
@@ -64,7 +65,8 @@ export const RecipeSummaryBlock: FC = () => {
         totalLyeAmount,
         totalWaterAmount,
         totalResultAmount,
-        totalOilAmount
+        totalOilAmount,
+        totalAcidAmount
     } = useSoapCalculations();
 
     const {
@@ -72,12 +74,13 @@ export const RecipeSummaryBlock: FC = () => {
         lyeType,
         superfatPercent,
         waterPercent,
-        inputType,
-        setInputType,
+        oilInputType,
+        setOilInputType,
         userDefinedTotalWeight,
         setUserDefinedTotalWeight,
         recipeName,
-        setRecipeName
+        setRecipeName,
+        selectedAcids
     } = useSoapRecipe();
 
     const {
@@ -141,11 +144,23 @@ export const RecipeSummaryBlock: FC = () => {
                                     />
 
                                     <ResultSummary totalResultAmount={totalResultAmount}/>
+
+                                    {
+                                        selectedAcids.length > 0 &&
+                                        <AcidList
+                                            selectedAcids={selectedAcids}
+                                            totalAcidAmount={totalAcidAmount}
+                                        />
+
+                                    }
+
+
+
                                 </InputBlockWrapper>
 
                                 <ScaleRecipeBlock
-                                    inputType={inputType}
-                                    setInputType={setInputType}
+                                    oilInputType={oilInputType}
+                                    setInputType={setOilInputType}
                                     userDefinedTotalWeight={userDefinedTotalWeight}
                                     setUserDefinedTotalWeight={setUserDefinedTotalWeight}
                                     totalResultAmount={totalResultAmount}
