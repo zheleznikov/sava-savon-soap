@@ -1,17 +1,20 @@
-import {FC} from "react";
-import {Trash2} from "lucide-react";
+import {FC, useState} from "react";
+import {ChevronDown, ChevronUp, Trash2} from "lucide-react";
 import {TOil} from "../../../entities/oil/model/oil.types";
-import {useSoapRecipe} from "../../recipe-calculation";
-import {useSoapCalculations} from "../../recipe-calculation";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
 import {localization} from "@/shared/config/localization";
 import {clsx} from "clsx";
 import {SmartNumberInput} from "../../../shared";
-import {useState} from "react";
-import {ChevronDown, ChevronUp} from "lucide-react";
 import {formatNumber} from "../../../shared/lib/utils";
+import {useAppDispatch} from "../../../shared/model/useAppDispatch";
+import {useAppSelector} from "../../../shared/useAppSelector";
+import {
+    toggleOil,
+    updateOilGramWithRecalculatedPercents,
+    updateOilPercentWithGramRecalculation
+} from "../../recipe-calculation/model/recipeSlice";
 
 
 interface Props {
@@ -19,14 +22,17 @@ interface Props {
 }
 
 export const OilAddedLine: FC<Props> = ({oil}) => {
-    const {
-        handleToggleOil,
-        oilInputType,
-        updateOilPercentWithGramRecalculation,
-        updateOilGramWithRecalculatedPercents
-    } = useSoapRecipe();
+    const dispatch = useAppDispatch();
 
-    const {totalOilAmount} = useSoapCalculations();
+    const {oilInputType, totalOilAmount} = useAppSelector((state) => state.recipe);
+
+    const handleToggleOil = () => dispatch(toggleOil(oil));
+
+    const handleUpdateOilGram = (newGram: number) =>
+        dispatch(updateOilGramWithRecalculatedPercents({ oilId: oil.id, newGram }));
+
+    const handleUpdateOilPercent = (newPercent: number) =>
+        dispatch(updateOilPercentWithGramRecalculation({ oilId: oil.id, newPercent, totalOilMass: totalOilAmount }));
 
     const isGramMode = oilInputType === InputType.Gram;
     const isPercentMode = oilInputType === InputType.Percent;
@@ -45,7 +51,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
             <div className={layout.blockInner}>
                 <div className={layout.topRow}>
                     <div className={theme.name}>{oil.name_rus}</div>
-                    <button onClick={() => handleToggleOil(oil)} className={theme.deleteButton}
+                    <button onClick={handleToggleOil} className={theme.deleteButton}
                             title={t.delete_button_title}>
                         <Trash2 size={24}/>
                     </button>
@@ -56,7 +62,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                         <SmartNumberInput
                             placeholder={t.placeholder_grams}
                             value={oil.gram || 0}
-                            onChange={newGram => updateOilGramWithRecalculatedPercents(oil, newGram)}
+                            onChange={newGram => handleUpdateOilGram(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
@@ -67,7 +73,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                         <SmartNumberInput
                             placeholder={t.placeholder_percent}
                             value={oil.percent || 0}
-                            onChange={newPercent => updateOilPercentWithGramRecalculation(oil, newPercent, totalOilAmount)}
+                            onChange={newPercent => handleUpdateOilPercent(newPercent)}
                             disabled={isGramMode}
                             className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
                         />

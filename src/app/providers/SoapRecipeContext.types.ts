@@ -43,4 +43,7 @@ export interface SoapRecipeContextType {
     updateOilGramWithRecalculatedPercents: (oil:TOil, newGram: number) => void;
     updateOilPercentWithGramRecalculation: (oil: TOil, newPercent: number, totalOilMass: number) => void;
 
+    updateAcidGramWithRecalculatedPercents: (acid: TAcid, newGram: number, totalOilSum: number) => void;
+    updateAcidPercentWithGramRecalculation: (acid: TAcid, newPercent: number, totalOilSum: number) => void;
+
 }

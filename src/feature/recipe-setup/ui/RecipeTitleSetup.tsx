@@ -1,20 +1,29 @@
 import {FC} from "react";
-import {useSoapRecipe} from "../../recipe-calculation/model/useSoapRecipe";
 import {localization} from "../../../shared/config/localization";
 import {clsx} from "clsx";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {recipeTitleSetupStyles as s} from "../styles/RecipeTitleSetup.styles";
+import {useAppDispatch} from "../../../shared/model/useAppDispatch";
+import {useAppSelector} from "../../../shared/useAppSelector";
+import {setRecipeName} from "../../recipe-calculation/model/recipeSlice";
 
 export const RecipeTitleSetup: FC = () => {
 
-    const {recipeName, setRecipeName} = useSoapRecipe();
+    // const {recipeName, setRecipeName} = useSoapRecipe();
+
+    const dispatch = useAppDispatch();
+    const recipeName = useAppSelector((state) => state.recipe.recipeName);
+
+    const handleChange = (value: string) => {
+        dispatch(setRecipeName(value));
+    };
 
     const {appTheme} = useTheme();
 
     return (
         <input
             placeholder={localization.ru.recipe_input.placeholder}
-            onChange={e => setRecipeName(e.target.value)}
+            onChange={e => handleChange(e.target.value)}
             value={recipeName}
             className={clsx(s.recipeTitle.layout, s.recipeTitle.theme[appTheme])}
         />

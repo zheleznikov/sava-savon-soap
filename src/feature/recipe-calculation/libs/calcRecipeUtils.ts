@@ -47,25 +47,69 @@ export const calculateOilSum = (
         }
     }
     return 0;
-
 }
+
+type CalculateAcidSumParams = {
+    selectedAcids: TAcid[];
+    acidInputType: InputType;
+    totalOilAmount: number; // масса масел — нужна для расчёта процентов
+};
+
+export const calculateAcidSum = ({
+    selectedAcids,
+    acidInputType,
+    totalOilAmount,
+}: CalculateAcidSumParams): number => {
+
+    switch (acidInputType) {
+        case InputType.Gram: {
+            return selectedAcids.reduce((acc, acid) => acc + (acid.gram || 0), 0);
+        }
+
+        case InputType.Percent: {
+            const hasGrams = selectedAcids.every(acid => acid.gram && acid.gram > 0);
+
+            if (hasGrams) {
+                return selectedAcids.reduce((acc, acid) => acc + (acid.gram || 0), 0);
+            }
+
+            const totalPercent = selectedAcids.reduce((sum, acid) => sum + (acid.percent || 0), 0);
+
+            if (isValidPercentRange(totalPercent)) {
+                return selectedAcids.reduce((sum, acid) =>
+                    sum + (acid.percent || 0) / 100 * totalOilAmount, 0);
+            }
+        }
+    }
+
+    return 0;
+};
+
 
 type CalculateLyeSumParams = {
     selectedOils: TOil[];
     lyeType: LyeType;
     superfatPercent: number;
+    selectedAcids?: TAcid []
 };
 export const calculateLyeSum = (
     {
         selectedOils,
         lyeType,
-        superfatPercent
+        superfatPercent,
+        selectedAcids
     }: CalculateLyeSumParams
 ): number => {
 
-    return selectedOils.reduce((acc, oil) => {
+    const oilTotalLye = selectedOils.reduce((acc, oil) => {
         return acc +  calculateLyeForOil(oil, lyeType, superfatPercent);
     }, 0);
+
+    const acidTotalLye = selectedAcids ? selectedAcids.reduce((acc, acid) => {
+        return acc +  calculateLyeForAcid(acid, lyeType);
+    }, 0) : 0;
+
+    return oilTotalLye + acidTotalLye;
 }
 
 export const calculateLyeForOil = (
@@ -102,6 +146,7 @@ type TScaleReipe = {
     lyeType: LyeType
 };
 
+// TODO обновить с учетом кислот
 export const scaleRecipeToTotalWeight = ({
                                              selectedOils,
                                              userDefinedTotalWeight,
@@ -177,5 +222,101 @@ export const getOilSAP = (oil: TOil, lyeType: LyeType) => {
 
 export const getAcidNeutralization = (acid : TAcid,  lyeType: LyeType) => {
     return lyeType === LyeType.NaOH ? acid.neutralization.naoh : acid.neutralization.koh;
-
 };
+
+
+type TScaleRecipeWithAcids = {
+    selectedOils: TOil[];
+    selectedAcids: TAcid[];
+    userDefinedTotalWeight: number;
+    waterPercent: number;
+    superfatPercent: number;
+    lyeType: LyeType;
+    acidInputType: InputType;
+};
+
+type TScaledRecipe = {
+    oils: TOil[];
+    acids: TAcid[];
+};
+
+export const scaleRecipeToTotalWeightDevelop = ({
+    selectedOils,
+    selectedAcids,
+    userDefinedTotalWeight,
+    waterPercent,
+    superfatPercent,
+    lyeType,
+    acidInputType,
+}: TScaleRecipeWithAcids): TScaledRecipe => {
+    let oils = [...selectedOils];
+    let acids = [...selectedAcids];
+
+    const totalOil = oils.reduce((sum, oil) => sum + (oil.gram || 0), 0);
+
+    // 1. Если граммы масел отсутствуют — рассчитаем их из процентов
+    if (totalOil === 0) {
+        const totalPercent = oils.reduce((sum, oil) => sum + (oil.percent || 0), 0);
+
+        if (isValidPercentRange(totalPercent)) {
+            const lyeFraction = 0.14 * (1 - superfatPercent / 100); // приближённо
+            const waterFraction = waterPercent / 100;
+
+            const oilMassEstimate = userDefinedTotalWeight / (1 + lyeFraction + waterFraction);
+
+            oils = oils.map((oil) => ({
+                ...oil,
+                gram: (oil.percent / 100) * oilMassEstimate,
+            }));
+        } else {
+            return { oils: selectedOils, acids: selectedAcids };
+        }
+    }
+
+    const oilMass = oils.reduce((sum, oil) => sum + (oil.gram || 0), 0);
+
+    // 2. Кислоты: пересчитываем граммы из процентов, если требуется
+    if (acidInputType === InputType.Percent) {
+        acids = acids.map((acid) => ({
+            ...acid,
+            gram: (acid.percent / 100) * oilMass,
+        }));
+    }
+
+    const totalAcid = acids.reduce((sum, acid) => sum + (acid.gram || 0), 0);
+
+    // 3. Рассчитываем щёлочь и воду
+    const totalLyeFromOils = oils.reduce((sum, oil) => {
+        const sap = getOilSAP(oil, lyeType);
+        return sum + (oil.gram || 0) * sap * (1 - superfatPercent / 100);
+    }, 0);
+
+    const totalLyeFromAcids = acids.reduce((sum, acid) => {
+        const neutralization = getAcidNeutralization(acid, lyeType);
+        return sum + (acid.gram || 0) * neutralization;
+    }, 0);
+
+    const totalLye = totalLyeFromOils + totalLyeFromAcids;
+
+    const totalWater = oilMass * (waterPercent / 100);
+
+    const totalCurrent = oilMass + totalLye + totalWater + totalAcid;
+
+    if (totalCurrent === 0) return { oils: selectedOils, acids: selectedAcids };
+
+    const scale = userDefinedTotalWeight / totalCurrent;
+
+    // 4. Масштабируем масла и кислоты
+    const scaledOils = oils.map((oil) => ({
+        ...oil,
+        gram: (oil.gram || 0) * scale,
+    }));
+
+    const scaledAcids = acids.map((acid) => ({
+        ...acid,
+        gram: (acid.gram || 0) * scale,
+    }));
+
+    return { oils: scaledOils, acids: scaledAcids };
+};
+

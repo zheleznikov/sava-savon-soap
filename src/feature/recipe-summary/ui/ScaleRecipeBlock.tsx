@@ -1,42 +1,60 @@
-import {FC} from "react";
+import {FC, useEffect, useRef} from "react";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {InputBlockWrapper} from "../../../shared";
 import {localization} from "../../../shared/config/localization";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {SmartNumberInput} from "../../../shared";
+import {TAcid} from "../../../entities/oil/model/acids.types";
+import {usePrevious} from "../model/usePrevious";
 
 
 interface ScaleRecipeBlockProps {
     oilInputType: InputType;
-    setInputType: (val: InputType) => void;
+    setOilInputType: (val: InputType) => void;
     userDefinedTotalWeight: number;
     setUserDefinedTotalWeight: (val: number) => void;
     totalResultAmount: number;
+    acidInputType: InputType;
+    setAcidInputType: (val: InputType) => void;
+    selectedAcids: TAcid []
 }
 
 export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
-                                                                oilInputType,
-                                                                setInputType,
-                                                                userDefinedTotalWeight,
-                                                                setUserDefinedTotalWeight,
-                                                                totalResultAmount,
-                                                            }) => {
-    const { appTheme } = useTheme();
+    oilInputType,
+    setOilInputType,
+    userDefinedTotalWeight,
+    setUserDefinedTotalWeight,
+    totalResultAmount,
+    acidInputType,
+    setAcidInputType,
+    selectedAcids
+}) => {
+    const {appTheme} = useTheme();
     const styles = recipeBlockStyles[appTheme];
     const t = localization.ru.scale;
 
     const isGramMode = oilInputType === InputType.Gram;
+    const isAcidGramMode = acidInputType === InputType.Gram;
+
+    const shouldUseTotal = () =>
+        isGramMode || (isAcidGramMode && selectedAcids.length > 0);
+
+
+    const inputValue = shouldUseTotal() ? totalResultAmount : userDefinedTotalWeight;
 
     const handleInputChange = (value: number) => {
         if (isGramMode && value !== totalResultAmount) {
-            setInputType(InputType.Percent);
+            setOilInputType(InputType.Percent);
+        }
+        if (isAcidGramMode && value !== totalResultAmount) {
+            setAcidInputType(InputType.Percent);
         }
         setUserDefinedTotalWeight(value);
     };
 
     return (
-        <InputBlockWrapper className={"lg:w-1/3 lg:h-[200px]"}>
+        <InputBlockWrapper className={""}>
             <div className={styles.blockHeader}>
                 <h2 className={styles.blockTitle}>{t.title}</h2>
                 <p className={styles.blockText}>{t.description}</p>
@@ -45,14 +63,13 @@ export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
             <div className={styles.blockInputRow}>
                 <SmartNumberInput
                     decimalPlaces={0}
-                    value={isGramMode ? totalResultAmount : userDefinedTotalWeight}
+                    value={inputValue}
                     onChange={handleInputChange}
                     placeholder={t.placeholder}
                     min={10}
                     max={10000}
                     className={styles.inputSmart}
                 />
-                {/*<span className={styles.inputUnit}>{t.unit}</span>*/}
             </div>
         </InputBlockWrapper>
     );

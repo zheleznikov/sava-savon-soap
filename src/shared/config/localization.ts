@@ -101,7 +101,7 @@ export const localization = {
             gramUnit: "г"
         },
         recipe_title_default: {
-            placeholder: "Мой рецепт"
+            placeholder: "Назовите рецепт здесь"
         },
         result_summary: {
             title: "Итог",
@@ -110,7 +110,7 @@ export const localization = {
         },
         scale: {
             title: "Масштабирование",
-            description: "Измените общий вес готового мыла — рецепт пересчитается автоматически.",
+            description: "Измените общий вес мыла",
             placeholder: "Вес мыла",
             unit: "г"
         },

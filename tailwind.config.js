@@ -14,8 +14,13 @@ export default {
             },
             animation: {
                 'fade-slide': 'fadeSlideIn 0.2s ease-out',
+                'subtle-pulse': 'subtle-pulse 3.5s ease-in-out infinite',
             },
             keyframes: {
+                'subtle-pulse': {
+                    '0%, 100%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.01)' }, // совсем лёгкое увеличение
+                },
                 fadeSlideIn: {
                     '0%': {opacity: 0, transform: 'translateY(-4px)'},
                     '100%': {opacity: 1, transform: 'translateY(0)'},

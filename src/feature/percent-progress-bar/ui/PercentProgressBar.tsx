@@ -1,5 +1,4 @@
 import {FC} from "react";
-import {useSoapRecipe} from "@/feature/recipe-calculation/model/useSoapRecipe";
 import {formatNumber} from "@/shared/lib/utils";
 import {InputType} from "@/app/providers/SoapRecipeContext.types";
 import {
@@ -10,9 +9,10 @@ import {
 import {percentProgressStyles} from "@/feature/percent-progress-bar";
 import {useTheme} from "@/app/providers/ThemeContext";
 import {localization} from "@/shared/config/localization";
+import {useAppSelector} from "../../../shared/useAppSelector";
 
 export const PercentProgressBar: FC = () => {
-    const {selectedOils, oilInputType} = useSoapRecipe();
+    const {selectedOils, oilInputType} = useAppSelector((state) => state.recipe);
 
     const percentSum = calculatePercentSum(selectedOils);
     const isPercentMode = oilInputType === InputType.Percent;

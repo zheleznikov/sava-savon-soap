@@ -1,30 +1,37 @@
 import {
     OilsList,
     ParametersList,
+    RecipeActions,
     RecipeParametersTable,
     RecipeTitleInput,
     ResultSummary,
     ScaleRecipeBlock
 } from "../../feature/recipe-summary";
-import {InputBlockWrapper} from "../../shared";
-import {RecipeContainer} from "../../shared";
+import {InputBlockWrapper, LoadingOverlay, RecipeContainer} from "../../shared";
 import React, {FC, useState} from "react";
-import {useSoapCalculations} from "../../feature/recipe-calculation";
-import {useSoapRecipe} from "../../feature/recipe-calculation";
 import {useSaveRecipe} from "../../feature/recipe-calculation";
-import {useSoapProperties} from "../../feature/recipe-calculation";
 import {clsx} from "clsx";
-import {RecipeActions} from "../../feature/recipe-summary";
 import {useExportRecipe} from "../../shared/model/useExportRecipe";
-import {LoadingOverlay} from "../../shared";
 import {ExportRecipeProps} from "../../shared/ui/ExportRecipe";
 import {Tab, Tabs} from "../../shared/ui/Tabs";
 import {isMobile, isTablet} from "react-device-detect";
 import {AcidList} from "../../feature/recipe-summary/ui/AcidList";
+import {useAppSelector} from "../../shared/useAppSelector";
+import {useAppDispatch} from "../../shared/model/useAppDispatch";
+import {InputType} from "../../app/providers/SoapRecipeContext.types";
+import {
+    setAcidInputType,
+    setOilInputType,
+    setRecipeName,
+    setUserDefinedTotalWeight
+} from "../../feature/recipe-calculation/model/recipeSlice";
+import {RecipeStatusBanner} from "../../shared/ui/RecipeStatusBanner";
 
 export const RecipeSummaryBlock: FC = () => {
 
     const isSmartphone = isMobile && !isTablet;
+
+    const dispatch = useAppDispatch();
 
     const {
         downloadPdfOnly,
@@ -62,42 +69,44 @@ export const RecipeSummaryBlock: FC = () => {
     const downloadImage = () => downloadImageOnly(getExportData());
 
     const {
+        selectedOils,
+        selectedAcids,
+        oilInputType,
+        acidInputType,
+        lyeType,
+        waterPercent,
+        superfatPercent,
+        userDefinedTotalWeight,
+        recipeName,
         totalLyeAmount,
         totalWaterAmount,
         totalResultAmount,
         totalOilAmount,
-        totalAcidAmount
-    } = useSoapCalculations();
+        totalAcidAmount,
+        soapProperties: {
+            hardness,
+            cleansing,
+            soften,
+            bubbling,
+            creaminess,
+            iodine
+        },
+        status,
+        hasEverCalculated
+    } = useAppSelector((state) => state.recipe);
 
-    const {
-        selectedOils,
-        lyeType,
-        superfatPercent,
-        waterPercent,
-        oilInputType,
-        setOilInputType,
-        userDefinedTotalWeight,
-        setUserDefinedTotalWeight,
-        recipeName,
-        setRecipeName,
-        selectedAcids
-    } = useSoapRecipe();
+    const handleSetOilInputType = (type: InputType) => dispatch(setOilInputType(type));
+    const handleSetAcidInputType = (type: InputType) => dispatch(setAcidInputType(type));
+    const handleSetUserDefinedWeight = (weight: number) => dispatch(setUserDefinedTotalWeight(weight));
+    const handleSetRecipeName = (name: string) => dispatch(setRecipeName(name));
 
-    const {
-        hardness,
-        cleansing,
-        soften,
-        bubbling,
-        creaminess,
-        iodine
-    } = useSoapProperties();
 
-    const {handleSaveRecipe} = useSaveRecipe();
+    // const {handleSaveRecipe} = useSaveRecipe();
 
     const tabs: Tab [] = [
         {key: "composition", label: "Состав"},
         {key: "params", label: "Параметры"},
-        {key: "save", label: "Сохранить"},
+        // {key: "save", label: "Сохранить"},
     ];
 
     const [selectedTab, setSelectedTab] = useState<Tab>(tabs[0]);
@@ -105,14 +114,15 @@ export const RecipeSummaryBlock: FC = () => {
 
     return (
         <>
-            <RecipeContainer className={"relative px-0 sm:px-2 w-full lg:w-1/2 flex flex-col  min-h-0 md:min-h-[85dvh]"}>
+            <RecipeContainer
+                className={"relative px-0 sm:px-2 w-full lg:w-2/5 flex flex-col min-h-0 md:min-h-[85dvh]"}>
                 {isCreatingImg && <LoadingOverlay text="Создание файла..."/>}
 
-                <div  className={"flex-grow"}>
+                <div className={"flex-grow"}>
                     <div className="mb-4">
                         <RecipeTitleInput
                             recipeName={recipeName}
-                            setRecipeName={setRecipeName}
+                            setRecipeName={handleSetRecipeName}
                         />
                     </div>
 
@@ -126,49 +136,56 @@ export const RecipeSummaryBlock: FC = () => {
                     <div className={`flex flex-col gap-2 md:flex-row`}>
                         {
                             (selectedTab.key === "composition" || isSmartphone) &&
-                            <div className={clsx("w-full flex flex-col gap-2 md:flex-row")}>
-                                <InputBlockWrapper className={"px-0 lg:w-2/3"}>
+                            <div className={clsx("w-full flex flex-col gap-2")}>
 
-                                    <ParametersList
-                                        superfatPercent={superfatPercent}
-                                        waterPercent={waterPercent}
-                                        lyeType={lyeType}
-                                        totalWaterAmount={totalWaterAmount}
-                                        totalLyeAmount={totalLyeAmount}
-                                        selectedOils={selectedOils}
-                                    />
+                                    <RecipeStatusBanner children={
+                                        <InputBlockWrapper className={"px-0 w-full"}>
 
-                                    <OilsList
-                                        selectedOils={selectedOils}
-                                        totalOilAmount={totalOilAmount}
-                                    />
+                                            <ParametersList
+                                                superfatPercent={superfatPercent}
+                                                waterPercent={waterPercent}
+                                                lyeType={lyeType}
+                                                totalWaterAmount={totalWaterAmount}
+                                                totalLyeAmount={totalLyeAmount}
+                                                selectedOils={selectedOils}
+                                            />
 
-                                    <ResultSummary totalResultAmount={totalResultAmount}/>
+                                            <OilsList
+                                                selectedOils={selectedOils}
+                                                totalOilAmount={totalOilAmount}
+                                            />
 
-                                    {
-                                        selectedAcids.length > 0 &&
-                                        <AcidList
-                                            selectedAcids={selectedAcids}
-                                            totalAcidAmount={totalAcidAmount}
-                                        />
+                                            <ResultSummary totalResultAmount={totalResultAmount}/>
 
-                                    }
+                                            {selectedAcids.length > 0 && (
+                                                <AcidList
+                                                    selectedAcids={selectedAcids}
+                                                    totalAcidAmount={totalAcidAmount}
+                                                />
+                                            )}
+                                        </InputBlockWrapper>
+                                    }/>
 
 
-
-                                </InputBlockWrapper>
+                                {isSmartphone &&
 
                                 <ScaleRecipeBlock
                                     oilInputType={oilInputType}
-                                    setInputType={setOilInputType}
+                                    setOilInputType={handleSetOilInputType}
                                     userDefinedTotalWeight={userDefinedTotalWeight}
-                                    setUserDefinedTotalWeight={setUserDefinedTotalWeight}
+                                    setUserDefinedTotalWeight={handleSetUserDefinedWeight}
                                     totalResultAmount={totalResultAmount}
+                                    acidInputType={acidInputType}
+                                    setAcidInputType={handleSetAcidInputType}
+                                    selectedAcids={selectedAcids}
                                 />
+                                }
+
                             </div>
                         }
                         {
-                            (selectedTab.key === "params" || isSmartphone) &&
+                            (selectedTab.key === "params" || isSmartphone) && status === 'ready'
+                            &&
                             <RecipeParametersTable
                                 hardness={hardness}
                                 cleansing={cleansing}
@@ -183,7 +200,8 @@ export const RecipeSummaryBlock: FC = () => {
                 </div>
 
                 <RecipeActions
-                    onSave={handleSaveRecipe}
+                    onSave={() => {
+                    }}
                     onDownloadJpg={downloadImage}
                     onShareJpg={shareImage}
                     onDownloadPdf={downloadPdf}

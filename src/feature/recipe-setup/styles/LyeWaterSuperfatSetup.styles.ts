@@ -26,10 +26,10 @@ const themeDark = {
 
 const createLayoutTheme = (theme: typeof themeLight) => ({
     layout: {
-        wrapper: "space-y-4",
+        wrapper: "",
         lyeTypeRow: `${common.flexColumn} flex-row gap-1`,
         buttonGroup: `flex overflow-hidden w-fit ${theme.border} ${common.borderRadius}`,
-        paramRow: "flex flex-wrap gap-4 sm:items-center",
+        paramRow: "flex gap-2 items-center",
         fieldWrapper: `${common.flexColumn} min-w-[140px]`,
         fieldInner: "flex items-center gap-1",
         input: `w-full max-w-[100px] text-base xs:text-sm`,

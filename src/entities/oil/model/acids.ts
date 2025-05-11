@@ -7,7 +7,7 @@ export const acids: TAcid[] = [
         name_eng: "Citric Acid",
         neutralization: {
             naoh: 0.624,
-            koh: 0.875
+            koh: 0.876
         },
         percent: 0,
         gram: 0
@@ -28,8 +28,8 @@ export const acids: TAcid[] = [
         name_rus: "Яблочная кислота",
         name_eng: "Malic Acid",
         neutralization: {
-            naoh: 0.571,
-            koh: 0.812
+            naoh: 0.597,
+            koh: 0.837
         },
         percent: 0,
         gram: 0
@@ -39,8 +39,8 @@ export const acids: TAcid[] = [
         name_rus: "Винная кислота",
         name_eng: "Tartaric Acid",
         neutralization: {
-            naoh: 0.7,
-            koh: 0.98
+            naoh: 0.533,
+            koh: 0.748
         },
         percent: 0,
         gram: 0
@@ -50,8 +50,8 @@ export const acids: TAcid[] = [
         name_rus: "Аскорбиновая кислота",
         name_eng: "Ascorbic Acid (Vitamin C)",
         neutralization: {
-            naoh: 0.56,
-            koh: 0.79
+            naoh: 0.227,
+            koh: 0.319
         },
         percent: 0,
         gram: 0

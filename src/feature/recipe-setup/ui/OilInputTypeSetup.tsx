@@ -1,6 +1,4 @@
 import {FC} from "react";
-import {useSoapRecipe} from "../../recipe-calculation";
-import {useSoapCalculations} from "../../recipe-calculation";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {InputBlockWrapper} from "../../../shared";
 import {clsx} from "clsx";
@@ -8,26 +6,41 @@ import {localization} from "../../../shared/config/localization";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {inputTypeSetupStyles} from "@/feature/recipe-setup";
 import {SmartNumberInput} from "../../../shared";
+import {useAppDispatch} from "../../../shared/model/useAppDispatch";
+import {useAppSelector} from "../../../shared/useAppSelector";
+import {
+    setOilInputType,
+    setUserDefinedTotalWeight
+} from "../../recipe-calculation/model/recipeSlice";
 
 
 const l = localization.ru.input_type_toggle;
-export const InputTypeSetup: FC = () => {
+export const OilInputTypeSetup: FC = () => {
+
+
+    const dispatch = useAppDispatch();
 
     const {
         oilInputType,
-        setOilInputType,
         userDefinedTotalWeight,
-        setUserDefinedTotalWeight
-    } = useSoapRecipe();
+        totalResultAmount
+    } = useAppSelector((state) => state.recipe);
 
-    const {totalResultAmount} = useSoapCalculations();
+    const handleSetOilInputType = (type: InputType) => {
+        dispatch(setOilInputType(type));
+    };
+
+    const handleSetUserDefinedTotalWeight = (value: number) => {
+        dispatch(setUserDefinedTotalWeight(value));
+    };
+
 
     const isGramMode = oilInputType === InputType.Gram;
     const {appTheme} = useTheme();
     const {layout, theme} = inputTypeSetupStyles[appTheme];
 
     return (
-        <InputBlockWrapper>
+        <InputBlockWrapper className={""}>
             <div className={layout.wrapper}>
 
                 {/* Режим ввода */}
@@ -39,7 +52,7 @@ export const InputTypeSetup: FC = () => {
                     <div className={layout.buttonGroup}>
                         <button
                             type="button"
-                            onClick={() => setOilInputType(InputType.Gram)}
+                            onClick={() => handleSetOilInputType(InputType.Gram)}
                             className={clsx(
                                 theme.buttonBase,
                                 isGramMode ? theme.buttonActive : theme.buttonInactive
@@ -50,7 +63,7 @@ export const InputTypeSetup: FC = () => {
 
                         <button
                             type="button"
-                            onClick={() => setOilInputType(InputType.Percent)}
+                            onClick={() => handleSetOilInputType(InputType.Percent)}
                             className={clsx(
                                 theme.buttonBase,
                                 oilInputType === InputType.Percent ? theme.buttonActive : theme.buttonInactive
@@ -71,7 +84,7 @@ export const InputTypeSetup: FC = () => {
                         <SmartNumberInput
                             decimalPlaces={0}
                             value={isGramMode ? totalResultAmount : userDefinedTotalWeight}
-                            onChange={isGramMode ? () => {} : setUserDefinedTotalWeight}
+                            onChange={isGramMode ? () => {} : handleSetUserDefinedTotalWeight}
                             disabled={isGramMode}
                             placeholder={l.placeholder_grams}
                             min={10}
@@ -81,17 +94,18 @@ export const InputTypeSetup: FC = () => {
                                 isGramMode ? theme.inputDisabled : theme.input
                             )}
                         />
-                        <span className={theme.unitText}>
-                        {l.unit_grams}
-                    </span>
+                    {/*    <span className={theme.unitText}>*/}
+                    {/*    {l.unit_grams}*/}
+                    {/*</span>*/}
+                        <p className={clsx(
+                            theme.hint,
+                            isGramMode ? theme.hintVisible : theme.hintHidden
+                        )}>
+                            {l.hint_automatic}
+                        </p>
                     </div>
 
-                    <p className={clsx(
-                        theme.hint,
-                        isGramMode ? theme.hintVisible : theme.hintHidden
-                    )}>
-                        {l.hint_automatic}
-                    </p>
+
                 </div>
             </div>
         </InputBlockWrapper>

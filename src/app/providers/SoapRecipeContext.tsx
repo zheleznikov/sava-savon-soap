@@ -10,7 +10,7 @@ export const SoapRecipeContext = createContext<SoapRecipeContextType | undefined
 export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
 
     const defaultSelectedOils = oils.filter(oil => [2, 1, 29].includes(oil.id));
-    const [selectedOils, setSelectedOils] = useState<TOil[]>([...defaultSelectedOils]);
+    const [selectedOils, setSelectedOils] = useState<TOil[]>(defaultSelectedOils);
     const [selectedAcids, setSelectedAcids] = useState<TAcid []>([]);
 
     const [recipeName, setRecipeName] = useState("");
@@ -47,6 +47,8 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
     };
 
 
+    // todo добавить пересчет кислот, если вес кислот указан в процентах
+
     const updateOilGramWithRecalculatedPercents = (oil: TOil, newGram: number) => {
         const updatedOilsBase = selectedOils.map((o) =>
             o.id === oil.id ? { ...o, gram: newGram } : o
@@ -59,8 +61,58 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
         }));
 
         setSelectedOils(updatedOils);
+
+        const updatedAcids = selectedAcids.map((a) => ({
+            ...a,
+            gram: acidInputType === InputType.Percent && totalGram > 0 ? (a.percent / 100) * totalGram : a.gram,
+            percent: acidInputType === InputType.Gram && totalGram > 0 ? (a.gram / totalGram) * 100 : a.percent,
+        }));
+
+        setSelectedAcids(updatedAcids);
+
+
     };
 
+    // todo отладить функцию, чтобы при измнении веса и если тип граммы, то увеличивался бы общий вес
+    const updateAcidGramWithRecalculatedPercents = (acid: TAcid, newGram: number, totalOilSum: number) => {
+        const updatedAcidsBase = selectedAcids.map((a) =>
+            a.id === acid.id ? { ...a, gram: newGram } : a
+        );
+
+        const updatedAcids = updatedAcidsBase.map((a) => ({
+            ...a,
+            percent: totalOilSum > 0 ? (a.gram / totalOilSum) * 100 : 0,
+        }));
+
+        setSelectedAcids(updatedAcids);
+    };
+
+    // const updateAcidGramWithRecalculatedPercents = (
+    //     acid: TAcid,
+    //     newGram: number,
+    //     totalOilSum: number
+    // ) => {
+    //     const updatedAcidsBase = selectedAcids.map((a) =>
+    //         a.id === acid.id ? { ...a, gram: newGram } : a
+    //     );
+    //
+    //     const updatedAcids = updatedAcidsBase.map((a) => ({
+    //         ...a,
+    //         percent: totalOilSum > 0 ? (a.gram / totalOilSum) * 100 : 0,
+    //     }));
+    //
+    //     const hasChanged = updatedAcids.some((a, i) => {
+    //         const prev = selectedAcids[i];
+    //         return a.gram !== prev.gram || a.percent !== prev.percent;
+    //     });
+    //
+    //     if (hasChanged) {
+    //         setSelectedAcids(updatedAcids);
+    //     }
+    // };
+
+
+    // todo добавить пересчет кислот, если вес указан в процентах. Разобраьтся
     const updateOilPercentWithGramRecalculation = (oil: TOil, newPercent: number, totalOilMass: number) => {
         const updatedOils = selectedOils.map((o) =>
             o.id === oil.id
@@ -72,6 +124,20 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
                 : o
         );
         setSelectedOils(updatedOils);
+    };
+
+    const updateAcidPercentWithGramRecalculation = (acid: TAcid, newPercent: number, totalOilSum: number) => {
+        const updatedAcids = selectedAcids.map((a) =>
+            a.id === acid.id
+                ? {
+                    ...a,
+                    percent: newPercent,
+                    gram: totalOilSum > 0 ? (newPercent / 100) * totalOilSum : 0,
+                }
+                : a
+        );
+
+        setSelectedAcids(updatedAcids);
     };
 
     return (
@@ -89,7 +155,9 @@ export const SoapRecipeProvider = ({ children }: { children: ReactNode }) => {
                 handleToggleAcid,
                 handleToggleOil,
                 updateOilGramWithRecalculatedPercents,
-                updateOilPercentWithGramRecalculation
+                updateOilPercentWithGramRecalculation,
+                updateAcidGramWithRecalculatedPercents,
+                updateAcidPercentWithGramRecalculation
             }}
         >
             {children}

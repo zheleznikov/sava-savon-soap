@@ -1,6 +1,5 @@
 import {FC, useState} from "react";
 import {ChevronDown, ChevronUp, Trash2} from "lucide-react";
-import {useSoapCalculations, useSoapRecipe} from "../../recipe-calculation";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
@@ -9,6 +8,13 @@ import {clsx} from "clsx";
 import {SmartNumberInput} from "../../../shared";
 import {formatNumber} from "../../../shared/lib/utils";
 import {TAcid} from "../../../entities/oil/model/acids.types";
+import {useAppDispatch} from "../../../shared/model/useAppDispatch";
+import {useAppSelector} from "../../../shared/useAppSelector";
+import {
+    toggleAcid,
+    updateAcidGramWithRecalculatedPercents,
+    updateAcidPercentWithGramRecalculation
+} from "../../recipe-calculation/model/recipeSlice";
 
 
 interface Props {
@@ -17,15 +23,21 @@ interface Props {
 
 export const AcidAddedLine: FC<Props> = ({acid}) => {
 
-    const {
-        handleToggleOil,
-        handleToggleAcid,
-        acidInputType,
-        updateOilPercentWithGramRecalculation,
-        updateOilGramWithRecalculatedPercents
-    } = useSoapRecipe();
 
-    const {totalAcidAmount} = useSoapCalculations();
+    const dispatch = useAppDispatch();
+
+    // Селекторы
+    const {acidInputType, totalAcidAmount, totalOilAmount} = useAppSelector((state) => state.recipe);
+
+    const handleToggleAcid = () => dispatch(toggleAcid(acid));
+
+    const handleUpdateAcidGram = (newGram: number) =>
+        dispatch(updateAcidGramWithRecalculatedPercents({ acidId: acid.id, newGram, totalOil: totalOilAmount }));
+
+    const handleUpdateAcidPercent = (newPercent: number) =>
+        dispatch(updateAcidPercentWithGramRecalculation({ acidId: acid.id, newPercent, totalOilMass: totalOilAmount }));
+
+
 
     const isGramMode = acidInputType === InputType.Gram;
     const isPercentMode = acidInputType === InputType.Percent;
@@ -44,7 +56,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
             <div className={layout.blockInner}>
                 <div className={layout.topRow}>
                     <div className={theme.name}>{acid.name_rus}</div>
-                    <button onClick={() => handleToggleAcid(acid)} className={theme.deleteButton}
+                    <button onClick={handleToggleAcid} className={theme.deleteButton}
                             title={t.delete_button_title}>
                         <Trash2 size={24}/>
                     </button>
@@ -55,8 +67,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                         <SmartNumberInput
                             placeholder={t.placeholder_grams}
                             value={acid.gram || 0}
-                            // onChange={newGram => updateOilGramWithRecalculatedPercents(oil, newGram)}
-                            onChange={() => {}}
+                            onChange={newGram => handleUpdateAcidGram(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
@@ -68,9 +79,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                             min={1} max={5}
                             placeholder={t.placeholder_percent}
                             value={acid.percent || 0}
-                            onChange={() => {}}
-
-                            // onChange={newPercent => updateOilPercentWithGramRecalculation(oil, newPercent, totalOilAmount)}
+                            onChange={newPercent => handleUpdateAcidPercent(newPercent)}
                             disabled={isGramMode}
                             className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
                         />
