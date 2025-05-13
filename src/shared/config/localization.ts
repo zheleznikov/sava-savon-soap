@@ -18,6 +18,7 @@ export const localization = {
             label_input_type: "Режим ввода",
             button_grams: "Граммы",
             button_percent: "Проценты",
+            button_ounces: "Унции",
             label_total_weight: "Общий вес мыла",
             placeholder_grams: "граммы",
             hint_automatic: "Рассчитывается автоматически по сумме масел",
@@ -26,6 +27,10 @@ export const localization = {
         soap_controls: {
             label_lye_type: "Тип щёлочи",
             label_water_percent: "Процент воды",
+            naoh_purity: "Чистота NaOH",
+            koh_purity: "Чистота KOH",
+            naoh_percent: "Процент NaOH",
+            koh_percent: "Процент KOH",
             label_superfat_percent: "Процент пережира",
             placeholder_percent: "%"
         },
@@ -101,7 +106,7 @@ export const localization = {
             gramUnit: "г"
         },
         recipe_title_default: {
-            placeholder: "Назовите рецепт здесь"
+            placeholder: "Мой рецепт"
         },
         result_summary: {
             title: "Итог",

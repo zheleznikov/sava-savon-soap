@@ -1,4 +1,4 @@
-export {LyeWaterSuperfatSetup} from "./ui/LyeWaterSuperfatSetup";
+export {LyeSetup} from "./ui/LyeSetup";
 export {lyeWaterSuperfatSetupStyles} from "./styles/LyeWaterSuperfatSetup.styles";
 
 export {OilInputTypeSetup} from "./ui/OilInputTypeSetup";

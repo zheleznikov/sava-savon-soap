@@ -26,6 +26,11 @@ interface RecipeState {
     oilInputType: InputType;
     acidInputType: InputType;
     lyeType: LyeType;
+    NaOHPurity: number;
+    KOHPurity: number;
+    NaOHPercentageInMixed?: number; // активен при LyeType.Mixed
+    KOHPercentageInMixed?: number;  // активен при LyeType.Mixed
+
     waterPercent: number;
     superfatPercent: number;
     userDefinedTotalWeight: number;
@@ -57,6 +62,8 @@ const initialState: RecipeState = {
     oilInputType: InputType.Gram,
     acidInputType: InputType.Gram,
     lyeType: LyeType.NaOH,
+    NaOHPurity: 100,
+    KOHPurity: 100,
     waterPercent: 33,
     superfatPercent: 5,
     userDefinedTotalWeight: 0,
@@ -76,6 +83,8 @@ const initialState: RecipeState = {
     totalResultAmount: 0,
     status: "idle",
     hasEverCalculated: false,
+    NaOHPercentageInMixed: 50,
+    KOHPercentageInMixed: 50
 
 };
 
@@ -124,7 +133,22 @@ export const recipeSlice = createSlice({
             state.userDefinedTotalWeight = action.payload;
             state.status = "dirty";
         },
-
+        setNaOHPurity: (state, action: PayloadAction<number>) => {
+            state.NaOHPurity = action.payload;
+            state.status = "dirty";
+        },
+        setKOHPurity: (state, action: PayloadAction<number>) => {
+            state.KOHPurity = action.payload;
+            state.status = "dirty";
+        },
+        setNaOHPercentageInMixed: (state, action: PayloadAction<number>) => {
+            state.NaOHPercentageInMixed = action.payload;
+            state.status = "dirty";
+        },
+        setKOHPercentageInMixed: (state, action: PayloadAction<number>) => {
+            state.KOHPercentageInMixed = action.payload;
+            state.status = "dirty";
+        },
 
         // управляющие функции
         calculateRecipeProperties: (state) => {
@@ -187,7 +211,6 @@ export const recipeSlice = createSlice({
             }));
 
             state.status = "dirty";
-
         },
 
         updateAcidGramWithRecalculatedPercents: (state, action: PayloadAction<{ acidId: number; newGram: number; totalOil: number }>) => {
@@ -201,6 +224,7 @@ export const recipeSlice = createSlice({
                 ...a,
                 percent: totalOil > 0 ? (a.gram / totalOil) * 100 : 0
             }));
+
             state.status = "dirty";
 
         },
@@ -264,7 +288,11 @@ export const recipeSlice = createSlice({
                 selectedOils: state.selectedOils,
                 lyeType: state.lyeType,
                 superfatPercent: state.superfatPercent,
-                selectedAcids: state.selectedAcids
+                selectedAcids: state.selectedAcids,
+                NaOHPurity: state.NaOHPurity,
+                KOHPurity: state.KOHPurity,
+                NaOHPercentageInMixed: state.NaOHPercentageInMixed,
+                KOHPercentageInMixed: state.KOHPercentageInMixed,
             });
 
             state.totalLyeAmount = lyeSum;
@@ -324,6 +352,10 @@ export const {
     setLyeType,
     setWaterPercent,
     setSuperfatPercent,
+    setNaOHPurity,
+    setKOHPurity,
+    setNaOHPercentageInMixed,
+    setKOHPercentageInMixed,
     setUserDefinedTotalWeight,
     calculateRecipeProperties,
     toggleOil,

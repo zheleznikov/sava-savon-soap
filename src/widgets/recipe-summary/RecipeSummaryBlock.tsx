@@ -4,12 +4,10 @@ import {
     RecipeActions,
     RecipeParametersTable,
     RecipeTitleInput,
-    ResultSummary,
-    ScaleRecipeBlock
+    ResultSummary
 } from "../../feature/recipe-summary";
 import {InputBlockWrapper, LoadingOverlay, RecipeContainer} from "../../shared";
 import React, {FC, useState} from "react";
-import {useSaveRecipe} from "../../feature/recipe-calculation";
 import {clsx} from "clsx";
 import {useExportRecipe} from "../../shared/model/useExportRecipe";
 import {ExportRecipeProps} from "../../shared/ui/ExportRecipe";
@@ -126,19 +124,19 @@ export const RecipeSummaryBlock: FC = () => {
                         />
                     </div>
 
-                    <Tabs
-                        tabs={tabs}
-                        value={selectedTab}
-                        onChange={setSelectedTab}
-                        show={!isSmartphone}
-                    />
+                    <RecipeStatusBanner children={
+                        <>
+                            <Tabs
+                                tabs={tabs}
+                                value={selectedTab}
+                                onChange={setSelectedTab}
+                                show={!isSmartphone}
+                            />
+                            <div className={`flex flex-col gap-2 md:flex-row`}>
+                                {
+                                    (selectedTab.key === "composition" || isSmartphone) &&
+                                    <div className={clsx("w-full flex flex-col gap-2")}>
 
-                    <div className={`flex flex-col gap-2 md:flex-row`}>
-                        {
-                            (selectedTab.key === "composition" || isSmartphone) &&
-                            <div className={clsx("w-full flex flex-col gap-2")}>
-
-                                    <RecipeStatusBanner children={
                                         <InputBlockWrapper className={"px-0 w-full"}>
 
                                             <ParametersList
@@ -164,50 +162,37 @@ export const RecipeSummaryBlock: FC = () => {
                                                 />
                                             )}
                                         </InputBlockWrapper>
-                                    }/>
 
 
-                                {isSmartphone &&
-
-                                <ScaleRecipeBlock
-                                    oilInputType={oilInputType}
-                                    setOilInputType={handleSetOilInputType}
-                                    userDefinedTotalWeight={userDefinedTotalWeight}
-                                    setUserDefinedTotalWeight={handleSetUserDefinedWeight}
-                                    totalResultAmount={totalResultAmount}
-                                    acidInputType={acidInputType}
-                                    setAcidInputType={handleSetAcidInputType}
-                                    selectedAcids={selectedAcids}
-                                />
+                                    </div>
                                 }
+                                {
+                                    (selectedTab.key === "params" || isSmartphone) && status === 'ready'
+                                    &&
+                                    <RecipeParametersTable
+                                        hardness={hardness}
+                                        cleansing={cleansing}
+                                        soften={soften}
+                                        bubbling={bubbling}
+                                        creaminess={creaminess}
+                                        iodine={iodine}
+                                    />
 
+                                }
                             </div>
-                        }
-                        {
-                            (selectedTab.key === "params" || isSmartphone) && status === 'ready'
-                            &&
-                            <RecipeParametersTable
-                                hardness={hardness}
-                                cleansing={cleansing}
-                                soften={soften}
-                                bubbling={bubbling}
-                                creaminess={creaminess}
-                                iodine={iodine}
+
+                            <RecipeActions
+                                onSave={() => {
+                                }}
+                                onDownloadJpg={downloadImage}
+                                onShareJpg={shareImage}
+                                onDownloadPdf={downloadPdf}
+                                onSharePdf={sharePdf}
+                                isSaveHidden={true}
                             />
-
-                        }
-                    </div>
+                        </>
+                    }/>
                 </div>
-
-                <RecipeActions
-                    onSave={() => {
-                    }}
-                    onDownloadJpg={downloadImage}
-                    onShareJpg={shareImage}
-                    onDownloadPdf={downloadPdf}
-                    onSharePdf={sharePdf}
-                    isSaveHidden={true}
-                />
 
 
             </RecipeContainer>

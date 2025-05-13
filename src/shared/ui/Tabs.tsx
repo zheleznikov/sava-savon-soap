@@ -1,4 +1,4 @@
-import {FC, useEffect, useRef} from "react";
+import {FC} from "react";
 import clsx from "clsx";
 
 
@@ -14,14 +14,10 @@ interface TabsProps {
     show?: boolean;
 }
 
-const tabWrapper = "relative mb-6";
+const tabWrapper = "relative mb-6 ";
 
-const scrollContainer = `
-    flex
-    overflow-x-auto
-    scrollbar-none
-    whitespace-nowrap
-  `;
+
+
 
 const tabButton = {
     base: `
@@ -65,23 +61,19 @@ export const Tabs: FC<TabsProps> = ({tabs, value, onChange, show = true}) => {
 
     return (
         <div className={tabWrapper}>
-            <div className="flex items-center gap-x-1">
-                <div className={clsx(scrollContainer, "flex-1")}>
-                    {tabs.map((tab) => (
-                        <button
-                            key={tab.key}
+            {tabs.map((tab) => (
+                <button
+                    key={tab.key}
 
-                            onClick={() => onChange(tab)}
-                            className={clsx(
-                                tabButton.base,
-                                value.key === tab.key ? tabButton.active : tabButton.inactive
-                            )}
-                        >
-                            {tab.label}
-                        </button>
-                    ))}
-                </div>
-            </div>
+                    onClick={() => onChange(tab)}
+                    className={clsx(
+                        tabButton.base,
+                        value.key === tab.key ? tabButton.active : tabButton.inactive
+                    )}
+                >
+                    {tab.label}
+                </button>
+            ))}
         </div>
 
     );

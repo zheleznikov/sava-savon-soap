@@ -4,11 +4,11 @@ import {localization} from "../../../shared/config/localization";
 import React, {FC, useState} from "react";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 import {clsx} from "clsx";
-import {HelpCircle} from "lucide-react";
 import {InfoPopup} from "../../../shared/ui/InfoPopup";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {LyeInfoContent} from "../../recipe-info/ui/LyeInfoContent";
 import {LyeType} from "../../../app/providers/SoapRecipeContext.types";
+import {Hint} from "../../../shared/ui/Hint";
 
 export interface ParametersListProps {
     superfatPercent: number;
@@ -59,13 +59,11 @@ export const ParametersList: FC<ParametersListProps> = (
                     <li key={index} className={getRowClass(index)}>
                        <span className={styles.label}>{item.label}
                            {(item.label === lyeType) && (
-                               <button
-                                   type="button"
+
+                               <Hint
                                    className="ml-2 group relative align-middle"
                                    onClick={() => setIsPopupOpen(true)}
-                               >
-                                   <HelpCircle className={styles.hint} size={20} />
-                               </button>
+                               />
                            )}</span>
 
 
@@ -87,7 +85,8 @@ export const ParametersList: FC<ParametersListProps> = (
             </ul>
             {
                 <InfoPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)}>
-                    <LyeInfoContent selectedOils={selectedOils} superfatPercent={superfatPercent} lyeType={lyeType}/>
+                    <LyeInfoContent selectedOils={selectedOils} superfatPercent={superfatPercent}
+                                    lyeType={lyeType}/>
                 </InfoPopup>
 
             }

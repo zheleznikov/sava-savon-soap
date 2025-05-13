@@ -1,49 +1,12 @@
-import {TOil} from "../../entities/oil/model/oil.types";
-import {TAcid} from "../../entities/oil/model/acids.types";
-
 export enum InputType {
     Gram = "gram",
     Percent = "percent",
+    Ounces = "ounces",
 }
 
 export enum LyeType {
     NaOH = "NaOH",
     KOH = "KOH",
+    Mixed = "NaOH + KOH"
 }
 
-export interface SoapRecipeContextType {
-    recipeName: string;
-    setRecipeName: (val: string) => void;
-
-    oilInputType: InputType;
-    setOilInputType: (val: InputType) => void;
-
-    acidInputType: InputType;
-    setAcidInputType: (val: InputType) => void;
-
-
-    lyeType: LyeType;
-    setLyeType: (val: LyeType) => void;
-
-    waterPercent: number;
-    setWaterPercent: (val: number) => void;
-
-    superfatPercent: number;
-    setSuperfatPercent: (val: number) => void;
-    userDefinedTotalWeight: number;
-    setUserDefinedTotalWeight: (val: number) => void;
-
-    selectedOils: TOil[];
-    setSelectedOils: (val: TOil[]) => void;
-
-    selectedAcids: TAcid[];
-    setSelectedAcids: (val: TAcid[]) => void;
-    handleToggleOil: (oil: TOil) => void;
-    handleToggleAcid: (oil: TAcid) => void;
-    updateOilGramWithRecalculatedPercents: (oil:TOil, newGram: number) => void;
-    updateOilPercentWithGramRecalculation: (oil: TOil, newPercent: number, totalOilMass: number) => void;
-
-    updateAcidGramWithRecalculatedPercents: (acid: TAcid, newGram: number, totalOilSum: number) => void;
-    updateAcidPercentWithGramRecalculation: (acid: TAcid, newPercent: number, totalOilSum: number) => void;
-
-}

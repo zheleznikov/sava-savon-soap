@@ -11,10 +11,12 @@ export const common = {
     flexColumn: "flex flex-col",
     labelText: "text-sm text-gray-600 mb-1",
     textSm: "text-sm",
+    inputText: "text-base"
 };
 
 export const colors = {
     light: {
+        accentColor: "indigo-500",
         border: "border border-gray-200",
         bg: "bg-white/50",
         text: "text-gray-800",
@@ -28,6 +30,7 @@ export const colors = {
         labelText: "text-gray-600",
     },
     dark: {
+        accentColor: "emerald-400",
         border: "border border-gray-700",
         bg: "bg-gray-900/90",
         inputDisabled: "bg-gray-700 text-gray-500 cursor-not-allowed border-none",

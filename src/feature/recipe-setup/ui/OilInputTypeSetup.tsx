@@ -12,6 +12,7 @@ import {
     setOilInputType,
     setUserDefinedTotalWeight
 } from "../../recipe-calculation/model/recipeSlice";
+import {ToggleButtonGroup} from "../../../shared/ui/ToggleButtonGroup";
 
 
 const l = localization.ru.input_type_toggle;
@@ -49,29 +50,16 @@ export const OilInputTypeSetup: FC = () => {
                         {l.label_input_type}
                     </label>
 
-                    <div className={layout.buttonGroup}>
-                        <button
-                            type="button"
-                            onClick={() => handleSetOilInputType(InputType.Gram)}
-                            className={clsx(
-                                theme.buttonBase,
-                                isGramMode ? theme.buttonActive : theme.buttonInactive
-                            )}
-                        >
-                            {l.button_grams}
-                        </button>
+                    <ToggleButtonGroup
+                        options={[
+                            {label: l.button_grams, value: InputType.Gram},
+                            {label: l.button_ounces, value: InputType.Ounces},
+                            {label: l.button_percent, value: InputType.Percent},
+                        ]}
+                        onChange={handleSetOilInputType}
+                        isActive={(val) => val === oilInputType}
+                    />
 
-                        <button
-                            type="button"
-                            onClick={() => handleSetOilInputType(InputType.Percent)}
-                            className={clsx(
-                                theme.buttonBase,
-                                oilInputType === InputType.Percent ? theme.buttonActive : theme.buttonInactive
-                            )}
-                        >
-                            {l.button_percent}
-                        </button>
-                    </div>
                 </div>
 
                 {/* Общий вес мыла */}

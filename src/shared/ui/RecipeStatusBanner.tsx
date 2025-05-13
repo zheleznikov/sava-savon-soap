@@ -24,8 +24,8 @@ export const RecipeStatusBanner: FC<Props> = ({ children }) => {
 
     if (status === 'dirty' && hasEverCalculated) {
         return (
-            <div className="text-gray-800 font-medium text-sm flex flex-col justify-center relative w-full h-full px-0">
-                <p className={"absolute block top-2 left-2"}>
+            <div className="text-gray-800 font-medium text-sm flex flex-col relative w-full h-full px-0">
+                <p className={"block top-2 left-2"}>
                     Параметры изменились. Нажмите «Рассчитать», чтобы обновить рецепт.
                 </p>
                 <button
@@ -40,7 +40,7 @@ export const RecipeStatusBanner: FC<Props> = ({ children }) => {
 
     if (status === 'idle' || (status === 'dirty' && !hasEverCalculated)) {
         return (
-            <div className="text-orange-500 font-medium text-sm flex flex-col justify-center relative w-full h-full px-0">
+            <div className="text-orange-500 font-medium text-sm flex flex-col  relative w-full h-full px-0">
                 <button
                     onClick={handleCalculate}
                     className="text-lg  bg-emerald-500 text-white font-semibold py-2 rounded-xl shadow hover:bg-emerald-600 hover:scale-95 transition-transform duration-150 animate-subtle-pulse"

@@ -6,6 +6,9 @@ export default {
     ],
     theme: {
         extend: {
+            borderWidth: {
+                '0.5': '0.5px',
+            },
             fontSize: {
                 'xxs': '0.625rem'
             },

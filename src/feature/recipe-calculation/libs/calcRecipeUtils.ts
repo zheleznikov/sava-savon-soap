@@ -91,23 +91,33 @@ type CalculateLyeSumParams = {
     lyeType: LyeType;
     superfatPercent: number;
     selectedAcids?: TAcid []
+    NaOHPurity?: number;
+    KOHPurity?: number;
+    NaOHPercentageInMixed?: number;
+    KOHPercentageInMixed?: number;
 };
 export const calculateLyeSum = (
     {
         selectedOils,
         lyeType,
         superfatPercent,
-        selectedAcids
+        selectedAcids,
+        NaOHPurity = 99,
+        KOHPurity = 90,
+        NaOHPercentageInMixed = 50,
+        KOHPercentageInMixed = 50,
+
     }: CalculateLyeSumParams
 ): number => {
 
     const oilTotalLye = selectedOils.reduce((acc, oil) => {
-        return acc +  calculateLyeForOil(oil, lyeType, superfatPercent);
+        return acc + calculateLyeForOil(oil, lyeType, superfatPercent, NaOHPurity, KOHPurity, NaOHPercentageInMixed, KOHPercentageInMixed);
     }, 0);
 
-    const acidTotalLye = selectedAcids ? selectedAcids.reduce((acc, acid) => {
-        return acc +  calculateLyeForAcid(acid, lyeType);
-    }, 0) : 0;
+
+    const acidTotalLye = selectedAcids?.reduce((acc, acid) => {
+        return acc + calculateLyeForAcid(acid, lyeType, NaOHPurity, KOHPurity, NaOHPercentageInMixed, KOHPercentageInMixed);
+    }, 0) ?? 0;
 
     return oilTotalLye + acidTotalLye;
 }
@@ -115,18 +125,54 @@ export const calculateLyeSum = (
 export const calculateLyeForOil = (
     oil: TOil,
     lyeType: LyeType,
-    superfatPercent: number
+    superfatPercent: number,
+    NaOHPurity: number,
+    KOHPurity: number,
+    NaOHPercentageInMixed: number,
+    KOHPercentageInMixed: number
 ): number => {
+    const weight = oil.gram || 0;
+
+    if (lyeType === LyeType.Mixed) {
+        const sapNaOH = oil.sap.naoh;
+        const sapKOH = oil.sap.koh;
+
+        const naohPart = weight * sapNaOH * (1 - superfatPercent / 100) * (NaOHPercentageInMixed / 100) / (NaOHPurity / 100);
+        const kohPart = weight * sapKOH * (1 - superfatPercent / 100) * (KOHPercentageInMixed / 100) / (KOHPurity / 100);
+
+        return naohPart + kohPart;
+    }
+
     const sap = getOilSAP(oil, lyeType);
-    return (oil.gram || 0) * sap * (1 - superfatPercent / 100);
+    const purity = lyeType === LyeType.NaOH ? NaOHPurity : KOHPurity;
+
+    return weight * sap * (1 - superfatPercent / 100) / (purity / 100);
 };
 
 export const calculateLyeForAcid = (
     acid: TAcid,
-    lyeType: LyeType
+    lyeType: LyeType,
+    NaOHPurity: number,
+    KOHPurity: number,
+    NaOHPercentageInMixed: number,
+    KOHPercentageInMixed: number
 ): number => {
-    const neutralization = getAcidNeutralization(acid, lyeType);
-    return (acid.gram || 0) * neutralization;
+    const weight = acid.gram || 0;
+
+    if (lyeType === LyeType.Mixed) {
+        const naohNeutral = acid.neutralization.naoh;
+        const kohNeutral = acid.neutralization.koh;
+
+        const naohPart = weight * naohNeutral * (NaOHPercentageInMixed / 100) / (NaOHPurity / 100);
+        const kohPart = weight * kohNeutral * (KOHPercentageInMixed / 100) / (KOHPurity / 100);
+
+        return naohPart + kohPart;
+    }
+
+    const neutral = getAcidNeutralization(acid, lyeType);
+    const purity = lyeType === LyeType.NaOH ? NaOHPurity : KOHPurity;
+
+    return weight * neutral / (purity / 100);
 };
 
 
@@ -148,12 +194,12 @@ type TScaleReipe = {
 
 // TODO обновить с учетом кислот
 export const scaleRecipeToTotalWeight = ({
-                                             selectedOils,
-                                             userDefinedTotalWeight,
-                                             waterPercent,
-                                             superfatPercent,
-                                             lyeType,
-                                         }: TScaleReipe): TOil[] => {
+    selectedOils,
+    userDefinedTotalWeight,
+    waterPercent,
+    superfatPercent,
+    lyeType,
+}: TScaleReipe): TOil[] => {
     let oils = [...selectedOils];
 
     const totalOil = oils.reduce((sum, oil) => sum + (oil.gram || 0), 0);
@@ -202,9 +248,8 @@ export const scaleRecipeToTotalWeight = ({
 };
 
 
-
-export const isValidPercentRange = (totalEnteredPercent: number) : boolean => {
-    return  totalEnteredPercent >= 99 && totalEnteredPercent <= 101;
+export const isValidPercentRange = (totalEnteredPercent: number): boolean => {
+    return totalEnteredPercent >= 99 && totalEnteredPercent <= 101;
 }
 
 
@@ -220,7 +265,7 @@ export const getOilSAP = (oil: TOil, lyeType: LyeType) => {
     return lyeType === LyeType.NaOH ? oil.sap.naoh : oil.sap.koh;
 };
 
-export const getAcidNeutralization = (acid : TAcid,  lyeType: LyeType) => {
+export const getAcidNeutralization = (acid: TAcid, lyeType: LyeType) => {
     return lyeType === LyeType.NaOH ? acid.neutralization.naoh : acid.neutralization.koh;
 };
 
@@ -269,7 +314,7 @@ export const scaleRecipeToTotalWeightDevelop = ({
                 gram: (oil.percent / 100) * oilMassEstimate,
             }));
         } else {
-            return { oils: selectedOils, acids: selectedAcids };
+            return {oils: selectedOils, acids: selectedAcids};
         }
     }
 
@@ -302,7 +347,7 @@ export const scaleRecipeToTotalWeightDevelop = ({
 
     const totalCurrent = oilMass + totalLye + totalWater + totalAcid;
 
-    if (totalCurrent === 0) return { oils: selectedOils, acids: selectedAcids };
+    if (totalCurrent === 0) return {oils: selectedOils, acids: selectedAcids};
 
     const scale = userDefinedTotalWeight / totalCurrent;
 
@@ -317,6 +362,6 @@ export const scaleRecipeToTotalWeightDevelop = ({
         gram: (acid.gram || 0) * scale,
     }));
 
-    return { oils: scaledOils, acids: scaledAcids };
+    return {oils: scaledOils, acids: scaledAcids};
 };
 
