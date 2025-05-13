@@ -18,7 +18,7 @@ export const LyeInfoContent: FC<Props> = ({selectedOils, superfatPercent, lyeTyp
 
     const lyeRows = selectedOils.map(oil => {
         const sap = getOilSAP(oil, lyeType);
-        const lye = calculateLyeForOil(oil, lyeType, superfatPercent);
+        const lye = calculateLyeForOil(oil, lyeType, superfatPercent, 0, 0, 0, 0);
         return {
             name: oil.name_rus,
             gram: oil.gram,
