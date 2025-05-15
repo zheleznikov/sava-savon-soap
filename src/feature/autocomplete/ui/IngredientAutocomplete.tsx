@@ -74,7 +74,7 @@ export const IngredientAutocomplete = <T extends TIngredientBase>({
                     {listToShow.map((item) => (
                         <IngredientOptionItem
                             key={item.id}
-                            item={item} // можно заменить на `item` и переименовать компонент
+                            item={item}
                             onClick={() => onToggleItem(item)}
                             onMouseDown={handler.onListElementMouseDown}
                             isChecked={isItemChecked(item)}

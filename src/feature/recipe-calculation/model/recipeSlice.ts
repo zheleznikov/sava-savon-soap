@@ -17,8 +17,6 @@ export type RecipeStatus = "idle" | "dirty" | "calculating" | "ready";
 
 const defaultSelectedOils = oils.filter(oil => [2, 1, 29].includes(oil.id));
 
-
-
 interface RecipeState {
     recipeName: string;
     selectedOils: TOil[];
@@ -123,9 +121,17 @@ export const recipeSlice = createSlice({
             state.waterInputType = action.payload;
         },
 
-        setAcidInputType: (state, action: PayloadAction<InputType>) => {
-            state.acidInputType = action.payload;
+        setAcidInputType: (
+            state,
+            action: PayloadAction<{ acidId: number; inputType: InputType }>
+        ) => {
+            const { acidId, inputType } = action.payload;
+            const acid = state.selectedAcids.find((a) => a.id === acidId);
+            if (acid) {
+                acid.inputType = inputType;
+            }
         },
+
 
         setLyeType: (state, action: PayloadAction<LyeType>) => {
             state.lyeType = action.payload;
@@ -192,6 +198,15 @@ export const recipeSlice = createSlice({
                 percent: total > 0 ? (o.gram / total) * 100 : 0
             }));
 
+            state.totalOilAmount = calculateOilSum({
+                selectedOils: state.selectedOils,
+                oilInputType: state.oilInputType,
+                userDefinedTotalWeight: state.userDefinedTotalWeight,
+                waterPercent: state.waterPercent,
+                superfatPercent: state.superfatPercent
+            });
+
+
             state.status = "dirty";
 
         },
@@ -221,12 +236,20 @@ export const recipeSlice = createSlice({
                 percent: total > 0 ? (o.gram / total) * 100 : 0
             }));
 
+            state.totalOilAmount = calculateOilSum({
+                selectedOils: state.selectedOils,
+                oilInputType: state.oilInputType,
+                userDefinedTotalWeight: state.userDefinedTotalWeight,
+                waterPercent: state.waterPercent,
+                superfatPercent: state.superfatPercent
+            });
+
             state.selectedAcids = state.selectedAcids.map((a) => ({
                 ...a,
-                gram: state.acidInputType === InputType.Percent && total > 0
+                gram: a.inputType === InputType.Percent && total > 0
                     ? (a.percent / 100) * total
                     : a.gram,
-                percent: state.acidInputType === InputType.Gram && total > 0
+                percent: a.inputType === InputType.Gram && total > 0
                     ? (a.gram / total) * 100
                     : a.percent
             }));
@@ -234,21 +257,35 @@ export const recipeSlice = createSlice({
             state.status = "dirty";
         },
 
-        updateAcidGramWithRecalculatedPercents: (state, action: PayloadAction<{ acidId: number; newGram: number; totalOil: number }>) => {
-            const {acidId, newGram, totalOil} = action.payload;
+        updateAcidGramWithRecalculatedPercents: (
+            state,
+            action: PayloadAction<{ acidId: number; newGram: number; totalOil: number }>
+        ) => {
+            const { acidId, newGram } = action.payload;
+
 
             const updated = state.selectedAcids.map((a) =>
-                a.id === acidId ? {...a, gram: newGram} : a
+                a.id === acidId ? { ...a, gram: newGram } : a
             );
+
+            const total = state.totalOilAmount;
 
             state.selectedAcids = updated.map((a) => ({
                 ...a,
-                percent: totalOil > 0 ? (a.gram / totalOil) * 100 : 0
+                gram:
+                    a.inputType === InputType.Percent && total > 0
+                        ? (a.percent / 100) * total
+                        : a.gram,
+                percent:
+                    a.inputType === InputType.Gram && total > 0
+                        ? (a.gram / total) * 100
+                        : a.percent
             }));
 
             state.status = "dirty";
 
         },
+
         updateOilPercentWithGramRecalculation: (
             state,
             action: PayloadAction<{ oilId: number; newPercent: number; totalOilMass: number }>
@@ -264,8 +301,16 @@ export const recipeSlice = createSlice({
                     }
                     : o
             );
-            state.status = "dirty";
 
+            state.totalOilAmount = calculateOilSum({
+                selectedOils: state.selectedOils,
+                oilInputType: state.oilInputType,
+                userDefinedTotalWeight: state.userDefinedTotalWeight,
+                waterPercent: state.waterPercent,
+                superfatPercent: state.superfatPercent
+            });
+
+            state.status = "dirty";
         },
         updateAcidPercentWithGramRecalculation: (
             state,
@@ -369,6 +414,15 @@ export const recipeSlice = createSlice({
 
             state.status = "ready";
             state.hasEverCalculated = true;
+        },
+        updateOilSum: (state) => {
+            state.totalOilAmount = calculateOilSum({
+                selectedOils: state.selectedOils,
+                oilInputType: state.oilInputType,
+                userDefinedTotalWeight: state.userDefinedTotalWeight,
+                waterPercent: state.waterPercent,
+                superfatPercent: state.superfatPercent
+            });
         }
     }
 });

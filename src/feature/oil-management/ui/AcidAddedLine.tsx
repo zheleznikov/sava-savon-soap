@@ -29,7 +29,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
     const dispatch = useAppDispatch();
 
     // Селекторы
-    const {acidInputType, totalAcidAmount, totalOilAmount} = useAppSelector((state) => state.recipe);
+    const {totalAcidAmount, totalOilAmount} = useAppSelector((state) => state.recipe);
 
     const handleToggleAcid = () => dispatch(toggleAcid(acid));
 
@@ -40,13 +40,13 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
         dispatch(updateAcidPercentWithGramRecalculation({ acidId: acid.id, newPercent, totalOilMass: totalOilAmount }));
 
 
-    const handleChange = (type: InputType) => {
-        dispatch(setAcidInputType(type));
+    const handleChange = (inputType: InputType) => {
+        dispatch(setAcidInputType({acidId: acid.id, inputType}));
     };
 
 
-    const isGramMode = acidInputType === InputType.Gram;
-    const isPercentMode = acidInputType === InputType.Percent;
+    const isGramMode = acid.inputType === InputType.Gram;
+    const isPercentMode = acid.inputType === InputType.Percent;
 
     const {appTheme} = useTheme();
 
@@ -99,7 +99,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
                         ]}
                         onChange={handleChange}
-                        isActive={(val) => val === acidInputType}
+                        isActive={(val) => val === acid.inputType}
                     />
 
                 </div>

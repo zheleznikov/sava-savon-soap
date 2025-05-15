@@ -13,7 +13,7 @@ import {TAcid} from "../../../entities/oil/model/acids.types";
 import {acids} from "../../../entities/oil/model/acids";
 import {localization} from "../../../shared/config/localization";
 import React, {FC, useState} from "react";
-import {Tab} from "../../../shared/ui/Tabs";
+import {Tab, Tabs} from "../../../shared/ui/Tabs";
 import {isMobile, isTablet} from "react-device-detect";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 import {AcidAddedLine} from "../../../feature/oil-management/ui/AcidAddedLine";
@@ -48,7 +48,6 @@ export const RecipeBuilder: FC = () => {
     const handleToggleAcid = (acid: TAcid) => dispatch(toggleAcid(acid));
 
     const handleSetOilInputType = (type: InputType) => dispatch(setOilInputType(type));
-    const handleSetAcidInputType = (type: InputType) => dispatch(setAcidInputType(type));
     const handleSetUserDefinedWeight = (weight: number) => dispatch(setUserDefinedTotalWeight(weight));
 
     const {appTheme} = useTheme();
@@ -56,13 +55,8 @@ export const RecipeBuilder: FC = () => {
 
 
     const tabs: Tab [] = [
-        {key: "lye", label: "Щелочь"},
-        {key: "water", label: "Жидкость и супержир"},
-        {key: "input", label: "Единица измерения"},
-        {key: "oilInput", label: "Масла"},
-        {key: "acidInputs", label: "Кислоты"},
-        {key: "addInputs", label: "Дополнительно"},
-        {key: "comment", label: "Комментарии"},
+        {key: "params", label: "Параметры"},
+        {key: "ingredients", label: "Ингредиенты"},
     ];
 
     const [selectedTab, setSelectedTab] = useState<Tab>(tabs[0]);
@@ -79,42 +73,54 @@ export const RecipeBuilder: FC = () => {
                 </h2>
             </div>
 
+
             <div className="flex flex-col">
                 <RecipeTitleSetup/>
-                <LyeSetup/>
-                <SuperfatSetup/>
-                <WaterSetup/>
-                <OilInputTypeSetup/>
-
-                <IngredientAutocomplete<TOil>
-                    placeholder={localization.ru.autocomplete_oil.placeholder}
-                    selectedItems={selectedOils}
-                    allItems={oils}
-                    onToggleItem={handleToggleOil}
+                <Tabs
+                    tabs={tabs}
+                    value={selectedTab}
+                    onChange={setSelectedTab}
+                    show={!isSmartphone}
                 />
 
-
-                {selectedOils.map((oil) => (
-                    <OilAddedLine oil={oil} key={oil.id}/>
-                ))}
                 {
-                    isPercentMode && <PercentProgressBar/>
+                    (selectedTab.key === "params" || isSmartphone) &&
+                    <>
+                        <LyeSetup/>
+                        <SuperfatSetup/>
+                        <WaterSetup/>
+                    </>
+
                 }
 
                 {
-                    <div className="w-full">
-                        {/*<AcidInputTypeSetup/>*/}
+                    (selectedTab.key === "ingredients" || isSmartphone) &&
+                    <>
+                        <OilInputTypeSetup/>
+
+                        <IngredientAutocomplete<TOil>
+                            placeholder={localization.ru.autocomplete_oil.placeholder}
+                            selectedItems={selectedOils}
+                            allItems={oils}
+                            onToggleItem={handleToggleOil}
+                        />
+
+                        {selectedOils.map((oil) => (<OilAddedLine oil={oil} key={oil.id}/>))}
+                        {isPercentMode && <PercentProgressBar/>}
+
                         <IngredientAutocomplete<TAcid>
                             placeholder={localization.ru.autocomplete_acid.placeholder}
                             selectedItems={selectedAcids}
                             allItems={acids}
                             onToggleItem={handleToggleAcid}
                         />
-                        {selectedAcids.map((acid) => (
-                            <AcidAddedLine acid={acid} key={acid.id}/>
-                        ))}
-                    </div>
+                        {selectedAcids.map((acid) => (<AcidAddedLine acid={acid} key={acid.id}/>))}
+                    </>
+
                 }
+
+
+
             </div>
 
         </RecipeContainer>

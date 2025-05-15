@@ -96,7 +96,6 @@ export const RecipeSummaryBlock: FC = () => {
     } = useAppSelector((state) => state.recipe);
 
     const handleSetOilInputType = (type: InputType) => dispatch(setOilInputType(type));
-    const handleSetAcidInputType = (type: InputType) => dispatch(setAcidInputType(type));
     const handleSetUserDefinedWeight = (weight: number) => dispatch(setUserDefinedTotalWeight(weight));
     const handleSetRecipeName = (name: string) => dispatch(setRecipeName(name));
 

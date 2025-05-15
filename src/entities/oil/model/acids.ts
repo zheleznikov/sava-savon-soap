@@ -1,4 +1,5 @@
 import {TAcid} from "./acids.types";
+import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 
 export const acids: TAcid[] = [
     {
@@ -10,7 +11,8 @@ export const acids: TAcid[] = [
             koh: 0.876
         },
         percent: 0,
-        gram: 0
+        gram: 0,
+        inputType: InputType.Gram
     },
     {
         id: 2,
@@ -21,7 +23,9 @@ export const acids: TAcid[] = [
             koh: 0.623
         },
         percent: 0,
-        gram: 0
+        gram: 0,
+        inputType: InputType.Gram
+
     },
     {
         id: 3,
@@ -32,7 +36,9 @@ export const acids: TAcid[] = [
             koh: 0.837
         },
         percent: 0,
-        gram: 0
+        gram: 0,
+        inputType: InputType.Gram
+
     },
     {
         id: 4,
@@ -43,7 +49,9 @@ export const acids: TAcid[] = [
             koh: 0.748
         },
         percent: 0,
-        gram: 0
+        gram: 0,
+        inputType: InputType.Gram
+
     },
     {
         id: 5,
@@ -54,6 +62,8 @@ export const acids: TAcid[] = [
             koh: 0.319
         },
         percent: 0,
-        gram: 0
+        gram: 0,
+        inputType: InputType.Gram
+
     }
 ];
