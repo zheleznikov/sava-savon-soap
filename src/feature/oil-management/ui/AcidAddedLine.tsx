@@ -11,10 +11,12 @@ import {TAcid} from "../../../entities/oil/model/acids.types";
 import {useAppDispatch} from "../../../shared/model/useAppDispatch";
 import {useAppSelector} from "../../../shared/useAppSelector";
 import {
+    setAcidInputType,
     toggleAcid,
     updateAcidGramWithRecalculatedPercents,
     updateAcidPercentWithGramRecalculation
 } from "../../recipe-calculation/model/recipeSlice";
+import {ToggleButtonGroup} from "../../../shared/ui/ToggleButtonGroup";
 
 
 interface Props {
@@ -37,6 +39,10 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
     const handleUpdateAcidPercent = (newPercent: number) =>
         dispatch(updateAcidPercentWithGramRecalculation({ acidId: acid.id, newPercent, totalOilMass: totalOilAmount }));
 
+
+    const handleChange = (type: InputType) => {
+        dispatch(setAcidInputType(type));
+    };
 
 
     const isGramMode = acidInputType === InputType.Gram;
@@ -85,6 +91,17 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                         />
                         <span className={theme.unitText}>{t.unit_percent}</span>
                     </div>
+
+                    <ToggleButtonGroup
+                        options={[
+                            {label: "г", value: InputType.Gram},
+                            {label: "%", value: InputType.Percent}
+
+                        ]}
+                        onChange={handleChange}
+                        isActive={(val) => val === acidInputType}
+                    />
+
                 </div>
 
                 <button

@@ -59,7 +59,7 @@ export const LyeSetup: FC = () => {
             />
 
 
-            <div className={layout.lyeTypeBlock}>
+            <div className={layout.toggleTypeBlock}>
                 <label className={clsx(theme.label, layout.label)}>
                     {text.label_lye_type}
                 </label>
@@ -83,7 +83,7 @@ export const LyeSetup: FC = () => {
                     {
                         (isNaOHMode || isMixedMode) &&
 
-                        <div className={layout.lyeTypeBlock}>
+                        <div className={layout.toggleTypeBlock}>
                             <label className={clsx(theme.label, layout.label)}>
                                 {text.naoh_purity}
                             </label>
@@ -105,7 +105,7 @@ export const LyeSetup: FC = () => {
                     {
                         (isKOHMode || isMixedMode) &&
 
-                        <div className={layout.lyeTypeBlock}>
+                        <div className={layout.toggleTypeBlock}>
                             <label className={clsx(theme.label, layout.label)}>
                                 {text.koh_purity}
                             </label>
@@ -129,7 +129,7 @@ export const LyeSetup: FC = () => {
                 {
                     isMixedMode &&
                     <div className={layout.inputLyeBlock}>
-                        <div className={layout.lyeTypeBlock}>
+                        <div className={layout.toggleTypeBlock}>
                             <label className={clsx(theme.label, layout.label)}>
                                 {text.naoh_percent}
                             </label>
@@ -146,7 +146,7 @@ export const LyeSetup: FC = () => {
                                 <span className={theme.unitText}>{text.placeholder_percent}</span>
                             </div>
                         </div>
-                        <div className={layout.lyeTypeBlock}>
+                        <div className={layout.toggleTypeBlock}>
                             <label className={clsx(theme.label, layout.label)}>
                                 {text.koh_percent}
                             </label>

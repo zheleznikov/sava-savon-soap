@@ -10,3 +10,9 @@ export enum LyeType {
     Mixed = "NaOH + KOH"
 }
 
+export enum WaterInputType {
+    WaterAsPercent = "От процента масел",
+    LyeConcentration = "Относительно щелочи",
+    WaterLyeRatio = "концентрация щелочи",
+}
+

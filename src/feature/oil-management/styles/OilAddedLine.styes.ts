@@ -14,7 +14,7 @@ const layout = {
     // details: "absolute left-0 right-0 bottom-full mb-2 text-xs leading-snug rounded-md p-3 z-10",
     expandWrapper: "ml-auto pr-1 self-start xs:self-center",
     expandButton: "flex items-center gap-1 text-sm",
-    blockInner: "relative p-3 sm:p-4 pb-10",
+    blockInner: "relative p-3 sm:p-4 pb-4",
     hr: "border-t border-gray-200",
     sectionTitle: "font-semibold text-[13px] mb-1 text-left ml-2",
     ul: "list-disc pl-4 text-xs grid grid-cols-2 gap-x-4 gap-y-1",

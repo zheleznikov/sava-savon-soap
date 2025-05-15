@@ -1,3 +1,4 @@
+import {useEffect, useRef, useState} from "react";
 import clsx from "clsx";
 import {useTheme} from "../../app/providers/ThemeContext";
 import {toggleButtonGroupStyles} from "../styles/ToggleButtonGroup.styles";
@@ -14,6 +15,7 @@ interface ToggleButtonGroupProps<T> {
     className?: string;
 }
 
+
 export function ToggleButtonGroup<T extends string | number>({
     options,
     onChange,
@@ -21,11 +23,39 @@ export function ToggleButtonGroup<T extends string | number>({
     className,
 }: ToggleButtonGroupProps<T>) {
     const {appTheme} = useTheme();
-
     const {theme, layout} = toggleButtonGroupStyles[appTheme];
 
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isWrapped, setIsWrapped] = useState(false);
+
+    // Проверка: поместились ли табы в одну строку
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+
+        const checkWrap = () => {
+            const children = Array.from(el.children) as HTMLElement[];
+            if (children.length < 2) return;
+
+            const top = children[0].offsetTop;
+            const wrapped = children.some(child => child.offsetTop > top);
+            setIsWrapped(wrapped);
+        };
+
+        checkWrap();
+        window.addEventListener("resize", checkWrap);
+        return () => window.removeEventListener("resize", checkWrap);
+    }, [options]);
+
     return (
-        <div className={className}>
+        <div
+            ref={containerRef}
+            className={clsx(
+                "flex flex-wrap",
+                isWrapped ? "gap-1" : "gap-x-0",
+                className
+            )}
+        >
             {options.map(({label, value}, index) => {
                 const isFirst = index === 0;
                 const isLast = index === options.length - 1;
@@ -46,10 +76,11 @@ export function ToggleButtonGroup<T extends string | number>({
                             layout.buttonBase,
                             active ? theme.buttonActive : theme.buttonInactive,
                             active && theme.buttonActiveBorder,
-                            hideLeftBorder && "border-l-transparent",
-                            hideRightBorder && "border-r-transparent",
-                            isFirst && "rounded-l-full",
-                            isLast && "rounded-r-full"
+                            hideLeftBorder && !isWrapped && "border-l-transparent",
+                            hideRightBorder && !isWrapped && "border-r-transparent",
+                            isWrapped
+                                ? "rounded-full m-[1px]"
+                                : clsx(isFirst && "rounded-l-full", isLast && "rounded-r-full")
                         )}
                     >
                         {label}

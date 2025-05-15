@@ -15,6 +15,8 @@ export interface ParametersListProps {
     waterPercent: number;
     lyeType: LyeType;
     totalLyeAmount: number;
+    totalNaOHAmount?: number;
+    totalKOHAmount?: number;
     totalWaterAmount: number;
     selectedOils: TOil [];
 }
@@ -25,21 +27,35 @@ export const ParametersList: FC<ParametersListProps> = (
         waterPercent,
         lyeType,
         totalLyeAmount,
+
         totalWaterAmount,
-        selectedOils
+        selectedOils,
+        totalNaOHAmount,
+        totalKOHAmount
     }) => {
+
+    const t = localization.ru.parameters;
+
+
+    const items = lyeType === LyeType.Mixed
+        ? [
+            { label: t.superfat, percent: Math.round(superfatPercent), gram: "—" },
+            { label: t.water, percent: Math.round(waterPercent), gram: formatNumber(totalWaterAmount) },
+            { label: "NaOH", percent: "—", gram: formatNumber(totalNaOHAmount || 0) },
+            { label: "KOH", percent: "—", gram: formatNumber(totalKOHAmount || 0) },
+        ]
+        : [
+            { label: t.superfat, percent: Math.round(superfatPercent), gram: "—" },
+            { label: t.water, percent: Math.round(waterPercent), gram: formatNumber(totalWaterAmount) },
+            { label: lyeType, percent: "—", gram: formatNumber(totalLyeAmount) },
+        ];
 
     const {appTheme} = useTheme();
     const styles = recipeBlockStyles[appTheme];
-    const t = localization.ru.parameters;
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-    const items = [
-        {label: t.superfat, percent: Math.round(superfatPercent), gram: "—"},
-        {label: t.water, percent: Math.round(waterPercent), gram: formatNumber(totalWaterAmount)},
-        {label: lyeType, percent: "—", gram: formatNumber(totalLyeAmount)}
-    ];
+
 
     const getRowClass = (index: number) => `${styles.rowBase} ${index % 2 === 0 ? styles.rowEven : styles.rowOdd}`;
 

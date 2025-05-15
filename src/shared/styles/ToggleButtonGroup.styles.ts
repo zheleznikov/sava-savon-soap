@@ -22,7 +22,7 @@ const themeDark = {
 const createLayoutTheme = (theme: typeof themeLight) => ({
     layout: {
         buttonBase: `px-4 py-1 ${common.textSm} ${common.transition}
-        h-full border-t-2 border-b-2 border-l border-r flex-shrink-0 transition-colors`,
+        border-t-2 border-b-2 border-l border-r flex-shrink-0 transition-colors`,
     },
     theme: {
         buttonActive: `${theme.buttonActiveBg} ${theme.buttonActiveText}`,

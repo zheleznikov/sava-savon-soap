@@ -81,6 +81,8 @@ export const RecipeSummaryBlock: FC = () => {
         totalResultAmount,
         totalOilAmount,
         totalAcidAmount,
+        totalNaOHAmount,
+        totalKOHAmount,
         soapProperties: {
             hardness,
             cleansing,
@@ -146,6 +148,8 @@ export const RecipeSummaryBlock: FC = () => {
                                                 totalWaterAmount={totalWaterAmount}
                                                 totalLyeAmount={totalLyeAmount}
                                                 selectedOils={selectedOils}
+                                                totalNaOHAmount={totalNaOHAmount}
+                                                totalKOHAmount={totalKOHAmount}
                                             />
 
                                             <OilsList

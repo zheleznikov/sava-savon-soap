@@ -1,4 +1,4 @@
-import {InputType, LyeType} from "../../../app/providers/SoapRecipeContext.types";
+import {InputType, LyeType, WaterInputType} from "../../../app/providers/SoapRecipeContext.types";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {TAcid} from "../../../entities/oil/model/acids.types";
 
@@ -96,31 +96,39 @@ type CalculateLyeSumParams = {
     NaOHPercentageInMixed?: number;
     KOHPercentageInMixed?: number;
 };
-export const calculateLyeSum = (
-    {
-        selectedOils,
-        lyeType,
-        superfatPercent,
-        selectedAcids,
-        NaOHPurity = 99,
-        KOHPurity = 90,
-        NaOHPercentageInMixed = 50,
-        KOHPercentageInMixed = 50,
+export const calculateLyeSum = ({
+    selectedOils,
+    lyeType,
+    superfatPercent,
+    selectedAcids,
+    NaOHPurity = 99,
+    KOHPurity = 90,
+    NaOHPercentageInMixed = 50,
+    KOHPercentageInMixed = 50,
+}: CalculateLyeSumParams): { total: number, naoh: number, koh: number } => {
 
-    }: CalculateLyeSumParams
-): number => {
+    let naoh = 0;
+    let koh = 0;
 
-    const oilTotalLye = selectedOils.reduce((acc, oil) => {
-        return acc + calculateLyeForOil(oil, lyeType, superfatPercent, NaOHPurity, KOHPurity, NaOHPercentageInMixed, KOHPercentageInMixed);
-    }, 0);
+    for (const oil of selectedOils) {
+        const lye = calculateLyeForOil(oil, lyeType, superfatPercent, NaOHPurity, KOHPurity, NaOHPercentageInMixed, KOHPercentageInMixed);
+        naoh += lye.naoh;
+        koh += lye.koh;
+    }
 
+    for (const acid of selectedAcids ?? []) {
+        const lye = calculateLyeForAcid(acid, lyeType, NaOHPurity, KOHPurity, NaOHPercentageInMixed, KOHPercentageInMixed);
+        naoh += lye.naoh;
+        koh += lye.koh;
+    }
 
-    const acidTotalLye = selectedAcids?.reduce((acc, acid) => {
-        return acc + calculateLyeForAcid(acid, lyeType, NaOHPurity, KOHPurity, NaOHPercentageInMixed, KOHPercentageInMixed);
-    }, 0) ?? 0;
+    return {
+        total: naoh + koh,
+        naoh,
+        koh
+    };
+};
 
-    return oilTotalLye + acidTotalLye;
-}
 
 export const calculateLyeForOil = (
     oil: TOil,
@@ -130,24 +138,28 @@ export const calculateLyeForOil = (
     KOHPurity: number,
     NaOHPercentageInMixed: number,
     KOHPercentageInMixed: number
-): number => {
+): { naoh: number, koh: number } => {
     const weight = oil.gram || 0;
 
     if (lyeType === LyeType.Mixed) {
         const sapNaOH = oil.sap.naoh;
         const sapKOH = oil.sap.koh;
 
-        const naohPart = weight * sapNaOH * (1 - superfatPercent / 100) * (NaOHPercentageInMixed / 100) / (NaOHPurity / 100);
-        const kohPart = weight * sapKOH * (1 - superfatPercent / 100) * (KOHPercentageInMixed / 100) / (KOHPurity / 100);
+        const naoh = weight * sapNaOH * (1 - superfatPercent / 100) * (NaOHPercentageInMixed / 100) / (NaOHPurity / 100);
+        const koh = weight * sapKOH * (1 - superfatPercent / 100) * (KOHPercentageInMixed / 100) / (KOHPurity / 100);
 
-        return naohPart + kohPart;
+        return { naoh, koh };
     }
 
     const sap = getOilSAP(oil, lyeType);
     const purity = lyeType === LyeType.NaOH ? NaOHPurity : KOHPurity;
+    const base = weight * sap * (1 - superfatPercent / 100) / (purity / 100);
 
-    return weight * sap * (1 - superfatPercent / 100) / (purity / 100);
+    return lyeType === LyeType.NaOH
+        ? { naoh: base, koh: 0 }
+        : { naoh: 0, koh: base };
 };
+
 
 export const calculateLyeForAcid = (
     acid: TAcid,
@@ -156,32 +168,57 @@ export const calculateLyeForAcid = (
     KOHPurity: number,
     NaOHPercentageInMixed: number,
     KOHPercentageInMixed: number
-): number => {
+): { naoh: number, koh: number } => {
     const weight = acid.gram || 0;
 
     if (lyeType === LyeType.Mixed) {
-        const naohNeutral = acid.neutralization.naoh;
-        const kohNeutral = acid.neutralization.koh;
-
-        const naohPart = weight * naohNeutral * (NaOHPercentageInMixed / 100) / (NaOHPurity / 100);
-        const kohPart = weight * kohNeutral * (KOHPercentageInMixed / 100) / (KOHPurity / 100);
-
-        return naohPart + kohPart;
+        const naoh = weight * acid.neutralization.naoh * (NaOHPercentageInMixed / 100) / (NaOHPurity / 100);
+        const koh = weight * acid.neutralization.koh * (KOHPercentageInMixed / 100) / (KOHPurity / 100);
+        return { naoh, koh };
     }
 
     const neutral = getAcidNeutralization(acid, lyeType);
-    const purity = lyeType === LyeType.NaOH ? NaOHPurity : KOHPurity;
+    const base = weight * neutral / ((lyeType === LyeType.NaOH ? NaOHPurity : KOHPurity) / 100);
 
-    return weight * neutral / (purity / 100);
+    return lyeType === LyeType.NaOH
+        ? { naoh: base, koh: 0 }
+        : { naoh: 0, koh: base };
 };
 
 
-export const calculateWaterSum = (
+
+export const calculateWaterSum2 = (
     oilSum: number,
     waterPercent: number
 ): number => {
     return oilSum * (waterPercent / 100);
 }
+
+
+export const calculateWaterSum = (
+    oilSum: number,
+    lyeSum: number,
+    waterInputType: WaterInputType,
+    waterPercent: number,
+    lyeConcentration: number,
+    waterLyeRatio: number
+): number => {
+    switch (waterInputType) {
+        case WaterInputType.WaterAsPercent:
+            return oilSum * (waterPercent / 100);
+
+        case WaterInputType.LyeConcentration:
+            if (lyeConcentration <= 0 || lyeConcentration >= 100) return 0;
+            return lyeSum * (100 - lyeConcentration) / lyeConcentration;
+
+        case WaterInputType.WaterLyeRatio:
+            return lyeSum * waterLyeRatio;
+
+        default:
+            return 0;
+    }
+};
+
 
 
 type TScaleReipe = {

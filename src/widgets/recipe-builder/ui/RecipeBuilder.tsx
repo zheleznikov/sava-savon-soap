@@ -27,7 +27,8 @@ import {
     toggleAcid,
     toggleOil
 } from "../../../feature/recipe-calculation/model/recipeSlice";
-import {WaterSuperfatSetup} from "../../../feature/recipe-setup/ui/WaterSuperfatSetup";
+import {SuperfatSetup} from "../../../feature/recipe-setup/ui/SuperfatSetup";
+import {WaterSetup} from "../../../feature/recipe-setup/ui/WaterSetup";
 
 export const RecipeBuilder: FC = () => {
 
@@ -78,11 +79,11 @@ export const RecipeBuilder: FC = () => {
                 </h2>
             </div>
 
-
             <div className="flex flex-col">
                 <RecipeTitleSetup/>
                 <LyeSetup/>
-                <WaterSuperfatSetup/>
+                <SuperfatSetup/>
+                <WaterSetup/>
                 <OilInputTypeSetup/>
 
                 <IngredientAutocomplete<TOil>
@@ -100,9 +101,7 @@ export const RecipeBuilder: FC = () => {
                     isPercentMode && <PercentProgressBar/>
                 }
 
-
                 {
-                    // (selectedTab.key === "acidInputs" || isSmartphone) &&
                     <div className="w-full">
                         {/*<AcidInputTypeSetup/>*/}
                         <IngredientAutocomplete<TAcid>

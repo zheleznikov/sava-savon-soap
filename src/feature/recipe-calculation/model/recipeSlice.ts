@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {TAcid} from "../../../entities/oil/model/acids.types";
-import {InputType, LyeType} from "../../../app/providers/SoapRecipeContext.types";
+import {InputType, LyeType, WaterInputType} from "../../../app/providers/SoapRecipeContext.types";
 import {calculateSoapProperties} from "../libs/calculateSoapProperties";
 import {
     calculateAcidSum,
@@ -26,18 +26,23 @@ interface RecipeState {
     oilInputType: InputType;
     acidInputType: InputType;
     lyeType: LyeType;
+    waterInputType: WaterInputType
     NaOHPurity: number;
     KOHPurity: number;
     NaOHPercentageInMixed?: number; // активен при LyeType.Mixed
     KOHPercentageInMixed?: number;  // активен при LyeType.Mixed
 
     waterPercent: number;
+    lyeConcentration: number;
+    waterLyeRatio: number
     superfatPercent: number;
     userDefinedTotalWeight: number;
     soapProperties: SoapProperties;
     totalOilAmount: number;
     totalAcidAmount: number;
     totalLyeAmount: number;
+    totalNaOHAmount: number;
+    totalKOHAmount: number;
     totalWaterAmount: number;
     totalResultAmount: number;
     status: RecipeStatus;
@@ -62,9 +67,12 @@ const initialState: RecipeState = {
     oilInputType: InputType.Gram,
     acidInputType: InputType.Gram,
     lyeType: LyeType.NaOH,
+    waterInputType: WaterInputType.WaterAsPercent,
     NaOHPurity: 100,
     KOHPurity: 100,
     waterPercent: 33,
+    lyeConcentration: 33,
+    waterLyeRatio: 2.0,
     superfatPercent: 5,
     userDefinedTotalWeight: 0,
     soapProperties: {
@@ -79,6 +87,8 @@ const initialState: RecipeState = {
     totalOilAmount: 0,
     totalAcidAmount: 0,
     totalLyeAmount: 0,
+    totalNaOHAmount: 0,
+    totalKOHAmount: 0,
     totalWaterAmount: 0,
     totalResultAmount: 0,
     status: "idle",
@@ -109,6 +119,9 @@ export const recipeSlice = createSlice({
         setOilInputType: (state, action: PayloadAction<InputType>) => {
             state.oilInputType = action.payload;
         },
+        setWaterInputType: (state, action: PayloadAction<WaterInputType>) => {
+            state.waterInputType = action.payload;
+        },
 
         setAcidInputType: (state, action: PayloadAction<InputType>) => {
             state.acidInputType = action.payload;
@@ -121,6 +134,10 @@ export const recipeSlice = createSlice({
 
         setWaterPercent: (state, action: PayloadAction<number>) => {
             state.waterPercent = action.payload;
+            state.status = "dirty";
+        },
+        setLyeConcentration: (state, action: PayloadAction<number>) => {
+            state.lyeConcentration = action.payload;
             state.status = "dirty";
         },
 
@@ -147,6 +164,10 @@ export const recipeSlice = createSlice({
         },
         setKOHPercentageInMixed: (state, action: PayloadAction<number>) => {
             state.KOHPercentageInMixed = action.payload;
+            state.status = "dirty";
+        },
+        setWaterLyeRatio: (state, action: PayloadAction<number>) => {
+            state.waterLyeRatio = action.payload;
             state.status = "dirty";
         },
 
@@ -295,12 +316,22 @@ export const recipeSlice = createSlice({
                 KOHPercentageInMixed: state.KOHPercentageInMixed,
             });
 
-            state.totalLyeAmount = lyeSum;
+            state.totalLyeAmount = lyeSum.total;
+            state.totalNaOHAmount = lyeSum.naoh;
+            state.totalKOHAmount = lyeSum.koh;
 
-            const waterSum = calculateWaterSum(oilSum, state.waterPercent);
+            const waterSum = calculateWaterSum(
+                oilSum,
+                lyeSum.total,
+                state.waterInputType,
+                state.waterPercent,
+                state.lyeConcentration,
+                state.waterLyeRatio
+            );
+
             state.totalWaterAmount = waterSum;
 
-            const total = oilSum + lyeSum + waterSum + acidSum;
+            const total = oilSum + lyeSum.total + waterSum + acidSum;
             state.totalResultAmount = total;
 
             // Масштабирование, если ввод в процентах
@@ -339,7 +370,6 @@ export const recipeSlice = createSlice({
             state.status = "ready";
             state.hasEverCalculated = true;
         }
-
     }
 });
 
@@ -350,6 +380,7 @@ export const {
     setOilInputType,
     setAcidInputType,
     setLyeType,
+    setWaterInputType,
     setWaterPercent,
     setSuperfatPercent,
     setNaOHPurity,
@@ -364,7 +395,9 @@ export const {
     updateAcidGramWithRecalculatedPercents,
     updateOilPercentWithGramRecalculation,
     updateAcidPercentWithGramRecalculation,
-    calculateRecipe
+    calculateRecipe,
+    setLyeConcentration,
+    setWaterLyeRatio
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;
