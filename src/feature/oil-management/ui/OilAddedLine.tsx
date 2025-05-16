@@ -12,8 +12,8 @@ import {useAppDispatch} from "../../../shared/model/useAppDispatch";
 import {useAppSelector} from "../../../shared/useAppSelector";
 import {
     toggleOil,
-    updateOilGramWithRecalculatedPercents,
-    updateOilPercentWithGramRecalculation
+    updateOilMassWithRecalculatedPercents,
+    updateOilPercentWithMassRecalculation
 } from "../../recipe-calculation/model/recipeSlice";
 
 
@@ -28,11 +28,11 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
 
     const handleToggleOil = () => dispatch(toggleOil(oil));
 
-    const handleUpdateOilGram = (newGram: number) =>
-        dispatch(updateOilGramWithRecalculatedPercents({ oilId: oil.id, newGram }));
+    const handleUpdateOilMass = (newGram: number) =>
+        dispatch(updateOilMassWithRecalculatedPercents({ oilId: oil.id, newGram }));
 
     const handleUpdateOilPercent = (newPercent: number) =>
-        dispatch(updateOilPercentWithGramRecalculation({ oilId: oil.id, newPercent, totalOilMass: totalOilAmount }));
+        dispatch(updateOilPercentWithMassRecalculation({ oilId: oil.id, newPercent, totalOilMass: totalOilAmount }));
 
     const isGramMode = oilInputType === InputType.Mass;
     const isPercentMode = oilInputType === InputType.Percent;
@@ -62,7 +62,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                         <SmartNumberInput
                             placeholder={measureInputTypeMeta[measureInput].ru.full}
                             value={oil.mass || 0}
-                            onChange={newGram => handleUpdateOilGram(newGram)}
+                            onChange={newGram => handleUpdateOilMass(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />

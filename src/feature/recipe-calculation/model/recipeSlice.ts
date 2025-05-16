@@ -261,7 +261,7 @@ export const recipeSlice = createSlice({
         },
 
         // обработчик ввода масел - граммы
-        updateOilGramWithRecalculatedPercents: (state, action: PayloadAction<{ oilId: number; newGram: number }>) => {
+        updateOilMassWithRecalculatedPercents: (state, action: PayloadAction<{ oilId: number; newGram: number }>) => {
             const {oilId, newGram} = action.payload;
 
             const updated = state.selectedOils.map((o) =>
@@ -306,7 +306,7 @@ export const recipeSlice = createSlice({
             state.status = "dirty";
         },
         // обработчик ввода масел - проценты
-        updateOilPercentWithGramRecalculation: (
+        updateOilPercentWithMassRecalculation: (
             state,
             action: PayloadAction<{ oilId: number; newPercent: number; totalOilMass: number }>
         ) => {
@@ -333,7 +333,7 @@ export const recipeSlice = createSlice({
             state.status = "dirty";
         },
         // обработчик ввода кислот - граммы
-        updateAcidGramWithRecalculatedPercents: (
+        updateAcidMassWithRecalculatedPercents: (
             state,
             action: PayloadAction<{ acidId: number; newGram: number; }>
         ) => {
@@ -361,7 +361,7 @@ export const recipeSlice = createSlice({
             state.status = "dirty";
         },
         // обработчик ввода кислот - проценты
-        updateAcidPercentWithGramRecalculation: (
+        updateAcidPercentWithMassRecalculation: (
             state,
             action: PayloadAction<{ acidId: number; newPercent: number; }>
         ) => {
@@ -382,7 +382,7 @@ export const recipeSlice = createSlice({
         },
 
         // обработчик ввода компонента - граммы
-        updateCustomGramWithRecalculatedPercents: (
+        updateCustomMassWithRecalculatedPercents: (
             state,
             action: PayloadAction<{ customId: number; newGram: number; }>
         ) => {
@@ -410,7 +410,7 @@ export const recipeSlice = createSlice({
             state.status = "dirty";
         },
         // обработчик ввода своего компонента - проценты
-        updateCustomPercentWithGramRecalculation: (
+        updateCustomPercentWithMassRecalculation: (
             state,
             action: PayloadAction<{ customId: number; newPercent: number; }>
         ) => {
@@ -536,18 +536,18 @@ export const {
     calculateRecipeProperties,
     toggleOil,
     toggleAcid,
-    updateOilGramWithRecalculatedPercents,
-    updateAcidGramWithRecalculatedPercents,
-    updateOilPercentWithGramRecalculation,
-    updateAcidPercentWithGramRecalculation,
+    updateOilMassWithRecalculatedPercents,
+    updateAcidMassWithRecalculatedPercents,
+    updateOilPercentWithMassRecalculation,
+    updateAcidPercentWithMassRecalculation,
     calculateRecipe,
     setLyeConcentration,
     setWaterLyeRatio,
     setSelectedAddIngredients,
     toggleCustom,
     setCustomInputType,
-    updateCustomGramWithRecalculatedPercents,
-    updateCustomPercentWithGramRecalculation,
+    updateCustomMassWithRecalculatedPercents,
+    updateCustomPercentWithMassRecalculation,
     setMeasureInput
 } = recipeSlice.actions;
 

@@ -9,8 +9,8 @@ import {useAppDispatch} from "../../../shared/model/useAppDispatch";
 import {
     setCustomInputType,
     toggleCustom,
-    updateCustomGramWithRecalculatedPercents,
-    updateCustomPercentWithGramRecalculation
+    updateCustomMassWithRecalculatedPercents,
+    updateCustomPercentWithMassRecalculation
 } from "../../recipe-calculation/model/recipeSlice";
 import {ToggleButtonGroup} from "../../../shared/ui/ToggleButtonGroup";
 import {InputType, measureInputTypeMeta} from "../../../app/providers/SoapRecipeContext.types";
@@ -34,14 +34,14 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
     const {layout, theme} = oilAddedLineStyles[appTheme];
     const t = localization.ru.oil_line;
 
-    const handleUpdateCustomGram = (newGram: number) =>
-        dispatch(updateCustomGramWithRecalculatedPercents({customId: customIngredient.id, newGram}));
+    const handleUpdateCustomMass = (newGram: number) =>
+        dispatch(updateCustomMassWithRecalculatedPercents({customId: customIngredient.id, newGram}));
 
     const handleUpdateCustomPercent = (newPercent: number) =>
-        dispatch(updateCustomPercentWithGramRecalculation({customId: customIngredient.id, newPercent}));
+        dispatch(updateCustomPercentWithMassRecalculation({customId: customIngredient.id, newPercent}));
 
 
-    const handleChange = (inputType: InputType) => {
+    const handleChangeInputType = (inputType: InputType) => {
         dispatch(setCustomInputType({customId: customIngredient.id, inputType}));
     };
 
@@ -64,7 +64,7 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
                         <SmartNumberInput
                             placeholder={ measureInputTypeMeta[measureInput].ru.full}
                             value={customIngredient.mass || 0}
-                            onChange={newGram => handleUpdateCustomGram(newGram)}
+                            onChange={newGram => handleUpdateCustomMass(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
@@ -92,7 +92,7 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
                             {label: "%", value: InputType.Percent}
 
                         ]}
-                        onChange={handleChange}
+                        onChange={handleChangeInputType}
                         isActive={(val) => val === customIngredient.inputType}
                     />
 

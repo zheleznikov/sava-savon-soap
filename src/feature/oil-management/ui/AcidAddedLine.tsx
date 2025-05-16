@@ -13,8 +13,8 @@ import {useAppSelector} from "../../../shared/useAppSelector";
 import {
     setAcidInputType,
     toggleAcid,
-    updateAcidGramWithRecalculatedPercents,
-    updateAcidPercentWithGramRecalculation
+    updateAcidMassWithRecalculatedPercents,
+    updateAcidPercentWithMassRecalculation
 } from "../../recipe-calculation/model/recipeSlice";
 import {ToggleButtonGroup} from "../../../shared/ui/ToggleButtonGroup";
 
@@ -31,13 +31,13 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
     const handleToggleAcid = () => dispatch(toggleAcid(acid));
 
-    const handleUpdateAcidGram = (newGram: number) =>
-        dispatch(updateAcidGramWithRecalculatedPercents({acidId: acid.id, newGram}));
+    const handleUpdateAcidMass = (newGram: number) =>
+        dispatch(updateAcidMassWithRecalculatedPercents({acidId: acid.id, newGram}));
 
     const handleUpdateAcidPercent = (newPercent: number) =>
-        dispatch(updateAcidPercentWithGramRecalculation({acidId: acid.id, newPercent}));
+        dispatch(updateAcidPercentWithMassRecalculation({acidId: acid.id, newPercent}));
 
-    const handleChange = (inputType: InputType) => {
+    const handleChangeInputType = (inputType: InputType) => {
         dispatch(setAcidInputType({acidId: acid.id, inputType}));
     };
 
@@ -70,7 +70,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                         <SmartNumberInput
                             placeholder={ measureInputTypeMeta[measureInput].ru.full}
                             value={acid.mass || 0}
-                            onChange={newGram => handleUpdateAcidGram(newGram)}
+                            onChange={newGram => handleUpdateAcidMass(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
@@ -98,7 +98,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                             {label: "%", value: InputType.Percent}
 
                         ]}
-                        onChange={handleChange}
+                        onChange={handleChangeInputType}
                         isActive={(val) => val === acid.inputType}
                     />
 
