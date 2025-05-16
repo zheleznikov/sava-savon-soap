@@ -9,7 +9,6 @@ import {setRecipeName} from "../../recipe-calculation/model/recipeSlice";
 
 export const RecipeTitleSetup: FC = () => {
 
-    // const {recipeName, setRecipeName} = useSoapRecipe();
 
     const dispatch = useAppDispatch();
     const recipeName = useAppSelector((state) => state.recipe.recipeName);

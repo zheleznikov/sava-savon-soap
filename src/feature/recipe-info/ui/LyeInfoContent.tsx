@@ -65,7 +65,7 @@ export const LyeInfoContent: FC<Props> = ({selectedOils, superfatPercent, lyeTyp
                                         className={styles.cellValue}>{formatNumber(row.superfatMultiplier, 2)}</span>
                                     <span className={styles.operator}>=</span>
                                     <span
-                                        className={styles.resultValue}>{formatNumber(row.lye, 2)} г</span>
+                                        className={styles.resultValue}>{formatNumber(row.lye.naoh, 2)} г</span>
                                 </div>
                             </td>
                         </tr>
@@ -76,7 +76,7 @@ export const LyeInfoContent: FC<Props> = ({selectedOils, superfatPercent, lyeTyp
                     <tr className={styles.tfootRow}>
                         {t.total_label.replace("{lyeType}", lyeLabel)}
                         <td colSpan={7}>
-                            <span className={styles.totalValue}>{formatNumber(totalLye, 2)} г</span>
+                            <span className={styles.totalValue}>{formatNumber(totalLye.total, 2)} г</span>
                         </td>
                     </tr>
                     </tfoot>
