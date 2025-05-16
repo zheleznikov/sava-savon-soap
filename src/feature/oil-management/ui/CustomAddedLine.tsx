@@ -34,8 +34,8 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
     const {layout, theme} = oilAddedLineStyles[appTheme];
     const t = localization.ru.oil_line;
 
-    const handleUpdateCustomMass = (newGram: number) =>
-        dispatch(updateCustomMassWithRecalculatedPercents({customId: customIngredient.id, newGram}));
+    const handleUpdateCustomMass = (newMass: number) =>
+        dispatch(updateCustomMassWithRecalculatedPercents({customId: customIngredient.id, newMass}));
 
     const handleUpdateCustomPercent = (newPercent: number) =>
         dispatch(updateCustomPercentWithMassRecalculation({customId: customIngredient.id, newPercent}));
@@ -62,9 +62,10 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
                 <div className={layout.bottomRow}>
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
+                            decimalPlaces={2}
                             placeholder={ measureInputTypeMeta[measureInput].ru.full}
                             value={customIngredient.mass || 0}
-                            onChange={newGram => handleUpdateCustomMass(newGram)}
+                            onChange={handleUpdateCustomMass}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
@@ -76,7 +77,7 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
                             min={1} max={5}
                             placeholder={t.placeholder_percent}
                             value={customIngredient.percent || 0}
-                            onChange={newPercent => handleUpdateCustomPercent(newPercent)}
+                            onChange={handleUpdateCustomPercent}
                             disabled={isGramMode}
                             className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
                         />

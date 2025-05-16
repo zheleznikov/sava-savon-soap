@@ -11,6 +11,7 @@ import {TAcid} from "../../../entities/oil/model/acids.types";
 import {useAppDispatch} from "../../../shared/model/useAppDispatch";
 import {useAppSelector} from "../../../shared/useAppSelector";
 import {
+    calculateRecipe,
     setAcidInputType,
     toggleAcid,
     updateAcidMassWithRecalculatedPercents,
@@ -27,15 +28,21 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
     const dispatch = useAppDispatch();
 
-    const {measureInput} = useAppSelector((state) => state.recipe.input.params);
+    const {measureInput, oilInputType} = useAppSelector((state) => state.recipe.input.params);
 
     const handleToggleAcid = () => dispatch(toggleAcid(acid));
 
-    const handleUpdateAcidMass = (newGram: number) =>
-        dispatch(updateAcidMassWithRecalculatedPercents({acidId: acid.id, newGram}));
+    const handleUpdateAcidMass = (newMass: number) => {
+        dispatch(updateAcidMassWithRecalculatedPercents({acidId: acid.id, newMass}));
 
-    const handleUpdateAcidPercent = (newPercent: number) =>
+
+    }
+
+    const handleUpdateAcidPercent = (newPercent: number) => {
         dispatch(updateAcidPercentWithMassRecalculation({acidId: acid.id, newPercent}));
+
+
+    }
 
     const handleChangeInputType = (inputType: InputType) => {
         dispatch(setAcidInputType({acidId: acid.id, inputType}));
@@ -68,9 +75,10 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                 <div className={layout.bottomRow}>
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
+                            decimalPlaces={2}
                             placeholder={ measureInputTypeMeta[measureInput].ru.full}
                             value={acid.mass || 0}
-                            onChange={newGram => handleUpdateAcidMass(newGram)}
+                            onChange={handleUpdateAcidMass}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
@@ -82,7 +90,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                             min={1} max={5}
                             placeholder={t.placeholder_percent}
                             value={acid.percent || 0}
-                            onChange={newPercent => handleUpdateAcidPercent(newPercent)}
+                            onChange={handleUpdateAcidPercent}
                             disabled={isGramMode}
                             className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
                         />

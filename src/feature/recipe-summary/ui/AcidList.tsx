@@ -33,7 +33,7 @@ export const AcidList: FC<Props> = ({selectedAcids, totalAcidAmount, measureInpu
                     <li key={acid.id} className={getRowClass(index)}>
                         <span className={styles.name}>{acid.name_rus}</span>
                         <span className={styles.percent}>{formatNumber(acid.percent, 0)}{t.percent_unit}</span>
-                        <span className={styles.gram}>{formatNumber(acid.mass, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
+                        <span className={styles.gram}>{formatNumber(acid.mass, 2)} {measureInputTypeMeta[measureInput].ru.short}</span>
                     </li>
                 ))}
             </ul>
@@ -41,7 +41,7 @@ export const AcidList: FC<Props> = ({selectedAcids, totalAcidAmount, measureInpu
             <div className={styles.summary}>
                 <span className={styles.summaryLabel}>{t.summary_label}</span>
                 <span className={styles.summaryPercent}>—</span>
-                <span className={styles.summaryGram}>{formatNumber(totalAcidAmount, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
+                <span className={styles.summaryGram}>{formatNumber(totalAcidAmount, 2)} {measureInputTypeMeta[measureInput].ru.short}</span>
             </div>
         </div>
     );

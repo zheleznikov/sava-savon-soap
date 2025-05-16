@@ -46,7 +46,8 @@ export const {
     setCustomInputType,
     updateCustomMassWithRecalculatedPercents,
     updateCustomPercentWithMassRecalculation,
-    setMeasureInput
+    setMeasureInput,
+    updateOilPercent
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

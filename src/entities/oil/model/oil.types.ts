@@ -41,7 +41,7 @@ export type TOilBase = {
 // Динамически рассчитываемые поля (пользовательский ввод)
 export type TOilUserInput = {
     percent: number;    // Процент в рецепте
-    gram: number;       // Масса в граммах
+    mass: number;       // Масса в граммах
 };
 
 // Финальный тип масла

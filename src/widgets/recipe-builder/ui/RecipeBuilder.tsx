@@ -31,10 +31,12 @@ import {IngredientAdd} from "../../../feature/autocomplete/ui/IngredientAdd";
 import {CustomAddedLine} from "../../../feature/oil-management/ui/CustomAddedLine";
 import {TCustom} from "../../../entities/oil/model/custom.types";
 import {MeasureInputTypeSetup} from "../../../feature/recipe-setup/ui/MeasureInputTypeSetup";
+import {useAutoRecalculate} from "../../../feature/recipe-calculation/model/useAutoRecalculate";
 
 export const RecipeBuilder: FC = () => {
 
     const dispatch = useAppDispatch();
+    useAutoRecalculate();
 
     const {
         selectedOils,

@@ -11,8 +11,9 @@ import {formatNumber} from "../../../shared/lib/utils";
 import {useAppDispatch} from "../../../shared/model/useAppDispatch";
 import {useAppSelector} from "../../../shared/useAppSelector";
 import {
+    calculateRecipe,
     toggleOil,
-    updateOilMassWithRecalculatedPercents,
+    updateOilMassWithRecalculatedPercents, updateOilPercent,
     updateOilPercentWithMassRecalculation
 } from "../../recipe-calculation/model/recipeSlice";
 
@@ -29,11 +30,13 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
 
     const handleToggleOil = () => dispatch(toggleOil(oil));
 
-    const handleUpdateOilMass = (newGram: number) =>
-        dispatch(updateOilMassWithRecalculatedPercents({ oilId: oil.id, newGram }));
+    const handleUpdateOilMass = (newMass: number) =>
+        dispatch(updateOilMassWithRecalculatedPercents({ oilId: oil.id, newMass }));
 
-    const handleUpdateOilPercent = (newPercent: number) =>
-        dispatch(updateOilPercentWithMassRecalculation({ oilId: oil.id, newPercent, totalOilMass: totalOilAmount }));
+    const handleUpdateOilPercent = (newPercent: number) => {
+        dispatch(updateOilPercent({ oilId: oil.id, newPercent }));
+        // dispatch(calculateRecipe());
+    };
 
     const isGramMode = oilInputType === InputType.Mass;
     const isPercentMode = oilInputType === InputType.Percent;
@@ -61,9 +64,10 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                 <div className={layout.bottomRow}>
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
+                            decimalPlaces={2}
                             placeholder={measureInputTypeMeta[measureInput].ru.full}
                             value={oil.mass || 0}
-                            onChange={newGram => handleUpdateOilMass(newGram)}
+                            onChange={handleUpdateOilMass}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />

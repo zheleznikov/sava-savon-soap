@@ -34,7 +34,7 @@ export const CustomList: FC<Props> = ({selectedCustoms, totalCustomAmount, measu
                     <li key={custom.id} className={getRowClass(index)}>
                         <span className={styles.name}>{custom.name_rus}</span>
                         <span className={styles.percent}>{formatNumber(custom.percent, 0)}{t.percent_unit}</span>
-                        <span className={styles.gram}>{formatNumber(custom.mass, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
+                        <span className={styles.gram}>{formatNumber(custom.mass, 2)} {measureInputTypeMeta[measureInput].ru.short}</span>
                     </li>
                 ))}
             </ul>
@@ -42,7 +42,7 @@ export const CustomList: FC<Props> = ({selectedCustoms, totalCustomAmount, measu
             <div className={styles.summary}>
                 <span className={styles.summaryLabel}>{t.summary_label}</span>
                 <span className={styles.summaryPercent}>—</span>
-                <span className={styles.summaryGram}>{formatNumber(totalCustomAmount, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
+                <span className={styles.summaryGram}>{formatNumber(totalCustomAmount, 2)} {measureInputTypeMeta[measureInput].ru.short}</span>
             </div>
         </div>
     );

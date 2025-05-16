@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 
 interface UseSmartNumberInputProps {
     value: number;
@@ -16,9 +16,12 @@ export const useSmartNumberInput = ({
 }: UseSmartNumberInputProps) => {
     const format = (v: number) => v.toFixed(decimalPlaces);
     const [internalValue, setInternalValue] = useState(value === 0 ? '' : format(value));
+    const isFocusedRef = useRef(false); // чтобы не сбрасывать при вводе
 
     useEffect(() => {
-        setInternalValue(value === 0 ? '' : format(value));
+        if (!isFocusedRef.current) {
+            setInternalValue(value === 0 ? '' : format(value));
+        }
     }, [value, decimalPlaces]);
 
     const blurInput = () => {
@@ -39,6 +42,7 @@ export const useSmartNumberInput = ({
         },
 
         blur: () => {
+            isFocusedRef.current = false;
             if (internalValue === '') {
                 onChange(0);
                 setInternalValue('');
@@ -47,12 +51,13 @@ export const useSmartNumberInput = ({
                 if (!isNaN(numericValue)) {
                     const rounded = parseFloat(numericValue.toFixed(decimalPlaces));
                     onChange(rounded);
-                    setInternalValue(format(rounded));
+                    setInternalValue(format(rounded)); // вот тут форматируем
                 }
             }
         },
 
         focus: (e: React.FocusEvent<HTMLInputElement>) => {
+            isFocusedRef.current = true;
             if (value === 0) {
                 e.target.select();
             }
@@ -67,3 +72,4 @@ export const useSmartNumberInput = ({
 
     return { internalValue, handlers };
 };
+

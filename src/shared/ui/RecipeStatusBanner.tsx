@@ -12,7 +12,6 @@ export const RecipeStatusBanner: FC<Props> = ({ children }) => {
 
 
     const dispatch = useAppDispatch();
-    const handleCalculate = () => dispatch(calculateRecipe());
 
     // if (status === 'calculating') {
     //     return (
@@ -58,13 +57,6 @@ export const RecipeStatusBanner: FC<Props> = ({ children }) => {
     // return null;
 
     return <>
-
-        <button
-            onClick={handleCalculate}
-            className="text-lg  bg-emerald-500 text-white font-semibold py-2 rounded-xl shadow hover:bg-emerald-600 hover:scale-95 transition-transform duration-150 animate-subtle-pulse"
-        >
-            Рассчитать рецепт
-        </button>
         {children}
     </>;
 

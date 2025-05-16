@@ -67,7 +67,10 @@ export const OilInputTypeSetup: FC = () => {
                         <SmartNumberInput
                             decimalPlaces={0}
                             value={isPercentMode ? userDefinedTotalWeight : totalResultAmount}
-                            onChange={!isPercentMode ? () => {} : handleSetUserDefinedTotalWeight}
+                            // onChange={!isPercentMode ? () => {} : handleSetUserDefinedTotalWeight}
+                            onChange={(value) => {
+                                isPercentMode && handleSetUserDefinedTotalWeight(value);
+                            }}
                             disabled={!isPercentMode}
                             // placeholder={text.placeholder_grams}
                             min={10}

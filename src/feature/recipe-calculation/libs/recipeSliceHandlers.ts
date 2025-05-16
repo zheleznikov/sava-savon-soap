@@ -28,13 +28,6 @@ export const toggleHandlers = {
             percent: total > 0 ? (o.mass / total) * 100 : 0
         }));
 
-        state.output.total.totalOilAmount = calculateOilSum({
-            selectedOils: state.input.ingredients.selectedOils,
-            oilInputType: state.input.params.oilInputType,
-            userDefinedTotalWeight: state.input.params.userDefinedTotalWeight,
-            waterPercent: state.input.params.waterInput.waterPercent,
-            superfatPercent: state.input.params.superfatPercent
-        });
 
         state.status.status = "dirty";
     },
@@ -46,7 +39,8 @@ export const toggleHandlers = {
 
         state.input.ingredients.selectedAcids = isSelected
             ? state.input.ingredients.selectedAcids.filter((a) => a.id !== acid.id)
-            : [...state.input.ingredients.selectedAcids];
+            : [...state.input.ingredients.selectedAcids, acid];
+
         state.status.status = "dirty";
     },
 
@@ -57,7 +51,7 @@ export const toggleHandlers = {
 
         state.input.ingredients.selectedCustoms = isSelected
             ? state.input.ingredients.selectedCustoms.filter((a) => a.id !== addIngredient.id)
-            : [...state.input.ingredients.selectedCustoms];
+            : [...state.input.ingredients.selectedCustoms, addIngredient];
         state.status.status = "dirty";
     },
 
@@ -66,15 +60,14 @@ export const toggleHandlers = {
 
 export const handlers = {
     // обработчик ввода масел - граммы
-    updateOilMassWithRecalculatedPercents: (state: RecipeState, action: PayloadAction<{ oilId: number; newGram: number }>) => {
-        const {oilId, newGram} = action.payload;
+    updateOilMassWithRecalculatedPercents: (state: RecipeState, action: PayloadAction<{ oilId: number; newMass: number }>) => {
+        const {oilId, newMass} = action.payload;
 
         // Обновление масла в selectedOils
         const updated = state.input.ingredients.selectedOils.map((o) =>
-            o.id === oilId ? {...o, gram: newGram} : o
+            o.id === oilId ? {...o, mass: newMass} : o
         );
 
-        // Рассчитываем общий вес масел
         const total = updated.reduce((sum, o) => sum + (o.mass || 0), 0);
 
         // Обновляем selectedOils с пересчитанными процентами
@@ -82,6 +75,7 @@ export const handlers = {
             ...o,
             percent: total > 0 ? (o.mass / total) * 100 : 0
         }));
+
 
         // Обновляем totalOilAmount
         state.output.total.totalOilAmount = calculateOilSum({
@@ -95,7 +89,7 @@ export const handlers = {
         // Пересчитываем и обновляем selectedAcids и selectedCustoms
         state.input.ingredients.selectedAcids = state.input.ingredients.selectedAcids.map((a) => ({
             ...a,
-            gram: a.inputType === InputType.Percent && total > 0
+            mass: a.inputType === InputType.Percent && total > 0
                 ? (a.percent / 100) * total
                 : a.mass,
             percent: a.inputType === InputType.Mass && total > 0
@@ -105,7 +99,7 @@ export const handlers = {
 
         state.input.ingredients.selectedCustoms = state.input.ingredients.selectedCustoms.map((c) => ({
             ...c,
-            gram: c.inputType === InputType.Percent && total > 0
+            mass: c.inputType === InputType.Percent && total > 0
                 ? (c.percent / 100) * total
                 : c.mass,
             percent: c.inputType === InputType.Mass && total > 0
@@ -115,6 +109,7 @@ export const handlers = {
 
         // Обновляем статус
         state.status.status = "dirty";
+
     },
 
     // обработчик ввода масел - проценты
@@ -124,13 +119,14 @@ export const handlers = {
     ) => {
         const {oilId, newPercent, totalOilMass} = action.payload;
 
+
         // Обновляем процент и граммы для выбранного масла
         state.input.ingredients.selectedOils = state.input.ingredients.selectedOils.map((o) =>
             o.id === oilId
                 ? {
                     ...o,
                     percent: newPercent,
-                    gram: totalOilMass > 0 ? (newPercent / 100) * totalOilMass : 0
+                    mass: totalOilMass > 0 ? (newPercent / 100) * totalOilMass : 0
                 }
                 : o
         );
@@ -147,17 +143,27 @@ export const handlers = {
         // Обновляем статус
         state.status.status = "dirty";
     },
+    updateOilPercent: (
+        state: RecipeState,
+        action: PayloadAction<{ oilId: number; newPercent: number }>
+    ) => {
+        const { oilId, newPercent } = action.payload;
+        state.input.ingredients.selectedOils = state.input.ingredients.selectedOils.map(o =>
+            o.id === oilId ? { ...o, percent: newPercent } : o
+        );
+        state.status.status = "dirty";
+    },
 
     // обработчик ввода кислот - граммы
     updateAcidMassWithRecalculatedPercents: (
         state: RecipeState,
-        action: PayloadAction<{ acidId: number; newGram: number }>
+        action: PayloadAction<{ acidId: number; newMass: number }>
     ) => {
-        const {acidId, newGram} = action.payload;
+        const {acidId, newMass} = action.payload;
 
         // Обновляем граммы для выбранной кислоты
         const updated = state.input.ingredients.selectedAcids.map((a) =>
-            a.id === acidId ? {...a, gram: newGram} : a
+            a.id === acidId ? {...a, mass: newMass} : a
         );
 
         // Получаем общий вес масел
@@ -166,7 +172,7 @@ export const handlers = {
         // Обновляем selectedAcids с пересчитанными значениями граммов и процентов
         state.input.ingredients.selectedAcids = updated.map((a) => ({
             ...a,
-            gram:
+            mass:
                 a.inputType === InputType.Percent && total > 0
                     ? (a.percent / 100) * total
                     : a.mass,
@@ -194,7 +200,7 @@ export const handlers = {
                 ? {
                     ...a,
                     percent: newPercent,
-                    gram: total > 0 ? (newPercent / 100) * total : 0
+                    mass: total > 0 ? (newPercent / 100) * total : 0
                 }
                 : a
         );
@@ -204,13 +210,13 @@ export const handlers = {
     // обработчик ввода компонента - граммы
     updateCustomMassWithRecalculatedPercents: (
         state: RecipeState,
-        action: PayloadAction<{ customId: number; newGram: number }>
+        action: PayloadAction<{ customId: number; newMass: number }>
     ) => {
-        const {customId, newGram} = action.payload;
+        const {customId, newMass} = action.payload;
 
         // Обновляем граммы для выбранного кастомного ингредиента
         const updated = state.input.ingredients.selectedCustoms.map((c) =>
-            c.id === customId ? {...c, gram: newGram} : c
+            c.id === customId ? {...c, mass: newMass} : c
         );
 
         // Получаем общий вес масел
@@ -219,7 +225,7 @@ export const handlers = {
         // Обновляем selectedCustoms с пересчитанными значениями граммов и процентов
         state.input.ingredients.selectedCustoms = updated.map((c) => ({
             ...c,
-            gram:
+            mass:
                 c.inputType === InputType.Percent && total > 0
                     ? (c.percent / 100) * total
                     : c.mass,
@@ -249,7 +255,7 @@ export const handlers = {
                 ? {
                     ...c,
                     percent: newPercent,
-                    gram: total > 0 ? (newPercent / 100) * total : 0
+                    mass: total > 0 ? (newPercent / 100) * total : 0
                 }
                 : c
         );
