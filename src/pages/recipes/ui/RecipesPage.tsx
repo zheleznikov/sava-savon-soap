@@ -1,7 +1,7 @@
 import {clsx} from "clsx";
 import {recipes} from "../../../data/recipes.mock";
 import {RecipeCard} from "../../../widgets/recipe-card/ui/RecipeCard";
-import {LyeType} from "../../../app/providers/SoapRecipeContext.types";
+import {LyeType, MeasureInputType} from "../../../app/providers/SoapRecipeContext.types";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {calculator} from "../../calculator/styles/Calculator.styles";
 
@@ -13,6 +13,7 @@ export const RecipesPage = () => {
             <div className="flex flex-col items-center">
                 {recipes.map((it, index) => (
                     <RecipeCard
+                        measureInput={MeasureInputType.Gram} // todo
                         key={index}
                         recipeName={it.recipeName}
                         selectedOils={it.selectedOils}

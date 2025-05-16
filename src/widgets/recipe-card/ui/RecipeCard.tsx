@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import {RecipeContainer} from "../../../shared";
 import {OilsList, ParametersList, RecipeTitleInput, ResultSummary} from "../../../feature/recipe-summary";
+import {MeasureInputType} from "../../../app/providers/SoapRecipeContext.types";
 
 
 interface Props {
@@ -23,7 +24,8 @@ interface Props {
     lyeType: LyeType;
     superfatPercent: number;
     waterPercent: number;
-    properties: RecipeParametersTableProps
+    properties: RecipeParametersTableProps,
+    measureInput: MeasureInputType
 }
 
 export const RecipeCard: FC<Props> = ({
@@ -36,7 +38,8 @@ export const RecipeCard: FC<Props> = ({
                                           lyeType,
                                           superfatPercent,
                                           waterPercent,
-                                          properties
+                                          properties,
+    measureInput
                                       }) => {
 
     const navigate = useNavigate();
@@ -82,14 +85,20 @@ export const RecipeCard: FC<Props> = ({
                             lyeType={lyeType}
                             totalWaterAmount={totalWaterAmount}
                             totalLyeAmount={totalLyeAmount}
+                            measureInput={measureInput}
                         />
 
                         <OilsList
                             selectedOils={selectedOils}
                             totalOilAmount={totalOilAmount}
+                            measureInput={measureInput}
+
                         />
 
-                        <ResultSummary totalResultAmount={totalResultAmount}/>
+                        <ResultSummary totalResultAmount={totalResultAmount}
+                                       measureInput={measureInput}
+
+                        />
 
                     </InputBlockWrapper>
 
