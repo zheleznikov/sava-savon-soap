@@ -25,20 +25,15 @@ interface Props {
 
 export const AcidAddedLine: FC<Props> = ({acid}) => {
 
-
     const dispatch = useAppDispatch();
-
-    // Селекторы
-    const {totalAcidAmount, totalOilAmount} = useAppSelector((state) => state.recipe);
 
     const handleToggleAcid = () => dispatch(toggleAcid(acid));
 
     const handleUpdateAcidGram = (newGram: number) =>
-        dispatch(updateAcidGramWithRecalculatedPercents({ acidId: acid.id, newGram, totalOil: totalOilAmount }));
+        dispatch(updateAcidGramWithRecalculatedPercents({acidId: acid.id, newGram}));
 
     const handleUpdateAcidPercent = (newPercent: number) =>
-        dispatch(updateAcidPercentWithGramRecalculation({ acidId: acid.id, newPercent, totalOilMass: totalOilAmount }));
-
+        dispatch(updateAcidPercentWithGramRecalculation({acidId: acid.id, newPercent}));
 
     const handleChange = (inputType: InputType) => {
         dispatch(setAcidInputType({acidId: acid.id, inputType}));
@@ -118,13 +113,17 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
             {isDetailsOpen && (
                 <div className={clsx(layout.details, theme.details)}>
 
-                    <hr className={layout.sectionSpacing} />
+                    <hr className={layout.sectionSpacing}/>
 
                     <div>
                         <div className={layout.sectionTitle}>Нейтрализация</div>
                         <ul className={layout.ul}>
-                            <li>{t.lye_naoh}: <span className={theme.valueNumber}>{formatNumber(acid.neutralization.naoh, 3)}</span></li>
-                            <li>{t.lye_koh}: <span className={theme.valueNumber}>{formatNumber(acid.neutralization.koh, 3)}</span></li>
+                            <li>{t.lye_naoh}: <span
+                                className={theme.valueNumber}>{formatNumber(acid.neutralization.naoh, 3)}</span>
+                            </li>
+                            <li>{t.lye_koh}: <span
+                                className={theme.valueNumber}>{formatNumber(acid.neutralization.koh, 3)}</span>
+                            </li>
                         </ul>
                     </div>
                 </div>

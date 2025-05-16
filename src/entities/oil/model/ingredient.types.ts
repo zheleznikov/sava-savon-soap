@@ -5,3 +5,11 @@ export type TIngredientBase = {
     percent: number;
     gram: number;
 };
+
+
+export type CustomIngredient = {
+    id: number;
+    name: string;
+    percent: number;
+    gram: number;
+};

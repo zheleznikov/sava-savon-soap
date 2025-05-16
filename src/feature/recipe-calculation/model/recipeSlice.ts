@@ -12,6 +12,8 @@ import {
     scaleRecipeToTotalWeightDevelop
 } from "../libs/calcRecipeUtils";
 import {oils} from "../../../entities/oil/model/oils";
+import {TIngredientBase} from "../../../entities/oil/model/ingredient.types";
+import {TCustom} from "../../../entities/oil/model/custom.types";
 
 export type RecipeStatus = "idle" | "dirty" | "calculating" | "ready";
 
@@ -21,6 +23,7 @@ interface RecipeState {
     recipeName: string;
     selectedOils: TOil[];
     selectedAcids: TAcid[];
+    selectedCustoms: TCustom[];
     oilInputType: InputType;
     acidInputType: InputType;
     lyeType: LyeType;
@@ -60,8 +63,10 @@ interface SoapProperties {
 
 const initialState: RecipeState = {
     recipeName: "",
-    selectedOils: [...defaultSelectedOils],
+    // selectedOils: [...defaultSelectedOils],
+    selectedOils: [],
     selectedAcids: [],
+    selectedCustoms: [],
     oilInputType: InputType.Gram,
     acidInputType: InputType.Gram,
     lyeType: LyeType.NaOH,
@@ -108,6 +113,10 @@ export const recipeSlice = createSlice({
             state.selectedOils = action.payload;
             state.status = "dirty";
         },
+        setSelectedAddIngredients: (state, action: PayloadAction<TCustom[]>) => {
+            state.selectedCustoms = action.payload;
+            state.status = "dirty";
+        },
 
         setSelectedAcids: (state, action: PayloadAction<TAcid[]>) => {
             state.selectedAcids = action.payload;
@@ -129,6 +138,17 @@ export const recipeSlice = createSlice({
             const acid = state.selectedAcids.find((a) => a.id === acidId);
             if (acid) {
                 acid.inputType = inputType;
+            }
+        },
+
+        setCustomInputType: (
+            state,
+            action: PayloadAction<{ customId: number; inputType: InputType }>
+        ) => {
+            const { customId, inputType } = action.payload;
+            const custom = state.selectedCustoms.find((a) => a.id === customId);
+            if (customId && custom) {
+                custom.inputType = inputType;
             }
         },
 
@@ -206,9 +226,7 @@ export const recipeSlice = createSlice({
                 superfatPercent: state.superfatPercent
             });
 
-
             state.status = "dirty";
-
         },
 
         toggleAcid: (state, action: PayloadAction<TAcid>) => {
@@ -221,7 +239,18 @@ export const recipeSlice = createSlice({
             state.status = "dirty";
 
         },
+        toggleCustom: (state, action: PayloadAction<TCustom>) => {
+            const addIngredient = action.payload;
+            const isSelected = state.selectedCustoms.some((a) => a.id === addIngredient.id);
 
+            state.selectedCustoms = isSelected
+                ? state.selectedCustoms.filter((a) => a.id !== addIngredient.id)
+                : [...state.selectedCustoms, addIngredient];
+            state.status = "dirty";
+
+        },
+
+        // обработчик ввода масел - граммы
         updateOilGramWithRecalculatedPercents: (state, action: PayloadAction<{ oilId: number; newGram: number }>) => {
             const {oilId, newGram} = action.payload;
 
@@ -254,38 +283,19 @@ export const recipeSlice = createSlice({
                     : a.percent
             }));
 
-            state.status = "dirty";
-        },
-
-        updateAcidGramWithRecalculatedPercents: (
-            state,
-            action: PayloadAction<{ acidId: number; newGram: number; totalOil: number }>
-        ) => {
-            const { acidId, newGram } = action.payload;
-
-
-            const updated = state.selectedAcids.map((a) =>
-                a.id === acidId ? { ...a, gram: newGram } : a
-            );
-
-            const total = state.totalOilAmount;
-
-            state.selectedAcids = updated.map((a) => ({
-                ...a,
-                gram:
-                    a.inputType === InputType.Percent && total > 0
-                        ? (a.percent / 100) * total
-                        : a.gram,
-                percent:
-                    a.inputType === InputType.Gram && total > 0
-                        ? (a.gram / total) * 100
-                        : a.percent
+            state.selectedCustoms = state.selectedCustoms.map((c) => ({
+                ...c,
+                gram: c.inputType === InputType.Percent && total > 0
+                    ? (c.percent / 100) * total
+                    : c.gram,
+                percent: c.inputType === InputType.Gram && total > 0
+                    ? (c.gram / total) * 100
+                    : c.percent
             }));
 
             state.status = "dirty";
-
         },
-
+        // обработчик ввода масел - проценты
         updateOilPercentWithGramRecalculation: (
             state,
             action: PayloadAction<{ oilId: number; newPercent: number; totalOilMass: number }>
@@ -312,23 +322,105 @@ export const recipeSlice = createSlice({
 
             state.status = "dirty";
         },
+        // обработчик ввода кислот - граммы
+        updateAcidGramWithRecalculatedPercents: (
+            state,
+            action: PayloadAction<{ acidId: number; newGram: number; }>
+        ) => {
+            const { acidId, newGram } = action.payload;
+
+
+            const updated = state.selectedAcids.map((a) =>
+                a.id === acidId ? { ...a, gram: newGram } : a
+            );
+
+            const total = state.totalOilAmount;
+
+            state.selectedAcids = updated.map((a) => ({
+                ...a,
+                gram:
+                    a.inputType === InputType.Percent && total > 0
+                        ? (a.percent / 100) * total
+                        : a.gram,
+                percent:
+                    a.inputType === InputType.Gram && total > 0
+                        ? (a.gram / total) * 100
+                        : a.percent
+            }));
+
+            state.status = "dirty";
+        },
+        // обработчик ввода кислот - проценты
         updateAcidPercentWithGramRecalculation: (
             state,
-            action: PayloadAction<{ acidId: number; newPercent: number; totalOilMass: number }>
+            action: PayloadAction<{ acidId: number; newPercent: number; }>
         ) => {
-            const {acidId, newPercent, totalOilMass} = action.payload;
+            const {acidId, newPercent} = action.payload;
+
+            const total = state.totalOilAmount;
 
             state.selectedAcids = state.selectedAcids.map((a) =>
                 a.id === acidId
                     ? {
                         ...a,
                         percent: newPercent,
-                        gram: totalOilMass > 0 ? (newPercent / 100) * totalOilMass : 0
+                        gram: total > 0 ? (newPercent / 100) * total : 0
                     }
                     : a
             );
             state.status = "dirty";
         },
+
+        // обработчик ввода компонента - граммы
+        updateCustomGramWithRecalculatedPercents: (
+            state,
+            action: PayloadAction<{ customId: number; newGram: number; }>
+        ) => {
+            const { customId, newGram } = action.payload;
+
+
+            const updated = state.selectedCustoms.map((c) =>
+                c.id === customId ? { ...c, gram: newGram } : c
+            );
+
+            const total = state.totalOilAmount;
+
+            state.selectedCustoms = updated.map((c) => ({
+                ...c,
+                gram:
+                    c.inputType === InputType.Percent && total > 0
+                        ? (c.percent / 100) * total
+                        : c.gram,
+                percent:
+                    c.inputType === InputType.Gram && total > 0
+                        ? (c.gram / total) * 100
+                        : c.percent
+            }));
+
+            state.status = "dirty";
+        },
+        // обработчик ввода своего компонента - проценты
+        updateCustomPercentWithGramRecalculation: (
+            state,
+            action: PayloadAction<{ customId: number; newPercent: number; }>
+        ) => {
+            const {customId, newPercent} = action.payload;
+
+            const total = state.totalOilAmount;
+
+            state.selectedCustoms = state.selectedCustoms.map((c) =>
+                c.id === customId
+                    ? {
+                        ...c,
+                        percent: newPercent,
+                        gram: total > 0 ? (newPercent / 100) * total : 0
+                    }
+                    : c
+            );
+            state.status = "dirty";
+        },
+
+
         calculateRecipe: (state) => {
             state.status = "calculating";
 
@@ -451,7 +543,12 @@ export const {
     updateAcidPercentWithGramRecalculation,
     calculateRecipe,
     setLyeConcentration,
-    setWaterLyeRatio
+    setWaterLyeRatio,
+    setSelectedAddIngredients,
+    toggleCustom,
+    setCustomInputType,
+    updateCustomGramWithRecalculatedPercents,
+    updateCustomPercentWithGramRecalculation
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

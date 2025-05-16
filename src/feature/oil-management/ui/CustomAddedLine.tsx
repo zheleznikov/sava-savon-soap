@@ -1,0 +1,101 @@
+import {FC} from "react";
+import {Trash2} from "lucide-react";
+import {useTheme} from "../../../app/providers/ThemeContext";
+import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
+import {localization} from "@/shared/config/localization";
+import {clsx} from "clsx";
+import {SmartNumberInput} from "../../../shared";
+import {useAppDispatch} from "../../../shared/model/useAppDispatch";
+import {
+    setCustomInputType,
+    toggleCustom,
+    updateCustomGramWithRecalculatedPercents,
+    updateCustomPercentWithGramRecalculation
+} from "../../recipe-calculation/model/recipeSlice";
+import {ToggleButtonGroup} from "../../../shared/ui/ToggleButtonGroup";
+import {InputType} from "../../../app/providers/SoapRecipeContext.types";
+import {TCustom} from "../../../entities/oil/model/custom.types";
+
+
+interface Props {
+    customIngredient: TCustom
+}
+export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
+
+    const dispatch = useAppDispatch();
+
+    const handleToggleAdd = (add: TCustom) => dispatch(toggleCustom(add));
+
+    const {appTheme} = useTheme();
+
+    const {layout, theme} = oilAddedLineStyles[appTheme];
+    const t = localization.ru.oil_line;
+
+    const handleUpdateCustomGram = (newGram: number) =>
+        dispatch(updateCustomGramWithRecalculatedPercents({customId: customIngredient.id, newGram}));
+
+    const handleUpdateCustomPercent = (newPercent: number) =>
+        dispatch(updateCustomPercentWithGramRecalculation({customId: customIngredient.id, newPercent}));
+
+
+    const handleChange = (inputType: InputType) => {
+        dispatch(setCustomInputType({customId: customIngredient.id, inputType}));
+    };
+
+    const isGramMode = customIngredient.inputType === InputType.Gram;
+    const isPercentMode = customIngredient.inputType === InputType.Percent;
+
+    return (
+        <div className={theme.block}>
+            <div className={layout.blockInner}>
+                <div className={layout.topRow}>
+                    <div className={theme.name}>{customIngredient.name_rus}</div>
+                    <button onClick={() =>handleToggleAdd(customIngredient)} className={theme.deleteButton}
+                            title={t.delete_button_title}>
+                        <Trash2 size={24}/>
+                    </button>
+                </div>
+
+                <div className={layout.bottomRow}>
+                    <div className={layout.inputWrapper}>
+                        <SmartNumberInput
+                            placeholder={t.placeholder_grams}
+                            value={customIngredient.gram || 0}
+                            onChange={newGram => handleUpdateCustomGram(newGram)}
+                            disabled={isPercentMode}
+                            className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
+                        />
+                        <span className={theme.unitText}>{t.unit_grams}</span>
+                    </div>
+
+                    <div className={layout.inputWrapper}>
+                        <SmartNumberInput
+                            min={1} max={5}
+                            placeholder={t.placeholder_percent}
+                            value={customIngredient.percent || 0}
+                            onChange={newPercent => handleUpdateCustomPercent(newPercent)}
+                            disabled={isGramMode}
+                            className={clsx(layout.input, isGramMode ? theme.inputDisabled : theme.input)}
+                        />
+                        <span className={theme.unitText}>{t.unit_percent}</span>
+                    </div>
+
+                    <ToggleButtonGroup
+                        options={[
+                            {label: "г", value: InputType.Gram},
+                            {label: "%", value: InputType.Percent}
+
+                        ]}
+                        onChange={handleChange}
+                        isActive={(val) => val === customIngredient.inputType}
+                    />
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    )
+};
