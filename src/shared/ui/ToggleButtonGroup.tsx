@@ -75,7 +75,7 @@ export function ToggleButtonGroup<T extends string | number>({
                         className={clsx(
                             layout.buttonBase,
                             active ? theme.buttonActive : theme.buttonInactive,
-                            active && theme.buttonActiveBorder,
+                            // active && theme.buttonActiveBorder,
                             hideLeftBorder && !isWrapped && "border-l-transparent",
                             hideRightBorder && !isWrapped && "border-r-transparent",
                             isWrapped

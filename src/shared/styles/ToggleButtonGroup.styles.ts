@@ -25,8 +25,7 @@ const createLayoutTheme = (theme: typeof themeLight) => ({
         border-t-2 border-b-2 border-l border-r flex-shrink-0 transition-colors`,
     },
     theme: {
-        buttonActive: `${theme.buttonActiveBg} ${theme.buttonActiveText}`,
-        buttonActiveBorder: theme.buttonActiveBorder,
+        buttonActive: `${theme.buttonActiveBg} ${theme.buttonActiveText} ${theme.buttonActiveBorder}`,
         buttonInactive: `${theme.buttonBg} ${theme.buttonText} ${theme.buttonHover}`,
     },
 });
