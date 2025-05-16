@@ -36,19 +36,24 @@ export const IngredientAutocomplete = <T extends TIngredientBase>({
 
     return (
         <section className="relative mb-0 sm:mb-4" ref={containerRef}>
-            <input
-                className={clsx(
-                    layout.input,
-                    styles.input,
-                    isDropdownOpen ? "rounded-t-xl border-b-0" : "rounded-xl mb-2"
-                )}
-                value={searchTerm}
-                placeholder={placeholder}
-                onChange={handler.onInputSearchChange}
-                onKeyDown={handler.onInputSearchKeyDown}
-                onBlur={handler.onInputSearchBlur}
-                onFocus={handler.onInputSearchFocus}
-            />
+            <form
+                onSubmit={handler.onFormSubmit}
+            >
+                <input
+                    className={clsx(
+                        layout.input,
+                        styles.input,
+                        isDropdownOpen ? "rounded-t-xl border-b-0" : "rounded-xl mb-2"
+                    )}
+                    value={searchTerm}
+                    placeholder={placeholder}
+                    onChange={handler.onInputSearchChange}
+                    // ❌ больше не нужен
+                    // onKeyDown={handler.onInputSearchKeyDown}
+                    onBlur={handler.onInputSearchBlur}
+                    onFocus={handler.onInputSearchFocus}
+                />
+            </form>
 
             {searchTerm && (
                 <button

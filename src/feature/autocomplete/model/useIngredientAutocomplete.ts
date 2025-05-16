@@ -1,4 +1,12 @@
-import React, {useEffect, useRef, useState, ChangeEvent, useMemo, useCallback} from "react";
+import React, {
+    useEffect,
+    useRef,
+    useState,
+    ChangeEvent,
+    useMemo,
+    useCallback,
+    FormEvent
+} from "react";
 import {TIngredientBase} from "../../../entities/oil/model/ingredient.types";
 
 export const useIngredientAutocomplete = <T extends TIngredientBase>(
@@ -11,6 +19,8 @@ export const useIngredientAutocomplete = <T extends TIngredientBase>(
 
     const containerRef = useRef<HTMLDivElement>(null);
     const dropdownRef = useRef<HTMLUListElement>(null);
+
+    const ignoreNextBlurReset = useRef(false);
 
     const selectedIds = useMemo(() => selectedItems.map((i) => i.id), [selectedItems]);
     const [listToShow, setListToShow] = useState<T[]>(allItems);
@@ -66,8 +76,21 @@ export const useIngredientAutocomplete = <T extends TIngredientBase>(
                 e.preventDefault();
                 setDropdownOpen(false);
                 setSearchTerm("");
+
+                // 🆕 ЯВНО убираем фокус с input
+                const input = e.currentTarget as HTMLInputElement;
+                input.blur();
             }
         },
+        onFormSubmit: (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault(); // ⛔ не перезагружать страницу
+            setDropdownOpen(false);
+            setSearchTerm("");
+            // ⛳ вручную снять фокус
+            const input = containerRef.current?.querySelector("input");
+            input?.blur();
+        },
+
         onInputSearchBlur: () => {
             setTimeout(() => {
                 setDropdownOpen(false);
@@ -75,6 +98,7 @@ export const useIngredientAutocomplete = <T extends TIngredientBase>(
                 sortOnOpenRef.current = false;
             }, 100);
         },
+
         onInputSearchFocus: () => {
             sortOnOpenRef.current = true;
             setDropdownOpen(true);
