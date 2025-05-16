@@ -3,12 +3,17 @@ import {FC} from "react";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {localization} from "../../../shared/config/localization";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
+import {
+    MeasureInputType,
+    measureInputTypeMeta
+} from "../../../app/providers/SoapRecipeContext.types";
 
 export interface ResultSummaryProps {
     totalResultAmount: number;
+    measureInput: MeasureInputType
 }
 
-export const ResultSummary: FC<ResultSummaryProps> = ({ totalResultAmount }) => {
+export const ResultSummary: FC<ResultSummaryProps> = ({ totalResultAmount, measureInput }) => {
     const { appTheme } = useTheme();
     const styles = recipeBlockStyles[appTheme];
     const t = localization.ru.result_summary;
@@ -19,7 +24,7 @@ export const ResultSummary: FC<ResultSummaryProps> = ({ totalResultAmount }) => 
             <div className={styles.summary}>
                 <span>{t.label}</span>
                 <span className={styles.resultPlaceholder}>—</span>
-                <span className={styles.resultTotal}>{formatNumber(totalResultAmount)} {t.unit}</span>
+                <span className={styles.resultTotal}>{formatNumber(totalResultAmount)} {measureInputTypeMeta[measureInput].ru.short}</span>
             </div>
         </div>
     );

@@ -15,7 +15,8 @@ export const localization = {
             placeholder: "Введите название рецепта"
         },
         input_type_toggle: {
-            label_input_type: "Режим ввода",
+            measure_input_type: "Единицы измерения",
+            label_input_type: "Режим ввода масел",
             button_grams: "Граммы",
             button_percent: "Проценты",
             button_ounces: "Унции",
@@ -79,9 +80,11 @@ export const localization = {
         oil_line: {
             delete_button_title: "Удалить масло",
             placeholder_grams: "Граммы",
+            placeholder_ounces: "Унции",
             placeholder_percent: "Проценты",
             unit_grams: "г",
             unit_percent: "%",
+            unit_ounces: "унц",
             expand_more: "О масле",
             expand_less: "Скрыть",
             expand_title_open: "Скрыть подробности",

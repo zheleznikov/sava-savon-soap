@@ -21,7 +21,7 @@ export const calculateOilSum = (
     }: CalculateOilSumParams): number => {
 
     switch (oilInputType) {
-        case InputType.Gram: {  // Суммируем вес всех масел
+        case InputType.Mass: {  // Суммируем вес всех масел
             return selectedOils.reduce((acc, oil) => acc + (oil.gram || 0), 0);
         }
 

@@ -7,7 +7,11 @@ import {clsx} from "clsx";
 import {InfoPopup} from "../../../shared/ui/InfoPopup";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {LyeInfoContent} from "../../recipe-info/ui/LyeInfoContent";
-import {LyeType} from "../../../app/providers/SoapRecipeContext.types";
+import {
+    LyeType,
+    MeasureInputType,
+    measureInputTypeMeta
+} from "../../../app/providers/SoapRecipeContext.types";
 import {Hint} from "../../../shared/ui/Hint";
 
 export interface ParametersListProps {
@@ -19,6 +23,7 @@ export interface ParametersListProps {
     totalKOHAmount?: number;
     totalWaterAmount: number;
     selectedOils: TOil [];
+    measureInput: MeasureInputType
 }
 
 export const ParametersList: FC<ParametersListProps> = (
@@ -31,7 +36,8 @@ export const ParametersList: FC<ParametersListProps> = (
         totalWaterAmount,
         selectedOils,
         totalNaOHAmount,
-        totalKOHAmount
+        totalKOHAmount,
+        measureInput
     }) => {
 
     const t = localization.ru.parameters;
@@ -67,7 +73,7 @@ export const ParametersList: FC<ParametersListProps> = (
             <div className={styles.paramHeader}>
                 <span className={clsx(styles.paramHeaderText, "text-center")}></span>
                 <span className={styles.paramHeaderText}> %</span>
-                <span className={styles.paramHeaderText}> г</span>
+                <span className={styles.paramHeaderText}>{` ${measureInputTypeMeta[measureInput].ru.short}`}</span>
             </div>
             <h4 className={styles.title}>{t.title}</h4>
             <ul className={styles.list}>
@@ -89,10 +95,10 @@ export const ParametersList: FC<ParametersListProps> = (
 
                         <span className={styles.gram}>
                             {item.label === t.water || item.label === lyeType ? (
-                                <span className={styles.pill}>{item.gram} {t.gramUnit}</span>
+                                <span className={styles.pill}>{item.gram} {measureInputTypeMeta[measureInput].ru.short}</span>
                             ) : (
                                 <>
-                                    {item.gram} {item.gram !== "—" ? t.gramUnit : ""}
+                                    {item.gram} {item.gram !== "—" ? measureInputTypeMeta[measureInput].ru.short : ""}
                                 </>
                             )}
                         </span>

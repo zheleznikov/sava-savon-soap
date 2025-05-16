@@ -25,7 +25,7 @@ export const SuperfatSetup: FC = () => {
 
 
     return (
-        <InputBlockWrapper className={clsx(layout.wrapper)}>
+        <InputBlockWrapper className={clsx(layout.wrapper, "w-full")}>
             <div className={layout.toggleTypeBlock}>
 
                 <label

@@ -50,7 +50,7 @@ export const IngredientAdd = <T extends TIngredientBase>({
             name_eng: trimmed,
             gram: 0,
             percent: 0,
-            inputType: InputType.Gram
+            inputType: InputType.Mass
 
         };
 

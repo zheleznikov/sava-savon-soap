@@ -1,6 +1,6 @@
 import {FC, useState} from "react";
 import {ChevronDown, ChevronUp, Trash2} from "lucide-react";
-import {InputType} from "../../../app/providers/SoapRecipeContext.types";
+import {InputType, measureInputTypeMeta} from "../../../app/providers/SoapRecipeContext.types";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
 import {localization} from "@/shared/config/localization";
@@ -27,6 +27,8 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
     const dispatch = useAppDispatch();
 
+    const {measureInput} = useAppSelector((state) => state.recipe);
+
     const handleToggleAcid = () => dispatch(toggleAcid(acid));
 
     const handleUpdateAcidGram = (newGram: number) =>
@@ -40,7 +42,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
     };
 
 
-    const isGramMode = acid.inputType === InputType.Gram;
+    const isGramMode = acid.inputType === InputType.Mass;
     const isPercentMode = acid.inputType === InputType.Percent;
 
     const {appTheme} = useTheme();
@@ -66,13 +68,13 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                 <div className={layout.bottomRow}>
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
-                            placeholder={t.placeholder_grams}
+                            placeholder={ measureInputTypeMeta[measureInput].ru.full}
                             value={acid.gram || 0}
                             onChange={newGram => handleUpdateAcidGram(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
-                        <span className={theme.unitText}>{t.unit_grams}</span>
+                        <span className={theme.unitText}>{ measureInputTypeMeta[measureInput].ru.short}</span>
                     </div>
 
                     <div className={layout.inputWrapper}>
@@ -89,7 +91,10 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
                     <ToggleButtonGroup
                         options={[
-                            {label: "г", value: InputType.Gram},
+                            {
+                                label: measureInputTypeMeta[measureInput].ru.short,
+                                value: InputType.Mass
+                            },
                             {label: "%", value: InputType.Percent}
 
                         ]}

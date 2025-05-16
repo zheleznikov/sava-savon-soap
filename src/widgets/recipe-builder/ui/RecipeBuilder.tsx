@@ -30,6 +30,7 @@ import {WaterSetup} from "../../../feature/recipe-setup/ui/WaterSetup";
 import {IngredientAdd} from "../../../feature/autocomplete/ui/IngredientAdd";
 import {CustomAddedLine} from "../../../feature/oil-management/ui/CustomAddedLine";
 import {TCustom} from "../../../entities/oil/model/custom.types";
+import {MeasureInputTypeSetup} from "../../../feature/recipe-setup/ui/MeasureInputTypeSetup";
 
 export const RecipeBuilder: FC = () => {
 
@@ -88,8 +89,12 @@ export const RecipeBuilder: FC = () => {
                 {
                     (selectedTab.key === "params" || isSmartphone) &&
                     <>
+                        <div className={"flex gap-2 flex-col md:flex-row"}>
+                            <MeasureInputTypeSetup/>
+                            <SuperfatSetup/>
+
+                        </div>
                         <LyeSetup/>
-                        <SuperfatSetup/>
                         <WaterSetup/>
                     </>
 

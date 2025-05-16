@@ -13,8 +13,9 @@ import {
     updateCustomPercentWithGramRecalculation
 } from "../../recipe-calculation/model/recipeSlice";
 import {ToggleButtonGroup} from "../../../shared/ui/ToggleButtonGroup";
-import {InputType} from "../../../app/providers/SoapRecipeContext.types";
+import {InputType, measureInputTypeMeta} from "../../../app/providers/SoapRecipeContext.types";
 import {TCustom} from "../../../entities/oil/model/custom.types";
+import {useAppSelector} from "../../../shared/useAppSelector";
 
 
 interface Props {
@@ -23,6 +24,8 @@ interface Props {
 export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
 
     const dispatch = useAppDispatch();
+
+    const {measureInput} = useAppSelector((state) => state.recipe);
 
     const handleToggleAdd = (add: TCustom) => dispatch(toggleCustom(add));
 
@@ -42,7 +45,7 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
         dispatch(setCustomInputType({customId: customIngredient.id, inputType}));
     };
 
-    const isGramMode = customIngredient.inputType === InputType.Gram;
+    const isGramMode = customIngredient.inputType === InputType.Mass;
     const isPercentMode = customIngredient.inputType === InputType.Percent;
 
     return (
@@ -59,13 +62,13 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
                 <div className={layout.bottomRow}>
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
-                            placeholder={t.placeholder_grams}
+                            placeholder={ measureInputTypeMeta[measureInput].ru.full}
                             value={customIngredient.gram || 0}
                             onChange={newGram => handleUpdateCustomGram(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
-                        <span className={theme.unitText}>{t.unit_grams}</span>
+                        <span className={theme.unitText}>{ measureInputTypeMeta[measureInput].ru.short}</span>
                     </div>
 
                     <div className={layout.inputWrapper}>
@@ -82,7 +85,10 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
 
                     <ToggleButtonGroup
                         options={[
-                            {label: "г", value: InputType.Gram},
+                            {
+                                label: measureInputTypeMeta[measureInput].ru.short,
+                                value: InputType.Mass
+                            },
                             {label: "%", value: InputType.Percent}
 
                         ]}

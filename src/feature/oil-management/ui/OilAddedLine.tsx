@@ -1,7 +1,7 @@
 import {FC, useState} from "react";
 import {ChevronDown, ChevronUp, Trash2} from "lucide-react";
 import {TOil} from "../../../entities/oil/model/oil.types";
-import {InputType} from "../../../app/providers/SoapRecipeContext.types";
+import {InputType, measureInputTypeMeta} from "../../../app/providers/SoapRecipeContext.types";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {oilAddedLineStyles} from "../styles/OilAddedLine.styes";
 import {localization} from "@/shared/config/localization";
@@ -24,7 +24,7 @@ interface Props {
 export const OilAddedLine: FC<Props> = ({oil}) => {
     const dispatch = useAppDispatch();
 
-    const {oilInputType, totalOilAmount} = useAppSelector((state) => state.recipe);
+    const {oilInputType, totalOilAmount, measureInput} = useAppSelector((state) => state.recipe);
 
     const handleToggleOil = () => dispatch(toggleOil(oil));
 
@@ -34,7 +34,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
     const handleUpdateOilPercent = (newPercent: number) =>
         dispatch(updateOilPercentWithGramRecalculation({ oilId: oil.id, newPercent, totalOilMass: totalOilAmount }));
 
-    const isGramMode = oilInputType === InputType.Gram;
+    const isGramMode = oilInputType === InputType.Mass;
     const isPercentMode = oilInputType === InputType.Percent;
 
     const {appTheme} = useTheme();
@@ -60,13 +60,13 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                 <div className={layout.bottomRow}>
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
-                            placeholder={t.placeholder_grams}
+                            placeholder={measureInputTypeMeta[measureInput].ru.full}
                             value={oil.gram || 0}
                             onChange={newGram => handleUpdateOilGram(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}
                         />
-                        <span className={theme.unitText}>{t.unit_grams}</span>
+                        <span className={theme.unitText}>{measureInputTypeMeta[measureInput].ru.short}</span>
                     </div>
 
                     <div className={layout.inputWrapper}>

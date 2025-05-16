@@ -5,14 +5,19 @@ import {localization} from "../../../shared/config/localization";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 import {TAcid} from "../../../entities/oil/model/acids.types";
 import {TCustom} from "../../../entities/oil/model/custom.types";
+import {
+    MeasureInputType,
+    measureInputTypeMeta
+} from "../../../app/providers/SoapRecipeContext.types";
 
 
 interface Props {
     selectedCustoms: TCustom[];
     totalCustomAmount: number;
+    measureInput: MeasureInputType
 }
 
-export const CustomList: FC<Props> = ({selectedCustoms, totalCustomAmount}) => {
+export const CustomList: FC<Props> = ({selectedCustoms, totalCustomAmount, measureInput}) => {
 
     const t = localization.ru.custom_list;
 
@@ -29,7 +34,7 @@ export const CustomList: FC<Props> = ({selectedCustoms, totalCustomAmount}) => {
                     <li key={custom.id} className={getRowClass(index)}>
                         <span className={styles.name}>{custom.name_rus}</span>
                         <span className={styles.percent}>{formatNumber(custom.percent, 0)}{t.percent_unit}</span>
-                        <span className={styles.gram}>{formatNumber(custom.gram, 0)} {t.gram_unit}</span>
+                        <span className={styles.gram}>{formatNumber(custom.gram, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
                     </li>
                 ))}
             </ul>
@@ -37,7 +42,7 @@ export const CustomList: FC<Props> = ({selectedCustoms, totalCustomAmount}) => {
             <div className={styles.summary}>
                 <span className={styles.summaryLabel}>{t.summary_label}</span>
                 <span className={styles.summaryPercent}>—</span>
-                <span className={styles.summaryGram}>{formatNumber(totalCustomAmount, 0)} {t.gram_unit}</span>
+                <span className={styles.summaryGram}>{formatNumber(totalCustomAmount, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
             </div>
         </div>
     );

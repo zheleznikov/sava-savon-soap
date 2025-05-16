@@ -1,12 +1,10 @@
-import {FC, useEffect, useRef} from "react";
+import {FC} from "react";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
-import {InputBlockWrapper} from "../../../shared";
+import {InputBlockWrapper, SmartNumberInput} from "../../../shared";
 import {localization} from "../../../shared/config/localization";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 import {useTheme} from "../../../app/providers/ThemeContext";
-import {SmartNumberInput} from "../../../shared";
 import {TAcid} from "../../../entities/oil/model/acids.types";
-import {usePrevious} from "../model/usePrevious";
 
 
 interface ScaleRecipeBlockProps {
@@ -34,8 +32,8 @@ export const ScaleRecipeBlock: FC<ScaleRecipeBlockProps> = ({
     const styles = recipeBlockStyles[appTheme];
     const t = localization.ru.scale;
 
-    const isGramMode = oilInputType === InputType.Gram;
-    const isAcidGramMode = acidInputType === InputType.Gram;
+    const isGramMode = oilInputType === InputType.Mass;
+    const isAcidGramMode = acidInputType === InputType.Mass;
 
     const shouldUseTotal = () =>
         isGramMode || (isAcidGramMode && selectedAcids.length > 0);

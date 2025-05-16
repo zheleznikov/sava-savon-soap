@@ -1,10 +1,16 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {TAcid} from "../../../entities/oil/model/acids.types";
-import {InputType, LyeType, WaterInputType} from "../../../app/providers/SoapRecipeContext.types";
+import {
+    InputType,
+    LyeType,
+    MeasureInputType,
+    WaterInputType
+} from "../../../app/providers/SoapRecipeContext.types";
 import {calculateSoapProperties} from "../libs/calculateSoapProperties";
 import {
-    calculateAcidSum, calculateCustomSum,
+    calculateAcidSum,
+    calculateCustomSum,
     calculateLyeSum,
     calculateOilSum,
     calculateWaterSum,
@@ -25,6 +31,7 @@ interface RecipeState {
     selectedCustoms: TCustom[];
     oilInputType: InputType;
     acidInputType: InputType;
+    measureInput: MeasureInputType
     lyeType: LyeType;
     waterInputType: WaterInputType
     NaOHPurity: number;
@@ -67,8 +74,8 @@ const initialState: RecipeState = {
     // selectedOils: [],
     selectedAcids: [],
     selectedCustoms: [],
-    oilInputType: InputType.Gram,
-    acidInputType: InputType.Gram,
+    oilInputType: InputType.Mass,
+    acidInputType: InputType.Mass,
     lyeType: LyeType.NaOH,
     waterInputType: WaterInputType.WaterAsPercent,
     NaOHPurity: 100,
@@ -97,8 +104,8 @@ const initialState: RecipeState = {
     status: "idle",
     hasEverCalculated: false,
     NaOHPercentageInMixed: 50,
-    KOHPercentageInMixed: 50
-
+    KOHPercentageInMixed: 50,
+    measureInput: MeasureInputType.Gram
 };
 
 export const recipeSlice = createSlice({
@@ -107,6 +114,9 @@ export const recipeSlice = createSlice({
     reducers: {
         setRecipeName: (state, action: PayloadAction<string>) => {
             state.recipeName = action.payload;
+        },
+        setMeasureInput: (state, action: PayloadAction<MeasureInputType>) => {
+            state.measureInput = action.payload;
         },
 
         setSelectedOils: (state, action: PayloadAction<TOil[]>) => {
@@ -278,7 +288,7 @@ export const recipeSlice = createSlice({
                 gram: a.inputType === InputType.Percent && total > 0
                     ? (a.percent / 100) * total
                     : a.gram,
-                percent: a.inputType === InputType.Gram && total > 0
+                percent: a.inputType === InputType.Mass && total > 0
                     ? (a.gram / total) * 100
                     : a.percent
             }));
@@ -288,7 +298,7 @@ export const recipeSlice = createSlice({
                 gram: c.inputType === InputType.Percent && total > 0
                     ? (c.percent / 100) * total
                     : c.gram,
-                percent: c.inputType === InputType.Gram && total > 0
+                percent: c.inputType === InputType.Mass && total > 0
                     ? (c.gram / total) * 100
                     : c.percent
             }));
@@ -343,7 +353,7 @@ export const recipeSlice = createSlice({
                         ? (a.percent / 100) * total
                         : a.gram,
                 percent:
-                    a.inputType === InputType.Gram && total > 0
+                    a.inputType === InputType.Mass && total > 0
                         ? (a.gram / total) * 100
                         : a.percent
             }));
@@ -392,7 +402,7 @@ export const recipeSlice = createSlice({
                         ? (c.percent / 100) * total
                         : c.gram,
                 percent:
-                    c.inputType === InputType.Gram && total > 0
+                    c.inputType === InputType.Mass && total > 0
                         ? (c.gram / total) * 100
                         : c.percent
             }));
@@ -537,7 +547,8 @@ export const {
     toggleCustom,
     setCustomInputType,
     updateCustomGramWithRecalculatedPercents,
-    updateCustomPercentWithGramRecalculation
+    updateCustomPercentWithGramRecalculation,
+    setMeasureInput
 } = recipeSlice.actions;
 
 export default recipeSlice.reducer;

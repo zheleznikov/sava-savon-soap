@@ -5,14 +5,19 @@ import {useTheme} from "../../../app/providers/ThemeContext";
 import {getTotalOilPercent} from "../utils/utils";
 import {localization} from "../../../shared/config/localization";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
+import {
+    MeasureInputType,
+    measureInputTypeMeta
+} from "../../../app/providers/SoapRecipeContext.types";
 
 
 interface Props {
     selectedOils: TOil[];
     totalOilAmount: number;
+    measureInput: MeasureInputType
 }
 
-export const OilsList: FC<Props> = ({selectedOils, totalOilAmount}) => {
+export const OilsList: FC<Props> = ({selectedOils, totalOilAmount, measureInput}) => {
 
     const t = localization.ru.oils_list;
 
@@ -31,7 +36,7 @@ export const OilsList: FC<Props> = ({selectedOils, totalOilAmount}) => {
                     <li key={oil.id} className={getRowClass(index)}>
                         <span className={styles.name}>{oil.name_rus}</span>
                         <span className={styles.percent}>{formatNumber(oil.percent, 0)}{t.percent_unit}</span>
-                        <span className={styles.gram}>{formatNumber(oil.gram, 0)} {t.gram_unit}</span>
+                        <span className={styles.gram}>{formatNumber(oil.gram, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
                     </li>
                 ))}
             </ul>
@@ -39,7 +44,7 @@ export const OilsList: FC<Props> = ({selectedOils, totalOilAmount}) => {
             <div className={styles.summary}>
                 <span className={styles.summaryLabel}>{t.summary_label}</span>
                 <span className={styles.summaryPercent}>{formatNumber(totalPercent, 0)}{t.percent_unit}</span>
-                <span className={styles.summaryGram}>{formatNumber(totalOilAmount, 0)} {t.gram_unit}</span>
+                <span className={styles.summaryGram}>{formatNumber(totalOilAmount, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
             </div>
         </div>
     );

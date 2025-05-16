@@ -1,10 +1,9 @@
 import {FC} from "react";
-import {InputType} from "../../../app/providers/SoapRecipeContext.types";
-import {InputBlockWrapper} from "../../../shared";
+import {InputType, measureInputTypeMeta} from "../../../app/providers/SoapRecipeContext.types";
+import {InputBlockWrapper, SmartNumberInput} from "../../../shared";
 import {clsx} from "clsx";
 import {localization} from "../../../shared/config/localization";
 import {useTheme} from "../../../app/providers/ThemeContext";
-import {SmartNumberInput} from "../../../shared";
 import {useAppDispatch} from "../../../shared/model/useAppDispatch";
 import {useAppSelector} from "../../../shared/useAppSelector";
 import {
@@ -13,7 +12,6 @@ import {
 } from "../../recipe-calculation/model/recipeSlice";
 import {ToggleButtonGroup} from "../../../shared/ui/ToggleButtonGroup";
 import {leySetupStyles} from "../styles/LyeSetup.styles";
-
 
 
 export const OilInputTypeSetup: FC = () => {
@@ -25,16 +23,19 @@ export const OilInputTypeSetup: FC = () => {
     const {
         oilInputType,
         userDefinedTotalWeight,
-        totalResultAmount
+        totalResultAmount,
+        measureInput,
+
     } = useAppSelector((state) => state.recipe);
 
     const handleSetOilInputType = (type: InputType) => dispatch(setOilInputType(type))
-
     const handleSetUserDefinedTotalWeight = (value: number) => dispatch(setUserDefinedTotalWeight(value))
 
     const isPercentMode = oilInputType === InputType.Percent;
     const {appTheme} = useTheme();
     const {layout, theme} = leySetupStyles[appTheme];
+
+
 
     return (
         <InputBlockWrapper className={""}>
@@ -47,8 +48,7 @@ export const OilInputTypeSetup: FC = () => {
 
                     <ToggleButtonGroup
                         options={[
-                            {label: text.button_grams, value: InputType.Gram},
-                            {label: text.button_ounces, value: InputType.Ounces},
+                            {label: measureInputTypeMeta[measureInput].ru.full, value: InputType.Mass},
                             {label: text.button_percent, value: InputType.Percent},
                         ]}
                         onChange={handleSetOilInputType}

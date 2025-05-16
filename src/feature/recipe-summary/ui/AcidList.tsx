@@ -4,14 +4,19 @@ import {useTheme} from "../../../app/providers/ThemeContext";
 import {localization} from "../../../shared/config/localization";
 import {recipeBlockStyles} from "../styles/RecipeBlock.styles";
 import {TAcid} from "../../../entities/oil/model/acids.types";
+import {
+    MeasureInputType,
+    measureInputTypeMeta
+} from "../../../app/providers/SoapRecipeContext.types";
 
 
 interface Props {
     selectedAcids: TAcid[];
     totalAcidAmount: number;
+    measureInput: MeasureInputType
 }
 
-export const AcidList: FC<Props> = ({selectedAcids, totalAcidAmount}) => {
+export const AcidList: FC<Props> = ({selectedAcids, totalAcidAmount, measureInput}) => {
 
     const t = localization.ru.acid_list;
 
@@ -28,7 +33,7 @@ export const AcidList: FC<Props> = ({selectedAcids, totalAcidAmount}) => {
                     <li key={acid.id} className={getRowClass(index)}>
                         <span className={styles.name}>{acid.name_rus}</span>
                         <span className={styles.percent}>{formatNumber(acid.percent, 0)}{t.percent_unit}</span>
-                        <span className={styles.gram}>{formatNumber(acid.gram, 0)} {t.gram_unit}</span>
+                        <span className={styles.gram}>{formatNumber(acid.gram, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
                     </li>
                 ))}
             </ul>
@@ -36,7 +41,7 @@ export const AcidList: FC<Props> = ({selectedAcids, totalAcidAmount}) => {
             <div className={styles.summary}>
                 <span className={styles.summaryLabel}>{t.summary_label}</span>
                 <span className={styles.summaryPercent}>—</span>
-                <span className={styles.summaryGram}>{formatNumber(totalAcidAmount, 0)} {t.gram_unit}</span>
+                <span className={styles.summaryGram}>{formatNumber(totalAcidAmount, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ export const acids: TAcid[] = [
         },
         percent: 0,
         gram: 0,
-        inputType: InputType.Gram
+        inputType: InputType.Mass
     },
     {
         id: 2,
@@ -24,7 +24,7 @@ export const acids: TAcid[] = [
         },
         percent: 0,
         gram: 0,
-        inputType: InputType.Gram
+        inputType: InputType.Mass
 
     },
     {
@@ -37,7 +37,7 @@ export const acids: TAcid[] = [
         },
         percent: 0,
         gram: 0,
-        inputType: InputType.Gram
+        inputType: InputType.Mass
 
     },
     {
@@ -50,7 +50,7 @@ export const acids: TAcid[] = [
         },
         percent: 0,
         gram: 0,
-        inputType: InputType.Gram
+        inputType: InputType.Mass
 
     },
     {
@@ -63,7 +63,7 @@ export const acids: TAcid[] = [
         },
         percent: 0,
         gram: 0,
-        inputType: InputType.Gram
+        inputType: InputType.Mass
 
     }
 ];

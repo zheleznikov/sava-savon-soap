@@ -18,7 +18,6 @@ import {useAppSelector} from "../../shared/useAppSelector";
 import {useAppDispatch} from "../../shared/model/useAppDispatch";
 import {InputType} from "../../app/providers/SoapRecipeContext.types";
 import {
-    setAcidInputType,
     setOilInputType,
     setRecipeName,
     setUserDefinedTotalWeight
@@ -93,7 +92,7 @@ export const RecipeSummaryBlock: FC = () => {
             iodine
         },
         status,
-        hasEverCalculated,
+        hasEverCalculated, measureInput,
         selectedCustoms, totalCustomAmount
     } = useAppSelector((state) => state.recipe);
 
@@ -151,11 +150,14 @@ export const RecipeSummaryBlock: FC = () => {
                                                 selectedOils={selectedOils}
                                                 totalNaOHAmount={totalNaOHAmount}
                                                 totalKOHAmount={totalKOHAmount}
+                                                measureInput={measureInput}
                                             />
 
                                             <OilsList
                                                 selectedOils={selectedOils}
                                                 totalOilAmount={totalOilAmount}
+                                                measureInput={measureInput}
+
                                             />
 
 
@@ -163,6 +165,8 @@ export const RecipeSummaryBlock: FC = () => {
                                                 <AcidList
                                                     selectedAcids={selectedAcids}
                                                     totalAcidAmount={totalAcidAmount}
+                                                    measureInput={measureInput}
+
                                                 />
                                             )}
 
@@ -171,10 +175,14 @@ export const RecipeSummaryBlock: FC = () => {
                                                 <CustomList
                                                     selectedCustoms={selectedCustoms}
                                                     totalCustomAmount={totalCustomAmount || 0}
+                                                    measureInput={measureInput}
+
                                                 />)
                                             }
 
-                                            <ResultSummary totalResultAmount={totalResultAmount}/>
+                                            <ResultSummary totalResultAmount={totalResultAmount}
+                                                           measureInput={measureInput}
+                                            />
 
                                         </InputBlockWrapper>
 
