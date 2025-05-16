@@ -11,7 +11,7 @@ export const RecipeTitleSetup: FC = () => {
 
 
     const dispatch = useAppDispatch();
-    const recipeName = useAppSelector((state) => state.recipe.recipeName);
+    const recipeName = useAppSelector((state) => state.recipe.input.description.recipeName);
 
     const handleChange = (value: string) => {
         dispatch(setRecipeName(value));

@@ -27,7 +27,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
     const dispatch = useAppDispatch();
 
-    const {measureInput} = useAppSelector((state) => state.recipe);
+    const {measureInput} = useAppSelector((state) => state.recipe.input.params);
 
     const handleToggleAcid = () => dispatch(toggleAcid(acid));
 

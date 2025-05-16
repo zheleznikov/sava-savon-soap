@@ -34,7 +34,7 @@ export const WaterSetup: FC = () => {
 
     const {appTheme} = useTheme();
     const {layout, theme} = leySetupStyles[appTheme];
-    const {waterPercent, waterInputType, waterLyeRatio, lyeConcentration} = useAppSelector((state) => state.recipe);
+    const {waterPercent, waterInputType, waterLyeRatio, lyeConcentration} = useAppSelector((state) => state.recipe.input.params.waterInput);
 
     const isWaterAsPercentMode = waterInputType === WaterInputType.WaterAsPercent;
     const isWaterLyeRatioMode = waterInputType === WaterInputType.WaterLyeRatio;

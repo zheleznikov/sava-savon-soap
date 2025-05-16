@@ -12,7 +12,8 @@ import {localization} from "@/shared/config/localization";
 import {useAppSelector} from "../../../shared/useAppSelector";
 
 export const PercentProgressBar: FC = () => {
-    const {selectedOils, oilInputType} = useAppSelector((state) => state.recipe);
+    const { selectedOils } = useAppSelector((state) => state.recipe.input.ingredients);
+    const { oilInputType } = useAppSelector((state) => state.recipe.input.params);
 
     const percentSum = calculatePercentSum(selectedOils);
     const isPercentMode = oilInputType === InputType.Percent;

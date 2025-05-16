@@ -23,10 +23,11 @@ export const OilInputTypeSetup: FC = () => {
     const {
         oilInputType,
         userDefinedTotalWeight,
-        totalResultAmount,
-        measureInput,
+        measureInput
+    } = useAppSelector((state) => state.recipe.input.params);
 
-    } = useAppSelector((state) => state.recipe);
+    const { totalResultAmount } = useAppSelector((state) => state.recipe.output.total);
+
 
     const handleSetOilInputType = (type: InputType) => dispatch(setOilInputType(type))
     const handleSetUserDefinedTotalWeight = (value: number) => dispatch(setUserDefinedTotalWeight(value))

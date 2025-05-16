@@ -39,13 +39,16 @@ export const RecipeBuilder: FC = () => {
     const {
         selectedOils,
         selectedAcids,
-        selectedCustoms,
+        selectedCustoms
+    } = useAppSelector((state) => state.recipe.input.ingredients);
+
+    const {
         oilInputType,
-        acidInputType,
-        userDefinedTotalWeight,
-        totalResultAmount
-    } =
-        useAppSelector((state) => state.recipe);
+        userDefinedTotalWeight
+    } = useAppSelector((state) => state.recipe.input.params);
+
+    const { totalResultAmount } = useAppSelector((state) => state.recipe.output.total);
+
 
     const handleToggleOil = (oil: TOil) => dispatch(toggleOil(oil));
     const handleToggleAcid = (acid: TAcid) => dispatch(toggleAcid(acid));

@@ -21,7 +21,7 @@ export const SuperfatSetup: FC = () => {
     const {appTheme} = useTheme();
     const {layout, theme} = leySetupStyles[appTheme];
 
-    const {superfatPercent} = useAppSelector((state) => state.recipe);
+    const {superfatPercent} = useAppSelector((state) => state.recipe.input.params);
 
 
     return (

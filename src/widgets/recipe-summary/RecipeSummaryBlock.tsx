@@ -69,13 +69,24 @@ export const RecipeSummaryBlock: FC = () => {
     const {
         selectedOils,
         selectedAcids,
+        selectedCustoms
+    } = useAppSelector((state) => state.recipe.input.ingredients);
+
+    const {
         oilInputType,
-        acidInputType,
-        lyeType,
-        waterPercent,
         superfatPercent,
         userDefinedTotalWeight,
-        recipeName,
+        measureInput
+    } = useAppSelector((state) => state.recipe.input.params);
+
+    const {lyeType} = useAppSelector((state) => state.recipe.input.params.lyeTypeInput)
+    const {waterPercent} = useAppSelector((state) => state.recipe.input.params.waterInput)
+
+    const {
+        recipeName
+    } = useAppSelector((state) => state.recipe.input.description);
+
+    const {
         totalLyeAmount,
         totalWaterAmount,
         totalResultAmount,
@@ -83,18 +94,23 @@ export const RecipeSummaryBlock: FC = () => {
         totalAcidAmount,
         totalNaOHAmount,
         totalKOHAmount,
-        soapProperties: {
-            hardness,
-            cleansing,
-            soften,
-            bubbling,
-            creaminess,
-            iodine
-        },
+        totalCustomAmount
+    } = useAppSelector((state) => state.recipe.output.total);
+
+    const {
+        hardness,
+        cleansing,
+        soften,
+        bubbling,
+        creaminess,
+        iodine
+    } = useAppSelector((state) => state.recipe.output.soapProperties);
+
+    const {
         status,
-        hasEverCalculated, measureInput,
-        selectedCustoms, totalCustomAmount
-    } = useAppSelector((state) => state.recipe);
+        hasEverCalculated
+    } = useAppSelector((state) => state.recipe.status);
+
 
     const handleSetOilInputType = (type: InputType) => dispatch(setOilInputType(type));
     const handleSetUserDefinedWeight = (weight: number) => dispatch(setUserDefinedTotalWeight(weight));

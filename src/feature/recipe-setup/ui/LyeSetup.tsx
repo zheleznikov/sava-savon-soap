@@ -43,7 +43,7 @@ export const LyeSetup: FC = () => {
         KOHPurity,
         NaOHPercentageInMixed,
         KOHPercentageInMixed
-    } = useAppSelector((state) => state.recipe);
+    } = useAppSelector((state) => state.recipe.input.params.lyeTypeInput);
 
     const isNaOHMode = lyeType === LyeType.NaOH;
     const isKOHMode = lyeType === LyeType.KOH;

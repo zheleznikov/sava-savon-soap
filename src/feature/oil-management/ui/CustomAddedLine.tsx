@@ -25,7 +25,7 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
 
     const dispatch = useAppDispatch();
 
-    const {measureInput} = useAppSelector((state) => state.recipe);
+    const {measureInput} = useAppSelector((state) => state.recipe.input.params);
 
     const handleToggleAdd = (add: TCustom) => dispatch(toggleCustom(add));
 

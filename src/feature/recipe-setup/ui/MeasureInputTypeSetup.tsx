@@ -17,7 +17,7 @@ export const MeasureInputTypeSetup: FC = () => {
 
     const dispatch = useAppDispatch();
 
-    const {measureInput} = useAppSelector((state) => state.recipe);
+    const {measureInput} = useAppSelector((state) => state.recipe.input.params);
 
     const handleSetMeasureInputType = (type: MeasureInputType) => dispatch(setMeasureInput(type))
 

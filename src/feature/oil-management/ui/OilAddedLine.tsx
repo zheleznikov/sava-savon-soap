@@ -24,7 +24,8 @@ interface Props {
 export const OilAddedLine: FC<Props> = ({oil}) => {
     const dispatch = useAppDispatch();
 
-    const {oilInputType, totalOilAmount, measureInput} = useAppSelector((state) => state.recipe);
+    const { oilInputType, measureInput } = useAppSelector((state) => state.recipe.input.params);
+    const { totalOilAmount } = useAppSelector((state) => state.recipe.output.total);
 
     const handleToggleOil = () => dispatch(toggleOil(oil));
 

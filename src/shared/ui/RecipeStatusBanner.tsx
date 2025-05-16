@@ -8,8 +8,8 @@ interface Props {
 }
 
 export const RecipeStatusBanner: FC<Props> = ({ children }) => {
-    const status = useAppSelector((state) => state.recipe.status);
-    const hasEverCalculated = useAppSelector((state) => state.recipe.hasEverCalculated);
+    const { status, hasEverCalculated } = useAppSelector((state) => state.recipe.status);
+
 
     const dispatch = useAppDispatch();
     const handleCalculate = () => dispatch(calculateRecipe());
