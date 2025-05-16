@@ -6,6 +6,7 @@ const themeLight = {
     buttonHover: colors.light.radioHover,
     buttonActiveBg: `bg-${colors.light.accentColor}`,
     buttonActiveText: colors.light.radioActiveText,
+    // buttonActiveBorder: `border-indigo-500`
     buttonActiveBorder: `border-${colors.light.accentColor}`
 };
 
@@ -15,7 +16,9 @@ const themeDark = {
     buttonHover: colors.dark.radioHover,
     buttonActiveBg: `bg-${colors.dark.accentColor}`,
     buttonActiveText: colors.dark.radioActiveText,
+    // buttonActiveBorder: `border-emerald-400`
     buttonActiveBorder: `border-${colors.dark.accentColor}`
+
 
 };
 

@@ -24,6 +24,7 @@ import {
     setUserDefinedTotalWeight
 } from "../../feature/recipe-calculation/model/recipeSlice";
 import {RecipeStatusBanner} from "../../shared/ui/RecipeStatusBanner";
+import {CustomList} from "../../feature/recipe-summary/ui/CustomList";
 
 export const RecipeSummaryBlock: FC = () => {
 
@@ -92,7 +93,8 @@ export const RecipeSummaryBlock: FC = () => {
             iodine
         },
         status,
-        hasEverCalculated
+        hasEverCalculated,
+        selectedCustoms, totalCustomAmount
     } = useAppSelector((state) => state.recipe);
 
     const handleSetOilInputType = (type: InputType) => dispatch(setOilInputType(type));
@@ -156,7 +158,6 @@ export const RecipeSummaryBlock: FC = () => {
                                                 totalOilAmount={totalOilAmount}
                                             />
 
-                                            <ResultSummary totalResultAmount={totalResultAmount}/>
 
                                             {selectedAcids.length > 0 && (
                                                 <AcidList
@@ -164,6 +165,17 @@ export const RecipeSummaryBlock: FC = () => {
                                                     totalAcidAmount={totalAcidAmount}
                                                 />
                                             )}
+
+                                            {
+                                                selectedCustoms.length > 0 && (
+                                                <CustomList
+                                                    selectedCustoms={selectedCustoms}
+                                                    totalCustomAmount={totalCustomAmount || 0}
+                                                />)
+                                            }
+
+                                            <ResultSummary totalResultAmount={totalResultAmount}/>
+
                                         </InputBlockWrapper>
 
 

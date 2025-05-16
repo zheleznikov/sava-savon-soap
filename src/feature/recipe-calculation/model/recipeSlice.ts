@@ -4,7 +4,7 @@ import {TAcid} from "../../../entities/oil/model/acids.types";
 import {InputType, LyeType, WaterInputType} from "../../../app/providers/SoapRecipeContext.types";
 import {calculateSoapProperties} from "../libs/calculateSoapProperties";
 import {
-    calculateAcidSum,
+    calculateAcidSum, calculateCustomSum,
     calculateLyeSum,
     calculateOilSum,
     calculateWaterSum,
@@ -12,7 +12,6 @@ import {
     scaleRecipeToTotalWeightDevelop
 } from "../libs/calcRecipeUtils";
 import {oils} from "../../../entities/oil/model/oils";
-import {TIngredientBase} from "../../../entities/oil/model/ingredient.types";
 import {TCustom} from "../../../entities/oil/model/custom.types";
 
 export type RecipeStatus = "idle" | "dirty" | "calculating" | "ready";
@@ -48,6 +47,7 @@ interface RecipeState {
     totalResultAmount: number;
     status: RecipeStatus;
     hasEverCalculated: boolean;
+    totalCustomAmount?: number
 
 }
 
@@ -63,8 +63,8 @@ interface SoapProperties {
 
 const initialState: RecipeState = {
     recipeName: "",
-    // selectedOils: [...defaultSelectedOils],
-    selectedOils: [],
+    selectedOils: [...defaultSelectedOils],
+    // selectedOils: [],
     selectedAcids: [],
     selectedCustoms: [],
     oilInputType: InputType.Gram,
@@ -434,13 +434,11 @@ export const recipeSlice = createSlice({
 
             state.totalOilAmount = oilSum;
 
-            const acidSum = calculateAcidSum({
-                selectedAcids: state.selectedAcids,
-                acidInputType: state.acidInputType,
-                totalOilAmount: oilSum
-            });
-
+            const acidSum = calculateAcidSum(state.selectedAcids);
             state.totalAcidAmount = acidSum;
+
+            const customSum = calculateCustomSum(state.selectedCustoms);
+            state.totalCustomAmount = customSum;
 
             const lyeSum = calculateLyeSum({
                 selectedOils: state.selectedOils,
@@ -468,7 +466,7 @@ export const recipeSlice = createSlice({
 
             state.totalWaterAmount = waterSum;
 
-            const total = oilSum + lyeSum.total + waterSum + acidSum;
+            const total = oilSum + lyeSum.total + waterSum + acidSum + customSum;
             state.totalResultAmount = total;
 
             // Масштабирование, если ввод в процентах
@@ -506,15 +504,6 @@ export const recipeSlice = createSlice({
 
             state.status = "ready";
             state.hasEverCalculated = true;
-        },
-        updateOilSum: (state) => {
-            state.totalOilAmount = calculateOilSum({
-                selectedOils: state.selectedOils,
-                oilInputType: state.oilInputType,
-                userDefinedTotalWeight: state.userDefinedTotalWeight,
-                waterPercent: state.waterPercent,
-                superfatPercent: state.superfatPercent
-            });
         }
     }
 });

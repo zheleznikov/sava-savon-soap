@@ -125,6 +125,12 @@ export const localization = {
             percent_unit: "%",
             gram_unit: "г"
         },
+        custom_list: {
+            title: "Добавки",
+            summary_label: "Общая масса",
+            percent_unit: "%",
+            gram_unit: "г"
+        },
         parameters: {
             title: "Параметры ввода",
             superfat: "Пережир",

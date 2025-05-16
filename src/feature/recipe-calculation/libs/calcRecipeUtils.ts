@@ -1,6 +1,7 @@
 import {InputType, LyeType, WaterInputType} from "../../../app/providers/SoapRecipeContext.types";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {TAcid} from "../../../entities/oil/model/acids.types";
+import {TCustom} from "../../../entities/oil/model/custom.types";
 
 type CalculateOilSumParams = {
     selectedOils: TOil[];
@@ -49,40 +50,14 @@ export const calculateOilSum = (
     return 0;
 }
 
-type CalculateAcidSumParams = {
-    selectedAcids: TAcid[];
-    acidInputType: InputType;
-    totalOilAmount: number; // масса масел — нужна для расчёта процентов
+
+
+export const calculateAcidSum = ( selectedAcids: TAcid[]): number => {
+    return selectedAcids.reduce((acc, acid) => acc + (acid.gram || 0), 0);
 };
 
-export const calculateAcidSum = ({
-    selectedAcids,
-    acidInputType,
-    totalOilAmount,
-}: CalculateAcidSumParams): number => {
-
-    switch (acidInputType) {
-        case InputType.Gram: {
-            return selectedAcids.reduce((acc, acid) => acc + (acid.gram || 0), 0);
-        }
-
-        case InputType.Percent: {
-            const hasGrams = selectedAcids.every(acid => acid.gram && acid.gram > 0);
-
-            if (hasGrams) {
-                return selectedAcids.reduce((acc, acid) => acc + (acid.gram || 0), 0);
-            }
-
-            const totalPercent = selectedAcids.reduce((sum, acid) => sum + (acid.percent || 0), 0);
-
-            if (isValidPercentRange(totalPercent)) {
-                return selectedAcids.reduce((sum, acid) =>
-                    sum + (acid.percent || 0) / 100 * totalOilAmount, 0);
-            }
-        }
-    }
-
-    return 0;
+export const calculateCustomSum = ( selectedCustoms: TCustom[]): number => {
+    return selectedCustoms.reduce((acc, custom) => acc + (custom.gram || 0), 0);
 };
 
 
