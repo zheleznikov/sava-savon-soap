@@ -22,15 +22,15 @@ export const calculateOilSum = (
 
     switch (oilInputType) {
         case InputType.Mass: {  // Суммируем вес всех масел
-            return selectedOils.reduce((acc, oil) => acc + (oil.gram || 0), 0);
+            return selectedOils.reduce((acc, oil) => acc + (oil.mass || 0), 0);
         }
 
         case InputType.Percent: { // Рассчитываем массу масел из общей массы мыла
 
-            const hasGrams = selectedOils.every(oil => oil.gram && oil.gram > 0);
+            const hasGrams = selectedOils.every(oil => oil.mass && oil.mass > 0);
 
             if (hasGrams) {
-                return selectedOils.reduce((acc, oil) => acc + (oil.gram || 0), 0);
+                return selectedOils.reduce((acc, oil) => acc + (oil.mass || 0), 0);
             }
 
             const totalEnteredPercent = selectedOils.reduce((sum, oil) => sum + (oil.percent || 0), 0);
@@ -53,11 +53,11 @@ export const calculateOilSum = (
 
 
 export const calculateAcidSum = ( selectedAcids: TAcid[]): number => {
-    return selectedAcids.reduce((acc, acid) => acc + (acid.gram || 0), 0);
+    return selectedAcids.reduce((acc, acid) => acc + (acid.mass || 0), 0);
 };
 
 export const calculateCustomSum = ( selectedCustoms: TCustom[]): number => {
-    return selectedCustoms.reduce((acc, custom) => acc + (custom.gram || 0), 0);
+    return selectedCustoms.reduce((acc, custom) => acc + (custom.mass || 0), 0);
 };
 
 
@@ -114,7 +114,7 @@ export const calculateLyeForOil = (
     NaOHPercentageInMixed: number,
     KOHPercentageInMixed: number
 ): { naoh: number, koh: number } => {
-    const weight = oil.gram || 0;
+    const weight = oil.mass || 0;
 
     if (lyeType === LyeType.Mixed) {
         const sapNaOH = oil.sap.naoh;
@@ -144,7 +144,7 @@ export const calculateLyeForAcid = (
     NaOHPercentageInMixed: number,
     KOHPercentageInMixed: number
 ): { naoh: number, koh: number } => {
-    const weight = acid.gram || 0;
+    const weight = acid.mass || 0;
 
     if (lyeType === LyeType.Mixed) {
         const naoh = weight * acid.neutralization.naoh * (NaOHPercentageInMixed / 100) / (NaOHPurity / 100);
@@ -214,7 +214,7 @@ export const scaleRecipeToTotalWeight = ({
 }: TScaleReipe): TOil[] => {
     let oils = [...selectedOils];
 
-    const totalOil = oils.reduce((sum, oil) => sum + (oil.gram || 0), 0);
+    const totalOil = oils.reduce((sum, oil) => sum + (oil.mass || 0), 0);
 
     // Если у масел нет грамм, но есть проценты — рассчитываем граммы предварительно
     if (totalOil === 0) {
@@ -229,7 +229,7 @@ export const scaleRecipeToTotalWeight = ({
             // Назначим граммы по долям
             oils = oils.map((oil) => ({
                 ...oil,
-                gram: (oil.percent / 100) * oilMassEstimate,
+                mass: (oil.percent / 100) * oilMassEstimate,
             }));
 
         } else {
@@ -239,11 +239,11 @@ export const scaleRecipeToTotalWeight = ({
     }
 
     // Теперь масштабируем как обычно
-    const oilMass = oils.reduce((sum, oil) => sum + (oil.gram || 0), 0);
+    const oilMass = oils.reduce((sum, oil) => sum + (oil.mass || 0), 0);
 
     const totalLye = oils.reduce((sum, oil) => {
         const sap = getOilSAP(oil, lyeType);
-        return sum + (oil.gram || 0) * sap * (1 - superfatPercent / 100);
+        return sum + (oil.mass || 0) * sap * (1 - superfatPercent / 100);
     }, 0);
 
     const totalWater = oilMass * (waterPercent / 100);
@@ -255,7 +255,7 @@ export const scaleRecipeToTotalWeight = ({
 
     return oils.map((oil) => ({
         ...oil,
-        gram: (oil.gram || 0) * scale,
+        mass: (oil.mass || 0) * scale,
     }));
 };
 
@@ -266,10 +266,10 @@ export const isValidPercentRange = (totalEnteredPercent: number): boolean => {
 
 
 export const recalculatePercents = (oils: TOil[]): TOil[] => {
-    const totalGram = oils.reduce((sum, o) => sum + (o.gram || 0), 0);
+    const totalGram = oils.reduce((sum, o) => sum + (o.mass || 0), 0);
     return oils.map(o => ({
         ...o,
-        percent: totalGram > 0 ? (o.gram / totalGram) * 100 : 0,
+        percent: totalGram > 0 ? (o.mass / totalGram) * 100 : 0,
     }));
 };
 
@@ -309,7 +309,7 @@ export const scaleRecipeToTotalWeightDevelop = ({
     let oils = [...selectedOils];
     let acids = [...selectedAcids];
 
-    const totalOil = oils.reduce((sum, oil) => sum + (oil.gram || 0), 0);
+    const totalOil = oils.reduce((sum, oil) => sum + (oil.mass || 0), 0);
 
     // 1. Если граммы масел отсутствуют — рассчитаем их из процентов
     if (totalOil === 0) {
@@ -323,34 +323,34 @@ export const scaleRecipeToTotalWeightDevelop = ({
 
             oils = oils.map((oil) => ({
                 ...oil,
-                gram: (oil.percent / 100) * oilMassEstimate,
+                mass: (oil.percent / 100) * oilMassEstimate,
             }));
         } else {
             return {oils: selectedOils, acids: selectedAcids};
         }
     }
 
-    const oilMass = oils.reduce((sum, oil) => sum + (oil.gram || 0), 0);
+    const oilMass = oils.reduce((sum, oil) => sum + (oil.mass || 0), 0);
 
     // 2. Кислоты: пересчитываем граммы из процентов, если требуется
     if (acidInputType === InputType.Percent) {
         acids = acids.map((acid) => ({
             ...acid,
-            gram: (acid.percent / 100) * oilMass,
+            mass: (acid.percent / 100) * oilMass,
         }));
     }
 
-    const totalAcid = acids.reduce((sum, acid) => sum + (acid.gram || 0), 0);
+    const totalAcid = acids.reduce((sum, acid) => sum + (acid.mass || 0), 0);
 
     // 3. Рассчитываем щёлочь и воду
     const totalLyeFromOils = oils.reduce((sum, oil) => {
         const sap = getOilSAP(oil, lyeType);
-        return sum + (oil.gram || 0) * sap * (1 - superfatPercent / 100);
+        return sum + (oil.mass || 0) * sap * (1 - superfatPercent / 100);
     }, 0);
 
     const totalLyeFromAcids = acids.reduce((sum, acid) => {
         const neutralization = getAcidNeutralization(acid, lyeType);
-        return sum + (acid.gram || 0) * neutralization;
+        return sum + (acid.mass || 0) * neutralization;
     }, 0);
 
     const totalLye = totalLyeFromOils + totalLyeFromAcids;
@@ -366,12 +366,12 @@ export const scaleRecipeToTotalWeightDevelop = ({
     // 4. Масштабируем масла и кислоты
     const scaledOils = oils.map((oil) => ({
         ...oil,
-        gram: (oil.gram || 0) * scale,
+        gram: (oil.mass || 0) * scale,
     }));
 
     const scaledAcids = acids.map((acid) => ({
         ...acid,
-        gram: (acid.gram || 0) * scale,
+        gram: (acid.mass || 0) * scale,
     }));
 
     return {oils: scaledOils, acids: scaledAcids};

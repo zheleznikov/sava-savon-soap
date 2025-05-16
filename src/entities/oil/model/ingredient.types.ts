@@ -3,13 +3,6 @@ export type TIngredientBase = {
     name_rus: string;
     name_eng: string;
     percent: number;
-    gram: number;
+    mass: number;
 };
 
-
-export type CustomIngredient = {
-    id: number;
-    name: string;
-    percent: number;
-    gram: number;
-};

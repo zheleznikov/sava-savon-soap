@@ -221,11 +221,11 @@ export const recipeSlice = createSlice({
                 ? state.selectedOils.filter((o) => o.id !== oil.id)
                 : [...state.selectedOils, oil];
 
-            const total = updated.reduce((sum, o) => sum + (o.gram || 0), 0);
+            const total = updated.reduce((sum, o) => sum + (o.mass || 0), 0);
 
             state.selectedOils = updated.map((o) => ({
                 ...o,
-                percent: total > 0 ? (o.gram / total) * 100 : 0
+                percent: total > 0 ? (o.mass / total) * 100 : 0
             }));
 
             state.totalOilAmount = calculateOilSum({
@@ -268,11 +268,11 @@ export const recipeSlice = createSlice({
                 o.id === oilId ? {...o, gram: newGram} : o
             );
 
-            const total = updated.reduce((sum, o) => sum + (o.gram || 0), 0);
+            const total = updated.reduce((sum, o) => sum + (o.mass || 0), 0);
 
             state.selectedOils = updated.map((o) => ({
                 ...o,
-                percent: total > 0 ? (o.gram / total) * 100 : 0
+                percent: total > 0 ? (o.mass / total) * 100 : 0
             }));
 
             state.totalOilAmount = calculateOilSum({
@@ -287,9 +287,9 @@ export const recipeSlice = createSlice({
                 ...a,
                 gram: a.inputType === InputType.Percent && total > 0
                     ? (a.percent / 100) * total
-                    : a.gram,
+                    : a.mass,
                 percent: a.inputType === InputType.Mass && total > 0
-                    ? (a.gram / total) * 100
+                    ? (a.mass / total) * 100
                     : a.percent
             }));
 
@@ -297,9 +297,9 @@ export const recipeSlice = createSlice({
                 ...c,
                 gram: c.inputType === InputType.Percent && total > 0
                     ? (c.percent / 100) * total
-                    : c.gram,
+                    : c.mass,
                 percent: c.inputType === InputType.Mass && total > 0
-                    ? (c.gram / total) * 100
+                    ? (c.mass / total) * 100
                     : c.percent
             }));
 
@@ -351,10 +351,10 @@ export const recipeSlice = createSlice({
                 gram:
                     a.inputType === InputType.Percent && total > 0
                         ? (a.percent / 100) * total
-                        : a.gram,
+                        : a.mass,
                 percent:
                     a.inputType === InputType.Mass && total > 0
-                        ? (a.gram / total) * 100
+                        ? (a.mass / total) * 100
                         : a.percent
             }));
 
@@ -400,10 +400,10 @@ export const recipeSlice = createSlice({
                 gram:
                     c.inputType === InputType.Percent && total > 0
                         ? (c.percent / 100) * total
-                        : c.gram,
+                        : c.mass,
                 percent:
                     c.inputType === InputType.Mass && total > 0
-                        ? (c.gram / total) * 100
+                        ? (c.mass / total) * 100
                         : c.percent
             }));
 
@@ -501,8 +501,8 @@ export const recipeSlice = createSlice({
                         acidInputType: state.acidInputType
                     });
 
-                    const hasOilChanged = updatedOils.some((o, i) => o.gram !== state.selectedOils[i]?.gram);
-                    const hasAcidChanged = updatedAcids.some((a, i) => a.gram !== state.selectedAcids[i]?.gram);
+                    const hasOilChanged = updatedOils.some((o, i) => o.mass !== state.selectedOils[i]?.mass);
+                    const hasAcidChanged = updatedAcids.some((a, i) => a.mass !== state.selectedAcids[i]?.mass);
 
                     if (hasOilChanged) state.selectedOils = updatedOils;
                     if (hasAcidChanged) state.selectedAcids = updatedAcids;

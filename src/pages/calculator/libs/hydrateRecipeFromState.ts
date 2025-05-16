@@ -18,7 +18,7 @@ export function hydrateRecipeFromState(state: HydrationInput, oils: TOil[]) {
     const realSelectedOils = state.selectedOils.map(oilFromState => {
         const realOil = oils.find(o => o.id === oilFromState.id);
         return realOil
-            ? { ...realOil, gram: oilFromState.gram, percent: oilFromState.percent }
+            ? { ...realOil, gram: oilFromState.mass, percent: oilFromState.percent }
             : oilFromState;
     });
 

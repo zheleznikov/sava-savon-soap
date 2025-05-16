@@ -36,7 +36,7 @@ export const OilsList: FC<Props> = ({selectedOils, totalOilAmount, measureInput}
                     <li key={oil.id} className={getRowClass(index)}>
                         <span className={styles.name}>{oil.name_rus}</span>
                         <span className={styles.percent}>{formatNumber(oil.percent, 0)}{t.percent_unit}</span>
-                        <span className={styles.gram}>{formatNumber(oil.gram, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
+                        <span className={styles.gram}>{formatNumber(oil.mass, 0)} {measureInputTypeMeta[measureInput].ru.short}</span>
                     </li>
                 ))}
             </ul>

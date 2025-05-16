@@ -27,7 +27,7 @@ export const oils: TOil[] = [
             creaminess: 17.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Оливковое масло",
         name_eng: "Olive Oil"
     },
@@ -57,7 +57,7 @@ export const oils: TOil[] = [
             creaminess: 12.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кокосовое масло",
         name_eng: "Coconut Oil"
     },
@@ -87,7 +87,7 @@ export const oils: TOil[] = [
             creaminess: 49.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Пальмовое масло",
         name_eng: "Palm Oil"
     },
@@ -118,7 +118,7 @@ export const oils: TOil[] = [
             creaminess: 6.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Абрикосовых косточек масло",
         name_eng: ""
     },
@@ -148,7 +148,7 @@ export const oils: TOil[] = [
             creaminess: 31.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Авокадо баттер",
         name_eng: ""
     },
@@ -178,7 +178,7 @@ export const oils: TOil[] = [
             creaminess: 18.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Авокадо масло",
         name_eng: "Avocado Oil"
     },
@@ -208,7 +208,7 @@ export const oils: TOil[] = [
             creaminess: 36.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Андиробы масло",
         name_eng: ""
     },
@@ -238,7 +238,7 @@ export const oils: TOil[] = [
             creaminess: 11.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Арахисовое масло",
         name_eng: ""
     },
@@ -268,7 +268,7 @@ export const oils: TOil[] = [
             creaminess: 21.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Арбузных зерен масло",
         name_eng: ""
     },
@@ -298,7 +298,7 @@ export const oils: TOil[] = [
             creaminess: 14.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Бабассу масло",
         name_eng: ""
     },
@@ -328,7 +328,7 @@ export const oils: TOil[] = [
             creaminess: 14.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Аргана масло",
         name_eng: "Argan Oil"
     },
@@ -358,7 +358,7 @@ export const oils: TOil[] = [
             creaminess: 28.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Баобаба масло",
         name_eng: ""
     },
@@ -388,7 +388,7 @@ export const oils: TOil[] = [
             creaminess: 3.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Брокколи масло",
         name_eng: ""
     },
@@ -418,7 +418,7 @@ export const oils: TOil[] = [
             creaminess: 11.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Виноградных косточек масло",
         name_eng: "Grapeseed Oil"
     },
@@ -448,7 +448,7 @@ export const oils: TOil[] = [
             creaminess: 10.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Вишневых косточек масло",
         name_eng: ""
     },
@@ -478,7 +478,7 @@ export const oils: TOil[] = [
             creaminess: 50.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Говяжий жир",
         name_eng: ""
     },
@@ -508,7 +508,7 @@ export const oils: TOil[] = [
             creaminess: 4.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Горчичное масло",
         name_eng: ""
     },
@@ -538,7 +538,7 @@ export const oils: TOil[] = [
             creaminess: 6.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Гранатовых косточек масло",
         name_eng: ""
     },
@@ -568,7 +568,7 @@ export const oils: TOil[] = [
             creaminess: 27.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Гусиный жир",
         name_eng: ""
     },
@@ -598,7 +598,7 @@ export const oils: TOil[] = [
             creaminess: 1.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Жожоба масло",
         name_eng: "Jojoba Oil"
     },
@@ -628,7 +628,7 @@ export const oils: TOil[] = [
             creaminess: 15.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Зародышей пшеницы масло",
         name_eng: ""
     },
@@ -658,7 +658,7 @@ export const oils: TOil[] = [
             creaminess: 62.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Иллип масло",
         name_eng: ""
     },
@@ -688,7 +688,7 @@ export const oils: TOil[] = [
             creaminess: 61.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Какао баттер",
         name_eng: "Cocoa Butter"
     },
@@ -718,7 +718,7 @@ export const oils: TOil[] = [
             creaminess: 6.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Канолы масло",
         name_eng: ""
     },
@@ -748,7 +748,7 @@ export const oils: TOil[] = [
             creaminess: 42.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Капуасу масло",
         name_eng: ""
     },
@@ -778,7 +778,7 @@ export const oils: TOil[] = [
             creaminess: 12.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Каранджи масло",
         name_eng: ""
     },
@@ -808,7 +808,7 @@ export const oils: TOil[] = [
             creaminess: 90.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Касторовое масло",
         name_eng: "Castor Oil"
     },
@@ -838,7 +838,7 @@ export const oils: TOil[] = [
             creaminess: 8.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Клюквы семян масло",
         name_eng: ""
     },
@@ -868,7 +868,7 @@ export const oils: TOil[] = [
             creaminess: 53.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Козий жир",
         name_eng: ""
     },
@@ -899,7 +899,7 @@ export const oils: TOil[] = [
             creaminess: 60.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кокум масло",
         name_eng: ""
     },
@@ -929,7 +929,7 @@ export const oils: TOil[] = [
             creaminess: 8.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Конопляное масло",
         name_eng: ""
     },
@@ -959,7 +959,7 @@ export const oils: TOil[] = [
             creaminess: 0.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Костяное масло",
         name_eng: ""
     },
@@ -989,7 +989,7 @@ export const oils: TOil[] = [
             creaminess: 40.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кофейных жареных зерен масло",
         name_eng: ""
     },
@@ -1019,7 +1019,7 @@ export const oils: TOil[] = [
             creaminess: 46.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кофейных зеленых зерен масло",
         name_eng: ""
     },
@@ -1049,7 +1049,7 @@ export const oils: TOil[] = [
             creaminess: 11.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кохуновое масло",
         name_eng: ""
     },
@@ -1079,7 +1079,7 @@ export const oils: TOil[] = [
             creaminess: 36.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кроличий жир",
         name_eng: ""
     },
@@ -1109,7 +1109,7 @@ export const oils: TOil[] = [
             creaminess: 10.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кукуй масло",
         name_eng: ""
     },
@@ -1139,7 +1139,7 @@ export const oils: TOil[] = [
             creaminess: 14.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кукурузное масло",
         name_eng: ""
     },
@@ -1169,7 +1169,7 @@ export const oils: TOil[] = [
             creaminess: 14.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Кунжутное масло",
         name_eng: ""
     },
@@ -1199,7 +1199,7 @@ export const oils: TOil[] = [
             creaminess: 32.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Куриный жир",
         name_eng: ""
     },
@@ -1229,7 +1229,7 @@ export const oils: TOil[] = [
             creaminess: 16.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Лавра масло",
         name_eng: ""
     },
@@ -1259,7 +1259,7 @@ export const oils: TOil[] = [
             creaminess: 0.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Ланолин",
         name_eng: ""
     },
@@ -1289,7 +1289,7 @@ export const oils: TOil[] = [
             creaminess: 0.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Лауриновая кислота",
         name_eng: ""
     },
@@ -1319,7 +1319,7 @@ export const oils: TOil[] = [
             creaminess: 31.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Лошадиный жир",
         name_eng: ""
     },
@@ -1349,7 +1349,7 @@ export const oils: TOil[] = [
             creaminess: 9.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Льняное масло",
         name_eng: "Linseed Oil"
     },
@@ -1379,7 +1379,7 @@ export const oils: TOil[] = [
             creaminess: 27.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Люфы семян масло",
         name_eng: ""
     },
@@ -1409,7 +1409,7 @@ export const oils: TOil[] = [
             creaminess: 18.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Макадамии баттер",
         name_eng: ""
     },
@@ -1439,7 +1439,7 @@ export const oils: TOil[] = [
             creaminess: 12.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Макадамии масло",
         name_eng: ""
     },
@@ -1469,7 +1469,7 @@ export const oils: TOil[] = [
             creaminess: 14.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Маковое масло",
         name_eng: ""
     },
@@ -1499,7 +1499,7 @@ export const oils: TOil[] = [
             creaminess: 2.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Малиновых семян масло",
         name_eng: ""
     },
@@ -1529,7 +1529,7 @@ export const oils: TOil[] = [
             creaminess: 52.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Манго баттер",
         name_eng: "Mango Butter"
     },
@@ -1559,7 +1559,7 @@ export const oils: TOil[] = [
             creaminess: 49.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Манго семян масло",
         name_eng: ""
     },
@@ -1589,7 +1589,7 @@ export const oils: TOil[] = [
             creaminess: 13.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Маракуйи масло",
         name_eng: ""
     },
@@ -1619,7 +1619,7 @@ export const oils: TOil[] = [
             creaminess: 18.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Марулы масло",
         name_eng: ""
     },
@@ -1649,7 +1649,7 @@ export const oils: TOil[] = [
             creaminess: 0.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Масло алоэ",
         name_eng: ""
     },
@@ -1679,7 +1679,7 @@ export const oils: TOil[] = [
             creaminess: 14.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Масло огуречника",
         name_eng: ""
     },
@@ -1709,7 +1709,7 @@ export const oils: TOil[] = [
             creaminess: 10.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Медвежий жир",
         name_eng: ""
     },
@@ -1739,7 +1739,7 @@ export const oils: TOil[] = [
             creaminess: 24.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Миндальный баттер",
         name_eng: ""
     },
@@ -1769,7 +1769,7 @@ export const oils: TOil[] = [
             creaminess: 7.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Миндаля сладкого масло",
         name_eng: ""
     },
@@ -1799,7 +1799,7 @@ export const oils: TOil[] = [
             creaminess: 0.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Миристиновая кислота",
         name_eng: ""
     },
@@ -1829,7 +1829,7 @@ export const oils: TOil[] = [
             creaminess: 46.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Мовры масло",
         name_eng: ""
     },
@@ -1859,7 +1859,7 @@ export const oils: TOil[] = [
             creaminess: 40.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Молочный жир",
         name_eng: ""
     },
@@ -1889,7 +1889,7 @@ export const oils: TOil[] = [
             creaminess: 13.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Моной де Таити масло",
         name_eng: ""
     },
@@ -1919,7 +1919,7 @@ export const oils: TOil[] = [
             creaminess: 14.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Моринги масло",
         name_eng: ""
     },
@@ -1949,7 +1949,7 @@ export const oils: TOil[] = [
             creaminess: 9.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Мурумуру масло",
         name_eng: ""
     },
@@ -1979,7 +1979,7 @@ export const oils: TOil[] = [
             creaminess: 33.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Ним масло",
         name_eng: ""
     },
@@ -2009,7 +2009,7 @@ export const oils: TOil[] = [
             creaminess: 0.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Норковый жир",
         name_eng: ""
     },
@@ -2039,7 +2039,7 @@ export const oils: TOil[] = [
             creaminess: 10.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Облепиховое масло",
         name_eng: ""
     },
@@ -2069,7 +2069,7 @@ export const oils: TOil[] = [
             creaminess: 37.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Овечий жир",
         name_eng: ""
     },
@@ -2099,7 +2099,7 @@ export const oils: TOil[] = [
             creaminess: 17.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Овсяное масло",
         name_eng: ""
     },
@@ -2129,7 +2129,7 @@ export const oils: TOil[] = [
             creaminess: 0.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Олеиновая кислота",
         name_eng: ""
     },
@@ -2159,7 +2159,7 @@ export const oils: TOil[] = [
             creaminess: 98.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Пальмитиновая кислота",
         name_eng: ""
     },
@@ -2189,7 +2189,7 @@ export const oils: TOil[] = [
             creaminess: 49.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Пальмовое красное масло",
         name_eng: ""
     },
@@ -2219,7 +2219,7 @@ export const oils: TOil[] = [
             creaminess: 65.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Пальмовый стеарин",
         name_eng: ""
     },
@@ -2249,7 +2249,7 @@ export const oils: TOil[] = [
             creaminess: 10.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Пальмоядровое масло",
         name_eng: ""
     },
@@ -2279,7 +2279,7 @@ export const oils: TOil[] = [
             creaminess: 2.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Пенника лугового масло (лимнантес альба)",
         name_eng: ""
     },
@@ -2309,7 +2309,7 @@ export const oils: TOil[] = [
             creaminess: 18.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Папайя масло",
         name_eng: ""
     },
@@ -2339,7 +2339,7 @@ export const oils: TOil[] = [
             creaminess: 8.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Периллы масло",
         name_eng: ""
     },
@@ -2369,7 +2369,7 @@ export const oils: TOil[] = [
             creaminess: 8.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Персиковое масло",
         name_eng: "Peach Kernel Oil"
     },
@@ -2399,7 +2399,7 @@ export const oils: TOil[] = [
             creaminess: 11.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Подсолнечное масло",
         name_eng: "Sunflower Oil"
     },
@@ -2429,7 +2429,7 @@ export const oils: TOil[] = [
             creaminess: 7.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Примулы вечерней масло",
         name_eng: ""
     },
@@ -2459,7 +2459,7 @@ export const oils: TOil[] = [
             creaminess: 0.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Пчелиный воск",
         name_eng: ""
     },
@@ -2489,7 +2489,7 @@ export const oils: TOil[] = [
             creaminess: 4.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Рапсовое масло",
         name_eng: "Canola Oil"
     },
@@ -2519,7 +2519,7 @@ export const oils: TOil[] = [
             creaminess: 9.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Расторопши масло",
         name_eng: ""
     },
@@ -2549,7 +2549,7 @@ export const oils: TOil[] = [
             creaminess: 25.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Рисовых отрубей масло",
         name_eng: ""
     },
@@ -2579,7 +2579,7 @@ export const oils: TOil[] = [
             creaminess: 7.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Сафлоровое масло",
         name_eng: ""
     },
@@ -2609,7 +2609,7 @@ export const oils: TOil[] = [
             creaminess: 41.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Свиное сало",
         name_eng: ""
     },
@@ -2639,7 +2639,7 @@ export const oils: TOil[] = [
             creaminess: 3.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Сливовых косточек масло",
         name_eng: ""
     },
@@ -2669,7 +2669,7 @@ export const oils: TOil[] = [
             creaminess: 16.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Соевое масло",
         name_eng: "Soybean Oil"
     },
@@ -2699,7 +2699,7 @@ export const oils: TOil[] = [
             creaminess: 99.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Стеариновая кислота",
         name_eng: ""
     },
@@ -2729,7 +2729,7 @@ export const oils: TOil[] = [
             creaminess: 32.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Страуса жир",
         name_eng: ""
     },
@@ -2759,7 +2759,7 @@ export const oils: TOil[] = [
             creaminess: 25.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Таману масло",
         name_eng: ""
     },
@@ -2789,7 +2789,7 @@ export const oils: TOil[] = [
             creaminess: 40.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Топленое масло",
         name_eng: ""
     },
@@ -2819,7 +2819,7 @@ export const oils: TOil[] = [
             creaminess: 6.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Тукума масло",
         name_eng: ""
     },
@@ -2849,7 +2849,7 @@ export const oils: TOil[] = [
             creaminess: 19.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Тыквенное масло",
         name_eng: ""
     },
@@ -2879,7 +2879,7 @@ export const oils: TOil[] = [
             creaminess: 35.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Утиный жир",
         name_eng: ""
     },
@@ -2909,7 +2909,7 @@ export const oils: TOil[] = [
             creaminess: 12.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Фисташковое масло",
         name_eng: ""
     },
@@ -2939,7 +2939,7 @@ export const oils: TOil[] = [
             creaminess: 8.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Фундука масло",
         name_eng: ""
     },
@@ -2969,7 +2969,7 @@ export const oils: TOil[] = [
             creaminess: 26.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Хлопковое масло",
         name_eng: ""
     },
@@ -2999,7 +2999,7 @@ export const oils: TOil[] = [
             creaminess: 16.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Черного тмина масло",
         name_eng: ""
     },
@@ -3029,7 +3029,7 @@ export const oils: TOil[] = [
             creaminess: 8.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Черной смородины масло",
         name_eng: ""
     },
@@ -3059,7 +3059,7 @@ export const oils: TOil[] = [
             creaminess: 48.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Ши масло",
         name_eng: "Shea Butter"
     },
@@ -3119,7 +3119,7 @@ export const oils: TOil[] = [
             creaminess: 6.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Шиповника масло",
         name_eng: ""
     },
@@ -3149,7 +3149,7 @@ export const oils: TOil[] = [
             creaminess: 32.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Эму жир",
         name_eng: ""
     },
@@ -3179,7 +3179,7 @@ export const oils: TOil[] = [
             creaminess: 23.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Янгу масло",
         name_eng: ""
     },
@@ -3209,7 +3209,7 @@ export const oils: TOil[] = [
             creaminess: 16.0
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         name_rus: "Ятрофы масло",
         name_eng: ""
     }

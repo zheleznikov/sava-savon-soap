@@ -63,7 +63,7 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
                             placeholder={ measureInputTypeMeta[measureInput].ru.full}
-                            value={customIngredient.gram || 0}
+                            value={customIngredient.mass || 0}
                             onChange={newGram => handleUpdateCustomGram(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}

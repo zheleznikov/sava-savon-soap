@@ -61,7 +61,7 @@ export const OilAddedLine: FC<Props> = ({oil}) => {
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
                             placeholder={measureInputTypeMeta[measureInput].ru.full}
-                            value={oil.gram || 0}
+                            value={oil.mass || 0}
                             onChange={newGram => handleUpdateOilGram(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}

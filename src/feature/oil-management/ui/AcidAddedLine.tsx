@@ -69,7 +69,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
                             placeholder={ measureInputTypeMeta[measureInput].ru.full}
-                            value={acid.gram || 0}
+                            value={acid.mass || 0}
                             onChange={newGram => handleUpdateAcidGram(newGram)}
                             disabled={isPercentMode}
                             className={clsx(layout.input, isPercentMode ? theme.inputDisabled : theme.input)}

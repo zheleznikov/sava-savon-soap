@@ -28,7 +28,7 @@ export const recipes = [
                     "creaminess": 17
                 },
                 "percent": 40,
-                "gram": 400,
+                "mass": 400,
                 "name_rus": "Оливковое масло",
                 "name_eng": "Olive Oil"
             },
@@ -58,7 +58,7 @@ export const recipes = [
                     "creaminess": 12
                 },
                 "percent": 30,
-                "gram": 300,
+                "mass": 300,
                 "name_rus": "Кокосовое масло",
                 "name_eng": "Coconut Oil"
             },
@@ -88,7 +88,7 @@ export const recipes = [
                     "creaminess": 49
                 },
                 "percent": 25,
-                "gram": 250,
+                "mass": 250,
                 "name_rus": "Пальмовое масло",
                 "name_eng": "Palm Oil"
             },
@@ -118,7 +118,7 @@ export const recipes = [
                     "creaminess": 90
                 },
                 "percent": 5,
-                "gram": 50,
+                "mass": 50,
                 "name_rus": "Касторовое масло",
                 "name_eng": "Castor Oil"
             }
@@ -170,7 +170,7 @@ export const recipes = [
                     "creaminess": 17
                 },
                 "percent": 32.371134020618555,
-                "gram": 157,
+                "mass": 157,
                 "name_rus": "Оливковое масло",
                 "name_eng": "Olive Oil"
             },
@@ -200,7 +200,7 @@ export const recipes = [
                     "creaminess": 12
                 },
                 "percent": 29.896907216494846,
-                "gram": 145,
+                "mass": 145,
                 "name_rus": "Кокосовое масло",
                 "name_eng": "Coconut Oil"
             },
@@ -230,7 +230,7 @@ export const recipes = [
                     "creaminess": 49
                 },
                 "percent": 12.371134020618557,
-                "gram": 60,
+                "mass": 60,
                 "name_rus": "Пальмовое масло",
                 "name_eng": "Palm Oil"
             },
@@ -260,7 +260,7 @@ export const recipes = [
                     "creaminess": 48
                 },
                 "percent": 12.371134020618557,
-                "gram": 60,
+                "mass": 60,
                 "name_rus": "Ши масло",
                 "name_eng": "Shea Butter"
             },
@@ -290,7 +290,7 @@ export const recipes = [
                     "creaminess": 7
                 },
                 "percent": 7.835051546391752,
-                "gram": 38,
+                "mass": 38,
                 "name_rus": "Миндаля сладкого масло",
                 "name_eng": ""
             },
@@ -320,7 +320,7 @@ export const recipes = [
                     "creaminess": 90
                 },
                 "percent": 5.154639175257731,
-                "gram": 25,
+                "mass": 25,
                 "name_rus": "Касторовое масло",
                 "name_eng": "Castor Oil"
             }

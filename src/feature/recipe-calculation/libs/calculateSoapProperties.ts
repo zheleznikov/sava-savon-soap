@@ -26,7 +26,7 @@ export const calculateSoapProperties = (selectedOils: TOil[], oilInputType: Inpu
     };
 
     selectedOils.forEach(oil => {
-        const amount = oilInputType === InputType.Percent ? oil.percent : oil.gram;
+        const amount = oilInputType === InputType.Percent ? oil.percent : oil.mass;
         if (!amount) return;
 
         totalWeight += amount;

@@ -11,7 +11,7 @@ export const acids: TAcid[] = [
             koh: 0.876
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         inputType: InputType.Mass
     },
     {
@@ -23,7 +23,7 @@ export const acids: TAcid[] = [
             koh: 0.623
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         inputType: InputType.Mass
 
     },
@@ -36,7 +36,7 @@ export const acids: TAcid[] = [
             koh: 0.837
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         inputType: InputType.Mass
 
     },
@@ -49,7 +49,7 @@ export const acids: TAcid[] = [
             koh: 0.748
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         inputType: InputType.Mass
 
     },
@@ -62,7 +62,7 @@ export const acids: TAcid[] = [
             koh: 0.319
         },
         percent: 0,
-        gram: 0,
+        mass: 0,
         inputType: InputType.Mass
 
     }

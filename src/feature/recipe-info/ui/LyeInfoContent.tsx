@@ -21,7 +21,7 @@ export const LyeInfoContent: FC<Props> = ({selectedOils, superfatPercent, lyeTyp
         const lye = calculateLyeForOil(oil, lyeType, superfatPercent, 0, 0, 0, 0);
         return {
             name: oil.name_rus,
-            gram: oil.gram,
+            gram: oil.mass,
             sap,
             superfatMultiplier,
             lye

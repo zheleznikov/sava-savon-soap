@@ -89,7 +89,7 @@ export const ExportRecipe: FC<ExportRecipeProps> = (
             {formatNumber(oil.percent, 0)}{oils_list.percent_unit}
             </span>
                         <span className={`${layout.gram} flex items-center justify-end`}>
-            {formatNumber(oil.gram, 0)} {oils_list.gram_unit}
+            {formatNumber(oil.mass, 0)} {oils_list.gram_unit}
           </span>
                     </li>
                 ))}

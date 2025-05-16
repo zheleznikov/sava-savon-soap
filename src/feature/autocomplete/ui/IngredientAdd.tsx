@@ -48,7 +48,7 @@ export const IngredientAdd = <T extends TIngredientBase>({
             id: maxId + 1,
             name_rus: trimmed,
             name_eng: trimmed,
-            gram: 0,
+            mass: 0,
             percent: 0,
             inputType: InputType.Mass
 
