@@ -48,8 +48,6 @@ export const IngredientAutocomplete = <T extends TIngredientBase>({
                     value={searchTerm}
                     placeholder={placeholder}
                     onChange={handler.onInputSearchChange}
-                    // ❌ больше не нужен
-                    // onKeyDown={handler.onInputSearchKeyDown}
                     onBlur={handler.onInputSearchBlur}
                     onFocus={handler.onInputSearchFocus}
                 />
