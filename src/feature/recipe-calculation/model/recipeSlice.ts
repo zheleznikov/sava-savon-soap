@@ -1,8 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {recipeSliceinitialState} from "./recipeSliceInitialState";
-import {setters} from "../libs/recipeSliceSetters";
-import {handlers, toggleHandlers} from "../libs/recipeSliceHandlers";
-import {calculations} from "../libs/recipeSliceCalculations";
+import {setters} from "../reducers/setters";
+import {handlers, toggleHandlers} from "../reducers/handlers";
+import {calculations} from "../reducers/calculations";
 
 
 export const recipeSlice = createSlice({
@@ -36,7 +36,6 @@ export const {
     toggleAcid,
     updateOilMassWithRecalculatedPercents,
     updateAcidMassWithRecalculatedPercents,
-    updateOilPercentWithMassRecalculation,
     updateAcidPercentWithMassRecalculation,
     calculateRecipe,
     setLyeConcentration,

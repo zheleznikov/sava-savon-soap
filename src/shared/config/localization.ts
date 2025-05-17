@@ -112,7 +112,7 @@ export const localization = {
 
         percent_progress_bar: {
             summary: "Общий процент — {{percent}}%",
-            hint_main: "Для правильного расчёта общий процент масел должен быть от 99% до 101%.",
+            hint_main: "Для правильного расчёта общий процент масел должен быть 100%.",
             hint_add: "Добавьте {{amount}}%.",
             hint_remove: "Убавьте {{amount}}%.",
         },

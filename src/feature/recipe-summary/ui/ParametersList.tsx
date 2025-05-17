@@ -80,13 +80,14 @@ export const ParametersList: FC<ParametersListProps> = (
                 {items.map((item, index) => (
                     <li key={index} className={getRowClass(index)}>
                        <span className={styles.label}>{item.label}
-                           {(item.label === lyeType) && (
+                           {/*{(item.label === lyeType) && (*/}
 
-                               <Hint
-                                   className="ml-2 group relative align-middle"
-                                   onClick={() => setIsPopupOpen(true)}
-                               />
-                           )}</span>
+                           {/*    <Hint*/}
+                           {/*        className="ml-2 group relative align-middle"*/}
+                           {/*        onClick={() => setIsPopupOpen(true)}*/}
+                           {/*    />*/}
+                           {/*)}*/}
+                       </span>
 
 
                         <span className={styles.percent}>

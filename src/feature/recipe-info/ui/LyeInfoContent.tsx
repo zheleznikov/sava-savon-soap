@@ -1,11 +1,12 @@
 import {FC} from "react";
 import {LyeType} from "../../../app/providers/SoapRecipeContext.types";
-import {calculateLyeForOil, calculateLyeSum, getOilSAP} from "../../recipe-calculation";
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {formatNumber} from "../../../shared/lib/utils";
 import {useTheme} from "../../../app/providers/ThemeContext";
 import {infoContentStyles} from "../styles/InfoContent.styles";
 import {localization} from "../../../shared/config/localization";
+import {getOilSAP} from "../../recipe-calculation/libs/utils";
+import {calculateLyeForOil, calculateLyeSum} from "../../recipe-calculation/libs/lyeCalculation";
 
 type Props = {
     selectedOils: TOil[];

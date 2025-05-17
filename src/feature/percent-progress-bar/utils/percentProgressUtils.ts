@@ -12,7 +12,7 @@ export const calculatePercentSum = (selectedOils: { percent?: number }[]): numbe
  * Проверяет, находится ли сумма процентов в допустимом диапазоне.
  */
 export const isPercentInvalid = (percentSum: number): boolean =>
-    percentSum < 99 || percentSum > 101;
+    percentSum !== 100;
 
 /**
  * Возвращает цвет прогрессбара на основе процента.
@@ -24,8 +24,8 @@ export const getProgressBarColor = (percent: number): string => {
     if (percent < 80) return "bg-orange-500";
     if (percent < 90) return "bg-yellow-400";
     if (percent < 95) return "bg-yellow-300";
-    if (percent < 99) return "bg-yellow-300";
-    if (percent <= 101) return "bg-emerald-400";
+    if (percent < 100) return "bg-yellow-300";
+    if (percent === 100) return "bg-emerald-400";
     if (percent <= 105) return "bg-yellow-300";
     if (percent <= 110) return "bg-yellow-300";
     if (percent <= 115) return "bg-yellow-400";

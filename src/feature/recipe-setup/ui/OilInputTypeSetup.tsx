@@ -65,7 +65,7 @@ export const OilInputTypeSetup: FC = () => {
 
                     <div className={layout.fieldInner}>
                         <SmartNumberInput
-                            decimalPlaces={0}
+                            decimalPlaces={2}
                             value={isPercentMode ? userDefinedTotalWeight : totalResultAmount}
                             // onChange={!isPercentMode ? () => {} : handleSetUserDefinedTotalWeight}
                             onChange={(value) => {

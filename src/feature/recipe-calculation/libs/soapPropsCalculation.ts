@@ -1,7 +1,7 @@
 import {TOil} from "../../../entities/oil/model/oil.types";
 import {InputType} from "../../../app/providers/SoapRecipeContext.types";
 
-export const calculateSoapProperties = (selectedOils: TOil[], oilInputType: InputType) => {
+export const soapPropsCalculation = (selectedOils: TOil[], oilInputType: InputType) => {
     if (!selectedOils.length) {
         return {
             hardness: 0,

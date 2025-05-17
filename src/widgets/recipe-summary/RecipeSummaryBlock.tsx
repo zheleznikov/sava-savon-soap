@@ -142,95 +142,94 @@ export const RecipeSummaryBlock: FC = () => {
                         />
                     </div>
 
-                    <RecipeStatusBanner children={
-                        <>
-                            <Tabs
-                                tabs={tabs}
-                                value={selectedTab}
-                                onChange={setSelectedTab}
-                                show={!isSmartphone}
-                            />
-                            <div className={`flex flex-col gap-2 md:flex-row`}>
-                                {
-                                    (selectedTab.key === "composition" || isSmartphone) &&
-                                    <div className={clsx("w-full flex flex-col gap-2")}>
-
-                                        <InputBlockWrapper className={"px-0 w-full"}>
-
-                                            <ParametersList
-                                                superfatPercent={superfatPercent}
-                                                waterPercent={waterPercent}
-                                                lyeType={lyeType}
-                                                totalWaterAmount={totalWaterAmount}
-                                                totalLyeAmount={totalLyeAmount}
-                                                selectedOils={selectedOils}
-                                                totalNaOHAmount={totalNaOHAmount}
-                                                totalKOHAmount={totalKOHAmount}
-                                                measureInput={measureInput}
-                                            />
-
-                                            <OilsList
-                                                selectedOils={selectedOils}
-                                                totalOilAmount={totalOilAmount}
-                                                measureInput={measureInput}
-
-                                            />
+                    <Tabs
+                        tabs={tabs}
+                        value={selectedTab}
+                        onChange={setSelectedTab}
+                        show={!isSmartphone}
+                    />
 
 
-                                            {selectedAcids.length > 0 && (
-                                                <AcidList
-                                                    selectedAcids={selectedAcids}
-                                                    totalAcidAmount={totalAcidAmount}
-                                                    measureInput={measureInput}
+                    <div className={`flex flex-col gap-2 md:flex-row`}>
+                        {
+                            (selectedTab.key === "composition" || isSmartphone) &&
+                            <div className={clsx("w-full flex flex-col gap-2")}>
 
-                                                />
-                                            )}
+                                <InputBlockWrapper className={"px-0 w-full"}>
 
-                                            {
-                                                selectedCustoms.length > 0 && (
-                                                <CustomList
-                                                    selectedCustoms={selectedCustoms}
-                                                    totalCustomAmount={totalCustomAmount || 0}
-                                                    measureInput={measureInput}
-
-                                                />)
-                                            }
-
-                                            <ResultSummary totalResultAmount={totalResultAmount}
-                                                           measureInput={measureInput}
-                                            />
-
-                                        </InputBlockWrapper>
-
-
-                                    </div>
-                                }
-                                {
-                                    (selectedTab.key === "params" || isSmartphone) && status === 'ready'
-                                    &&
-                                    <RecipeParametersTable
-                                        hardness={hardness}
-                                        cleansing={cleansing}
-                                        soften={soften}
-                                        bubbling={bubbling}
-                                        creaminess={creaminess}
-                                        iodine={iodine}
+                                    <ParametersList
+                                        superfatPercent={superfatPercent}
+                                        waterPercent={waterPercent}
+                                        lyeType={lyeType}
+                                        totalWaterAmount={totalWaterAmount}
+                                        totalLyeAmount={totalLyeAmount}
+                                        selectedOils={selectedOils}
+                                        totalNaOHAmount={totalNaOHAmount}
+                                        totalKOHAmount={totalKOHAmount}
+                                        measureInput={measureInput}
                                     />
 
-                                }
-                            </div>
+                                    <OilsList
+                                        selectedOils={selectedOils}
+                                        totalOilAmount={totalOilAmount}
+                                        measureInput={measureInput}
 
-                            <RecipeActions
-                                onSave={() => {
-                                }}
-                                onDownloadJpg={downloadImage}
-                                onShareJpg={shareImage}
-                                onDownloadPdf={downloadPdf}
-                                onSharePdf={sharePdf}
-                                isSaveHidden={true}
+                                    />
+
+
+                                    {selectedAcids.length > 0 && (
+                                        <AcidList
+                                            selectedAcids={selectedAcids}
+                                            totalAcidAmount={totalAcidAmount}
+                                            measureInput={measureInput}
+
+                                        />
+                                    )}
+
+                                    {
+                                        selectedCustoms.length > 0 && (
+                                            <CustomList
+                                                selectedCustoms={selectedCustoms}
+                                                totalCustomAmount={totalCustomAmount || 0}
+                                                measureInput={measureInput}
+
+                                            />)
+                                    }
+
+                                    <ResultSummary totalResultAmount={totalResultAmount}
+                                                   measureInput={measureInput}
+                                    />
+
+                                </InputBlockWrapper>
+
+
+                            </div>
+                        }
+                        {
+                            (selectedTab.key === "params" || isSmartphone)
+                            &&
+                            <RecipeParametersTable
+                                hardness={hardness}
+                                cleansing={cleansing}
+                                soften={soften}
+                                bubbling={bubbling}
+                                creaminess={creaminess}
+                                iodine={iodine}
                             />
-                        </>
-                    }/>
+
+                        }
+                    </div>
+
+                    <RecipeActions
+                        onSave={() => {
+                        }}
+                        onDownloadJpg={downloadImage}
+                        onShareJpg={shareImage}
+                        onDownloadPdf={downloadPdf}
+                        onSharePdf={sharePdf}
+                        isSaveHidden={true}
+                    />
+
                 </div>
 
 

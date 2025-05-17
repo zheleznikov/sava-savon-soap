@@ -7,7 +7,11 @@ import {
     WaterInputType
 } from "../../../app/providers/SoapRecipeContext.types";
 
-const defaultSelectedOils = oils.filter(oil => [2, 1, 29].includes(oil.id));
+const order = [29, 1, 102, 2, 59, 26];
+const defaultSelectedOils = oils
+    .filter(oil => order.includes(oil.id))
+    .sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+
 
 export const recipeSliceinitialState: RecipeState = {
     input: {
@@ -28,7 +32,7 @@ export const recipeSliceinitialState: RecipeState = {
             oilInputType: InputType.Mass,
             waterInput: {
                 waterInputType: WaterInputType.WaterAsPercent,
-                waterPercent: 33,
+                waterPercent: 30,
                 lyeConcentration: 33,
                 waterLyeRatio: 2.0
             },

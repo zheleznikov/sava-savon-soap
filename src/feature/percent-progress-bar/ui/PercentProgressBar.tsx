@@ -48,19 +48,19 @@ export const PercentProgressBar: FC = () => {
                 {percentOutOfRange
                     ? (<p className={s.hintText}>
                         {t.hint_main}{" "}
-                        {percentSum < 99 && (
+                        {percentSum < 100 && (
                             <span className={s.hintStrong}>
                               {t.hint_add.replace(
                                   "{{amount}}",
-                                  Math.round(99 - percentSum).toString()
+                                  Math.round(100 - percentSum).toString()
                               )}
                             </span>
                         )}
-                        {percentSum > 101 && (
+                        {percentSum > 100 && (
                             <span className={s.hintStrong}>
                               {t.hint_remove.replace(
                                   "{{amount}}",
-                                  Math.round(percentSum - 101).toString()
+                                  Math.round(percentSum - 100).toString()
                               )}
                             </span>
                         )}

@@ -16,16 +16,15 @@ export const acids: TAcid[] = [
     },
     {
         id: 2,
-        name_rus: "Молочная кислота",
+        name_rus: "Молочная кислота 80%",
         name_eng: "Lactic Acid",
         neutralization: {
-            naoh: 0.444,
-            koh: 0.623
+            naoh: 0.355, //  naoh: 0.444 для 100% ?
+            koh: .498  //  koh: 0.623 для 100% ?
         },
         percent: 0,
         mass: 0,
         inputType: InputType.Mass
-
     },
     {
         id: 3,
@@ -55,15 +54,16 @@ export const acids: TAcid[] = [
     },
     {
         id: 5,
-        name_rus: "Аскорбиновая кислота",
-        name_eng: "Ascorbic Acid (Vitamin C)",
+        name_rus: "Янтарная кислота",
+        name_eng: "Succinic Acid",
         neutralization: {
-            naoh: 0.227,
-            koh: 0.319
+            naoh: 0.678,
+            koh: 0.951
         },
         percent: 0,
         mass: 0,
         inputType: InputType.Mass
-
     }
+
+
 ];
