@@ -74,6 +74,7 @@ export const CustomAddedLine: FC<Props> = ({customIngredient}) => {
 
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
+                            decimalPlaces={1}
                             min={1} max={5}
                             placeholder={t.placeholder_percent}
                             value={customIngredient.percent || 0}

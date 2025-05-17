@@ -11,7 +11,6 @@ import {TAcid} from "../../../entities/oil/model/acids.types";
 import {useAppDispatch} from "../../../shared/model/useAppDispatch";
 import {useAppSelector} from "../../../shared/useAppSelector";
 import {
-    calculateRecipe,
     setAcidInputType,
     toggleAcid,
     updateAcidMassWithRecalculatedPercents,
@@ -28,7 +27,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
     const dispatch = useAppDispatch();
 
-    const {measureInput, oilInputType} = useAppSelector((state) => state.recipe.input.params);
+    const {measureInput} = useAppSelector((state) => state.recipe.input.params);
 
     const handleToggleAcid = () => dispatch(toggleAcid(acid));
 
@@ -87,6 +86,7 @@ export const AcidAddedLine: FC<Props> = ({acid}) => {
 
                     <div className={layout.inputWrapper}>
                         <SmartNumberInput
+                            decimalPlaces={1}
                             min={1} max={5}
                             placeholder={t.placeholder_percent}
                             value={acid.percent || 0}
